@@ -35,7 +35,7 @@ h1 small {
 }
 h2 {
 	font-size: 15px;
-	margin-bottom: 28px;
+	margin-bottom: 48px;
 }
 h4 {
 	font-size: 18px;
@@ -51,7 +51,7 @@ h4 small {
 }
 form {
 	background-color: rgba(26, 78, 105, 0.5);
-	padding: 54px 38px 7px;
+	padding: 34px 38px 7px;
 	margin-bottom: 13px;
 	background-blend-mode: overlay;
 }
