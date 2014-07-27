@@ -22,14 +22,15 @@ $(document).ready(function() {
 		$(this).stop(true, false).animate({right: "-190px"});
 	});
 	$('#main-buttons > div:nth-child(1) > .btn').click(function() {
+		var duration = 'fast';
 		var $div = $(this).parent();
 		if ($div.is('.active')) {
-			$div.removeClass('active');
-			$('#signin-block').slideUp('fast');
-		} else {
-			$('#signin-block').slideDown('fast', function() {
-				$div.addClass('active');
+			$('#signin-block').slideUp(duration, function() {
+				$div.removeClass('active');
 			});
+		} else {
+			$div.addClass('active');
+			$('#signin-block').slideDown(duration);
 		}
 	});
 	var image = new Image();
@@ -52,7 +53,7 @@ $(document).ready(function() {
 				$light.hide();
 			$light.appendTo('#map > div');
 		}
-		var duration = 'slow';
+		var duration = 1000;
 		$('#map > div > div').slice(1, 5).fadeOut(duration, function showNext() {
 			var isOut = Math.floor(Math.random() * 2) == 1;
 			var $nextLight = $(this).next('div');

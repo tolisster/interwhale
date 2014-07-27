@@ -63,8 +63,8 @@
 					<button type="button" class="btn btn-link">Register</button>
 				</div>
 			</div>
-			<div id="signin-block">
-				<form class="row" id="signin-form" role="form">
+			<div id="signin-block" class="row">
+				<form id="signin-form" role="form">
 					<div class="form-group">
 						<label for="email-input" class="sr-only">Enter your email address:</label>
 						<input type="email" class="form-control" id="email-input" placeholder="email address" required autofocus>
