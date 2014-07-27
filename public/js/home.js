@@ -53,7 +53,7 @@ $(document).ready(function() {
 			$light.appendTo('#map > div');
 		}
 		var duration = 1000;
-		$('#map > div > div').slice(1, 3).fadeOut(duration, function showNext() {
+		$('#map > div > div').slice(1, 4).fadeOut(duration, function showNext() {
 			var isOut = Math.floor(Math.random() * 2) == 1;
 			var $nextLight = $(this).next('div');
 			if ($nextLight.is(':visible'))
@@ -65,7 +65,7 @@ $(document).ready(function() {
 	image.src = "/images/map.png";
 
 	if ($('#run-text-block').is(':visible')) {
-		var duration = 800;
+		var duration = 1000;
 		$('#run-text-block > h1:nth-child(1)').show().animate({
 			opacity: 1,
 			marginLeft: 0
