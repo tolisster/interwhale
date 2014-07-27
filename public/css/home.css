@@ -151,6 +151,9 @@ a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 #main-buttons > div:nth-child(2) {
 	border-left: 2px solid #d7d7d7;
 }
+#main-buttons > div > .btn {
+	outline-style: none;
+}
 #apps-block {
 	position: absolute;
 	top: 160px;
@@ -222,4 +225,9 @@ a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 #map > div > div:nth-child(2) {
 	left: 1038px;
 	top: 42px;
+}
+#run-text-block > h1 {
+	display: none;
+	margin-left: 20px;
+	opacity: 0;
 }

@@ -51,8 +51,10 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-4">
-			<h1>Find friends <small>around the world</small></h1>
-			<h1>Find friends <small>and acquaintances for travel</small></h1>
+			<div id="run-text-block" class="hidden-xs hidden-sm">
+				<h1>Find friends <small>around the world</small></h1>
+				<h1>Find friends <small>and acquaintances for travel</small></h1>
+			</div>
 		</div>
 		<div class="col-md-4">
 			<div class="row" id="main-buttons">
