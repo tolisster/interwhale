@@ -15,3 +15,17 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+Route::get('users', 'UserController@getIndex');
+
+Route::get('users', function()
+{
+	return View::make('users');
+});
+
+Route::get('users', function()
+{
+	$users = User::all();
+
+	return View::make('users')->with('users', $users);
+});
