@@ -67,6 +67,7 @@
 			</div>
 			<div id="signin-block" class="row">
 				<form id="signin-form" role="form">
+					<h2>Log in or register to meet new people from other countries</h2>
 					<div class="form-group">
 						<label for="email-input" class="sr-only">Enter your email address:</label>
 						<input type="email" class="form-control" id="email-input" placeholder="email address" required autofocus>

@@ -33,6 +33,10 @@ h1 small {
 	font-weight: inherit;
 	display: block;
 }
+h2 {
+	font-size: 15px;
+	margin-bottom: 28px;
+}
 h4 {
 	font-size: 18px;
 	font-weight: 700;
@@ -47,7 +51,7 @@ h4 small {
 }
 form {
 	background-color: rgba(26, 78, 105, 0.5);
-	padding: 107px 38px 7px;
+	padding: 54px 38px 7px;
 	margin-bottom: 13px;
 	background-blend-mode: overlay;
 }
@@ -125,16 +129,16 @@ a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 	background-blend-mode: screen;
 }
 .form-control::-webkit-input-placeholder { /* WebKit browsers */
-	color: #1a4e69;
+	color: #b0bdca;/*#1a4e69*/
 }
 .form-control:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-	color: #1a4e69;
+	color: #b0bdca;
 }
 .form-control::-moz-placeholder { /* Mozilla Firefox 19+ */
-	color: #1a4e69;
+	color: #b0bdca;
 }
 .form-control:-ms-input-placeholder { /* Internet Explorer 10+ */
-	color: #1a4e69;
+	color: #b0bdca;
 }
 .form-group {
 	margin-bottom: 45px;
