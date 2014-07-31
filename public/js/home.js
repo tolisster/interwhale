@@ -41,11 +41,13 @@ $(document).ready(function() {
 		ctx.drawImage(image, 0, 0, image.width, image.height);
 		var q = 8.64;
 		for (var i = 0; i < 100; i++) {
+			var n = 0;
 			do {
 				var posX = Math.round(Math.floor(Math.random() * 132) * q + 0.6);
 				var posY = Math.round(Math.floor(Math.random() * 67) * q - 0.9);
 				var pixelData = ctx.getImageData(posX + 4, posY + 4, 1, 1).data;
-			} while(pixelData[0] == 0);
+				n++;
+			} while(pixelData[0] == 0 || n < 100);
 			var $light = $('<div></div>').css({left: posX, top: posY});
 			var isAlight = true;//Math.floor(Math.random() * 2) == 1;
 			if (isAlight)

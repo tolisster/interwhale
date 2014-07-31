@@ -16,7 +16,7 @@
 	<![endif]-->
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 	<link rel="stylesheet" href="/css/animate.css">
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,700">
 	<link rel="stylesheet" href="/css/home.css">
 	<link rel="shortcut icon" href="http://www.interwhale.com/favicon.ico">
 </head>
@@ -110,6 +110,7 @@
 				</div>
 				<div class="tab-pane" id="register">...</div>
 			</div>-->
+			<h3>1,012,568 <small>all users</small></h3>
 		</div>
 		<div class="col-md-4">
 		</div>
@@ -122,7 +123,7 @@
 </div>
 <footer>
 	<div class="container">
-		<p class="text-right"><img src="/images/copyright-symbol.png" alt="©" width="19" height="19"> 2014 InterWhale Group</p>
+		<p><img src="/images/copyright-symbol.png" alt="©" width="14" height="14"> 2014 InterWhale Group</p>
 	</div>
 </footer>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

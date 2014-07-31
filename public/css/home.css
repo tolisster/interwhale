@@ -37,6 +37,13 @@ h2 {
 	font-size: 15px;
 	margin-bottom: 48px;
 }
+h3 {
+	font-size: 30px;
+	font-weight: 400;
+}
+h3 small {
+	color: white;
+}
 h4 {
 	font-size: 18px;
 	font-weight: 700;
@@ -59,15 +66,20 @@ footer {
 	position: absolute;
 	bottom: 0;
 	width: 100%;
-	height: 70px;
+	height: 130px;
 }
 footer > .container {
   padding-right: 15px;
   padding-left: 15px;
 }
 footer > .container > p {
-  margin: 25px 0;
-  line-height: 19px;
+	margin: 70px 0 45px;
+	line-height: 14px;
+	font-size: 10px;
+	font-weight: 300;
+}
+footer > .container > p > img {
+	margin-right: 4px;
 }
 a, .btn-link {
 	color: white;
@@ -203,32 +215,24 @@ a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 }
 #map {
 	position: absolute;
-	top: 154px;
+	top: 120px;
 	width: 100%;
-	height: 576px;
+	height: 400px;
 	overflow: hidden;
 }
 #map > div {
 	background: url(/images/map.png) 0 0 no-repeat;
 	margin-left: auto;
 	margin-right: auto;
-	width: 1142px;
+	width: 800px;
 	height: inherit;
 	position: relative;
 }
 #map > div > div {
 	background: url(/images/light.png) no-repeat;
 	position: absolute;
-	width: 8px;
-	height: 8px;
-}
-#map > div > div:nth-child(1) {
-	left: 43px;
-	top: 42px;
-}
-#map > div > div:nth-child(2) {
-	left: 1038px;
-	top: 42px;
+	width: 14px;
+	height: 14px;
 }
 #run-text-block > h1 {
 	display: none;
