@@ -221,7 +221,7 @@ a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 	overflow: hidden;
 }
 #map > div {
-	background: url(/images/map.png) 0 0 no-repeat;
+	background: url(/images/map.png) no-repeat;
 	margin-left: auto;
 	margin-right: auto;
 	width: 800px;
@@ -231,8 +231,8 @@ a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 #map > div > div {
 	background: url(/images/light.png) no-repeat;
 	position: absolute;
-	width: 14px;
-	height: 14px;
+	width: 13px;
+	height: 13px;
 }
 #run-text-block > h1 {
 	display: none;
