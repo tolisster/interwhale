@@ -116,12 +116,9 @@ a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 }
 .btn {
 	text-transform: uppercase;
-	font-size: 13px;
-	padding: 15px 12px;
-	line-height: 13px;
-}
-.btn:first-letter {
-	font-size: 18px;
+	font-size: 12px;
+	padding: 13px 12px;
+	line-height: 10px;
 }
 .btn-primary {
 	background-color: #0ba6ed;
@@ -172,6 +169,10 @@ a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 }
 #main-buttons > div > .btn {
 	outline-style: none;
+	font-size: 9px;
+}
+#main-buttons > div > .btn:first-letter {
+	font-size: 13px;
 }
 #apps-block {
 	position: absolute;

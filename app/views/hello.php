@@ -60,10 +60,10 @@
 		<div class="col-md-4">
 			<div class="row" id="main-buttons">
 				<div class="col-md-6">
-					<button type="button" class="btn btn-link">Login</button>
+					<button type="button" class="btn btn-link">Log in</button>
 				</div>
 				<div class="col-md-6">
-					<button type="button" class="btn btn-link">Register</button>
+					<button type="button" class="btn btn-link">Sign up</button>
 				</div>
 			</div>
 			<div id="signin-block" class="row">
@@ -78,7 +78,7 @@
 						<input type="password" class="form-control" id="password-input" placeholder="password" required>
 					</div>
 					<div class="form-group text-center">
-						<button type="submit" class="btn btn-primary">Login</button>
+						<button type="submit" class="btn btn-primary">Log in</button>
 					</div>
 				</form>
 				<div class="row text-center">
@@ -86,8 +86,8 @@
 				</div>
 			</div>
 			<!--<ul class="nav nav-tabs row" role="tablist">
-				<li class="col-md-6"><a href="#signin" role="tab" data-toggle="tab">Login</a></li>
-				<li class="col-md-6"><a href="#register" role="tab" data-toggle="tab">Register</a></li>
+				<li class="col-md-6"><a href="#signin" role="tab" data-toggle="tab">Log in</a></li>
+				<li class="col-md-6"><a href="#register" role="tab" data-toggle="tab">Sign up</a></li>
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane" id="signin">
@@ -101,7 +101,7 @@
 							<input type="password" class="form-control" id="password-input" placeholder="password" required>
 						</div>
 						<div class="form-group text-center">
-							<button type="submit" class="btn btn-primary">Login</button>
+							<button type="submit" class="btn btn-primary">Log in</button>
 						</div>
 					</form>
 					<div class="row text-center">
@@ -121,11 +121,11 @@
 		</div>
 		<div class="col-md-4">
 			<div class="dropdown">
-				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+				<button class="btn btn-link dropdown-toggle" type="button" id="languageDropdownMenu" data-toggle="dropdown">
 					Select language
 					<span class="caret"></span>
 				</button>
-				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+				<ul class="dropdown-menu" role="menu" aria-labelledby="languageDropdownMenu">
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">english</a></li>
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="ar">العربية</a></li>
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="ru">русский</a></li>
@@ -133,7 +133,7 @@
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="es">español</a></li>
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="de">deutsch</a></li>
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="fr">français</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="tr">Türkçe</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="tr">türkçe</a></li>
 				</ul>
 			</div>
 		</div>
