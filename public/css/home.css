@@ -38,20 +38,23 @@ h2 {
 	margin-bottom: 48px;
 }
 h3 {
-	font-size: 30px;
+	font-size: 22px;
 	font-weight: 400;
 }
 h3 small {
 	color: white;
+	font-size: 11px;
+	font-weight: 300;
+	font-style: italic;
 }
 h4 {
-	font-size: 18px;
+	font-size: 11px;
 	font-weight: 700;
 	color: #607285;
 	text-transform: uppercase;
 }
 h4 small {
-	font-size: 13px;
+	font-size: 8px;
 	color: #b0bdca;
 	display: block;
 	text-transform: none;
@@ -172,7 +175,7 @@ a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 }
 #apps-block {
 	position: absolute;
-	top: 160px;
+	top: 190px;
 	right: 0;
 	overflow: hidden;
 }
@@ -180,10 +183,10 @@ a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 	background-color: #f5f5f5;
 	border: none;
 	padding: 0;
-	width: 256px;
+	width: 161px;
 	display: table;
-	margin-bottom: 40px;
-	right: -190px;
+	margin-bottom: 23px;
+	right: -119px;
 	position: relative;
 }
 #apps-block > button > div {
@@ -195,20 +198,20 @@ a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 	background: -ms-linear-gradient(top, #ffffff 0%,#f4f4f4 100%);
 	background: linear-gradient(to bottom, #ffffff 0%,#f4f4f4 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f4f4f4',GradientType=0 );
-	border-right: 1px solid #dddde4;
-	width: 66px;
-	height: 70px;
+	border-right: 1px solid #e7e7eb;
+	width: 41px;
+	height: 44px;
 	display: table-cell;
 	vertical-align: middle;
 }
 #apps-block > button > h4 {
 	display: table-cell;
 	vertical-align: middle;
-	padding-left: 16px;
+	padding-left: 10px;
 	text-align: left;
 }
 #apps-block > button > h4 > small {
-	margin-bottom: 4px;
+	margin-bottom: 3px;
 }
 #signin-block {
 	display: none;
@@ -238,4 +241,34 @@ a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 	display: none;
 	margin-left: 20px;
 	opacity: 0;
+}
+/*#count-users {
+	bottom: 20px;
+	position: absolute;
+	width: 100%;
+}*/
+#count-users h3 small {
+	display: block;
+	margin-top: 4px;
+}
+#count-users h3 small:before {
+	content: "--------- ";
+}
+#count-users h3 small:after {
+	content: " ---------";
+}
+#last-connections .list-group-item {
+	border-radius: 0;
+	background-color: transparent;
+	border: none;
+	text-align: center;
+	font-size: 10px;
+	padding: 4px 0;
+}
+#last-connections .list-group-item > strong {
+	font-weight: 400;
+	font-size: 16px;
+}
+#last-connections .list-group-item > strong > img {
+	vertical-align: baseline;
 }

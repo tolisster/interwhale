@@ -110,16 +110,39 @@
 				</div>
 				<div class="tab-pane" id="register">...</div>
 			</div>-->
-			<h3>1,012,568 <small>all users</small></h3>
+			<ul class="list-group" id="last-connections">
+				<li class="list-group-item"><strong><img src="http://www.logicsoft.md/images/famfamfam/flag_icons/it.png" alt="Italia" lang="it"> Laura Moretti</strong> meet with <strong>Mikhail Galushko <img src="http://www.logicsoft.md/images/famfamfam/flag_icons/ua.png" alt="Україна" lang="ua"></strong></li>
+				<li class="list-group-item"><strong><img src="http://www.logicsoft.md/images/famfamfam/flag_icons/us.png" alt="United States of America" lang="en"> Craig Manson</strong> meet with <strong>Anna Lee <img src="http://www.logicsoft.md/images/famfamfam/flag_icons/hk.png" alt="香港特別行政區" lang="cn"></strong></li>
+				<li class="list-group-item"><strong><img src="http://www.logicsoft.md/images/famfamfam/flag_icons/pt.png" alt="República Portuguesa" lang="pt"> Christian Bento</strong> meet with <strong>Brian Cors <img src="http://www.logicsoft.md/images/famfamfam/flag_icons/england.png" alt="England" lang="en"></strong></li>
+			</ul>
+			<div id="count-users">
+				<h3 class="text-center">1,012,568 <small>all users</small></h3>
+			</div>
 		</div>
 		<div class="col-md-4">
+			<div class="dropdown">
+				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+					Select language
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">english</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="ar">العربية</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="ru">русский</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="it">italiano</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="es">español</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="de">deutsch</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="fr">français</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="tr">Türkçe</a></li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </div>
 <div id="apps-block">
-	<button type="button"><div><img src="/images/apple-logo.png" width="27" height="32" alt="App Store"/></div> <h4><small>Available on the</small> App Store</h4></button><!-- href="https://itunes.apple.com/genre/id36" rel="nofollow"-->
-	<button type="button"><div><img src="/images/android-logo.png" width="27" height="32" alt="Google Play"/></div> <h4><small>Available on the</small> Google Play</h4></button><!-- href="https://play.google.com/store" rel="nofollow"-->
-	<button type="button"><div><img src="/images/windows-logo.png" width="27" height="32" alt="Windows Phone Store"/></div> <h4><small>Available on the</small> Windows Phone Store</h4></button><!-- href="http://www.windowsphone.com/en-US/store" rel="nofollow"-->
+	<button type="button"><div><img src="/images/apple-logo.png" width="18" height="21" alt="App Store"/></div> <h4><small>Available on the</small> App Store</h4></button><!-- href="https://itunes.apple.com/genre/id36" rel="nofollow"-->
+	<button type="button"><div><img src="/images/android-logo.png" width="18" height="21" alt="Google Play"/></div> <h4><small>Available on the</small> Google Play</h4></button><!-- href="https://play.google.com/store" rel="nofollow"-->
+	<button type="button"><div><img src="/images/windows-logo.png" width="20" height="20" alt="Windows Phone Store"/></div> <h4><small>Available on the</small> Windows Phone Store</h4></button><!-- href="http://www.windowsphone.com/en-US/store" rel="nofollow"-->
 </div>
 <footer>
 	<div class="container">
