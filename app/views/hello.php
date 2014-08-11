@@ -122,8 +122,8 @@
 		<div class="col-md-4">
 			<div class="dropdown">
 				<button class="btn btn-link dropdown-toggle" type="button" id="languageDropdownMenu" data-toggle="dropdown">
-					Select language
 					<span class="caret"></span>
+					Select language
 				</button>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="languageDropdownMenu">
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">english</a></li>
