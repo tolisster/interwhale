@@ -16,7 +16,7 @@
 	<![endif]-->
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 	<link rel="stylesheet" href="/css/animate.css">
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,700">
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,600,700&subset=latin,cyrillic">
 	<link rel="stylesheet" href="/css/home.css">
 	<link rel="shortcut icon" href="http://www.interwhale.com/favicon.ico">
 </head>
@@ -68,7 +68,7 @@
 			</div>
 			<div id="signin-block" class="row">
 				<form id="signin-form" role="form">
-					<h2>Log in or register to meet new people from other countries</h2>
+					<h2>Log in to your account</h2>
 					<div class="form-group">
 						<label for="email-input" class="sr-only">Enter your email address:</label>
 						<input type="email" class="form-control" id="email-input" placeholder="email address" required autofocus>
@@ -126,14 +126,14 @@
 					Select language
 				</button>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="languageDropdownMenu">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">english</a></li>
+					<li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#">English</a></li>
 					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="ar">العربية</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="ru">русский</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="it">italiano</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="es">español</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="de">deutsch</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="fr">français</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="tr">türkçe</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="ru">Русский</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="it">Italiano</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="es">Español</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="de">Deutsch</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="fr">Français</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="tr">Türkçe</a></li>
 				</ul>
 			</div>
 		</div>

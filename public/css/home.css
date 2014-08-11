@@ -15,6 +15,7 @@ body {
 	color: white;
 	font-family: "Open Sans", Georgia, serif;
 	font-weight: 400;
+	font-size: 12px;
 }
 body > .container {
 	padding: 70px 15px 0;
@@ -34,8 +35,11 @@ h1 small {
 	display: block;
 }
 h2 {
-	font-size: 15px;
-	margin-bottom: 48px;
+	font-size: 12px;
+	margin-bottom: 22px;
+	text-transform: uppercase;
+	font-weight: 600;
+	text-align: center;
 }
 h3 {
 	font-size: 22px;
@@ -60,10 +64,9 @@ h4 small {
 	text-transform: none;
 }
 form {
-	background-color: rgba(26, 78, 105, 0.5);
-	padding: 34px 38px 7px;
+	background-color: rgba(22, 76, 136, 0.55);
+	padding: 8px 38px 7px;
 	margin-bottom: 13px;
-	background-blend-mode: overlay;
 }
 footer {
 	position: absolute;
@@ -89,6 +92,9 @@ a, .btn-link {
 }
 a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 	color: inherit;
+}
+.btn-link:hover, .btn-link:focus {
+	text-decoration: none;
 }
 .navbar-default {
 	background-color: white;
@@ -119,6 +125,7 @@ a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 	font-size: 12px;
 	padding: 13px 12px;
 	line-height: 10px;
+	outline-style: none !important;
 }
 .btn-primary {
 	background-color: #0ba6ed;
@@ -158,17 +165,38 @@ a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 .form-group:last-child {
 	padding-top: 18px;
 }
+
+.caret {
+	margin-right: 6px;
+	border-top: 7px solid;
+	border-right: 4px solid transparent;
+	border-left: 4px solid transparent;
+	vertical-align: top;
+}
+.dropdown.open .btn .caret {
+	border-top-width: 0;
+	border-bottom: 7px solid;
+}
+.dropdown-menu {
+	min-width: initial;
+	padding: 0;
+	margin: 0 0 0 64px;
+	font-size: 12px;
+	background-color: transparent;
+	border: none;
+	box-shadow: none;
+}
+
 #main-buttons > div {
 	text-align: center;
 }
 #main-buttons > div.active {
-	background-color: rgba(26, 78, 105, 0.5);
+	background-color: rgba(22, 76, 136, 0.55);
 }
 #main-buttons > div:nth-child(2) {
 	border-left: 2px solid #d7d7d7;
 }
 #main-buttons > div > .btn {
-	outline-style: none;
 	font-size: 9px;
 }
 #main-buttons > div > .btn:first-letter {
@@ -272,4 +300,17 @@ a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 }
 #last-connections .list-group-item > strong > img {
 	vertical-align: baseline;
+}
+.dropdown-menu > li > a {
+	padding: 1px 10px;
+	line-height: 1.1;
+	color: #d7d7d7;
+	text-transform: lowercase;
+}
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+	color: inherit;
+	background-color: transparent;
+	font-weight: 700;
+}
+ {
 }
