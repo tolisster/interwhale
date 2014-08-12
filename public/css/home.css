@@ -65,7 +65,7 @@ h4 small {
 }
 form {
 	background-color: rgba(22, 76, 136, 0.55);
-	padding: 8px 38px 7px;
+	padding: 8px 25px 7px;
 	margin-bottom: 13px;
 }
 footer {
@@ -101,23 +101,30 @@ a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 	border-color: #d7d7d7;
 	border-width: 0 0 3px;
 }
-.navbar-default .container {
-	padding-left: 180px;
-	padding-right: 145px;
-}
 .navbar-brand {
-	height: 67px;
-	padding-top: 12px;
-	padding-bottom: 10px;
+	padding: 8px 15px;
 }
-.navbar-nav > li > a {
-	padding-top: 28px;
-	padding-bottom: 28px;
-	line-height: 11px;
+@media (min-width: 992px) {
+	.nav > li > a {
+		padding: 10px 17px;
+	}
+	.navbar-default .container {
+		padding-left: 171px;
+		padding-right: 138px;
+	}
+	.navbar-brand {
+		height: 67px;
+		padding-top: 19px;
+		padding-bottom: 15px;
+	}
+	.navbar-nav > li > a {
+		padding-top: 28px;
+		padding-bottom: 28px;
+		line-height: 10px;
+	}
 }
 .navbar-default .navbar-nav > li > a {
 	color: #00415b;
-	font-size: 13px;
 	text-transform: uppercase;
 }
 .btn {
@@ -311,6 +318,4 @@ a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 	color: inherit;
 	background-color: transparent;
 	font-weight: 700;
-}
- {
 }
