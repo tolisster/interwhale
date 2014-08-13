@@ -70,12 +70,17 @@
 				<form id="signin-form" role="form">
 					<h2>Log in to your account</h2>
 					<div class="form-group">
-						<label for="email-input" class="sr-only">Enter your email address:</label>
-						<input type="email" class="form-control" id="email-input" placeholder="email address" required autofocus>
+						<label for="email-input" class="sr-only">Email address</label>
+						<input type="email" class="form-control" id="email-input" placeholder="Email address" required autofocus>
 					</div>
 					<div class="form-group">
-						<label for="password-input" class="sr-only">Enter your password:</label>
-						<input type="password" class="form-control" id="password-input" placeholder="password" required>
+						<label for="password-input" class="sr-only">Password</label>
+						<input type="password" class="form-control" id="password-input" placeholder="Password" required>
+					</div>
+					<div class="checkbox text-center">
+						<label>
+							<input type="checkbox"> Remember your password
+						</label>
 					</div>
 					<div class="form-group text-center">
 						<button type="submit" class="btn btn-primary">Log in</button>

@@ -70,7 +70,7 @@ h4 small {
 }
 form {
 	background-color: rgba(22, 76, 136, 0.55);
-	padding: 8px 30px 7px 26px;
+	padding: 8px 30px 26px 26px;
 	margin-bottom: 13px;
 }
 footer {
@@ -97,6 +97,9 @@ a, .btn-link {
 }
 a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 	color: inherit;
+}
+label {
+	font-size: 10px;
 }
 .btn-link:hover, .btn-link:focus {
 	text-decoration: none;
@@ -144,42 +147,58 @@ a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 	}
 }
 .btn-primary {
-	background-color: #0ba6ed;
+	background-color: #3a8fc8;
 	border: 0 solid;
 	border-radius: 0;
-	font-size: 14px;
-	line-height: 14px;
-	padding: 17px 52px;
+	font-size: 10px;
+	padding: 10px 38px;
+	font-weight: 600;
 }
 .btn-primary:first-letter {
-	font-size: 20px;
+	font-size: 150%;
+	font-weight: 400;
 }
 .form-control {
-	border-color: #d7d7d7;
-	border-width: 0 0 0 2px;
-	background-color: rgba(13, 60, 84, 0.5);
-	height: 40px;
+	border-color: white;
+	border-width: 0 0 0 3px;
+	background-color: rgba(5, 59, 122, 0.7);
+	height: 30px;
 	border-radius: 0;
 	color: white;
-	background-blend-mode: screen;
 }
 .form-control::-webkit-input-placeholder { /* WebKit browsers */
-	color: #b0bdca;/*#1a4e69*/
+	color: #3a8fc8;/*#1a4e69*/
+	font-size: 10px;
+	line-height: 18px;
+	text-transform: lowercase;
+	font-weight: 300;
 }
 .form-control:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-	color: #b0bdca;
+	color: #3a8fc8;
+	font-size: 10px;
+	line-height: 18px;
+	text-transform: lowercase;
+	font-weight: 300;
 }
 .form-control::-moz-placeholder { /* Mozilla Firefox 19+ */
-	color: #b0bdca;
+	color: #3a8fc8;
+	font-size: 10px;
+	line-height: 18px;
+	text-transform: lowercase;
+	font-weight: 300;
 }
 .form-control:-ms-input-placeholder { /* Internet Explorer 10+ */
-	color: #b0bdca;
+	color: #3a8fc8;
+	font-size: 10px;
+	line-height: 18px;
+	text-transform: lowercase;
+	font-weight: 300;
 }
 .form-group {
-	margin-bottom: 45px;
+	margin-bottom: 12px;
 }
 .form-group:last-child {
-	padding-top: 18px;
+	padding-top: 14px;
 }
 
 .caret {
@@ -202,6 +221,26 @@ a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 	border: none;
 	box-shadow: none;
 }
+.dropdown-menu > li > a {
+	padding: 1px 10px;
+	line-height: 1.1;
+	color: #d7d7d7;
+	text-transform: lowercase;
+}
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+	color: inherit;
+	background-color: transparent;
+	font-weight: 700;
+}
+.radio label, .checkbox label {
+	font-weight: 300;
+}
+.radio input[type=radio], .radio-inline input[type=radio], .checkbox input[type=checkbox], .checkbox-inline input[type=checkbox] {
+	margin-left: -15px;
+}
+input[type=radio], input[type=checkbox] {
+	margin: 2px 0 0;
+}
 
 #main-buttons > div {
 	text-align: center;
@@ -214,9 +253,11 @@ a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 }
 #main-buttons > div > .btn {
 	font-size: 9px;
+	font-weight: 400;
 }
 #main-buttons > div > .btn:first-letter {
-	font-size: 13px;
+	font-size: 150%;
+	font-weight: 300;
 }
 #apps-block {
 	position: absolute;
@@ -316,15 +357,4 @@ a:hover, a:focus, .btn-link:hover, .btn-link:focus {
 }
 #last-connections .list-group-item > strong > img {
 	vertical-align: baseline;
-}
-.dropdown-menu > li > a {
-	padding: 1px 10px;
-	line-height: 1.1;
-	color: #d7d7d7;
-	text-transform: lowercase;
-}
-.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
-	color: inherit;
-	background-color: transparent;
-	font-weight: 700;
 }
