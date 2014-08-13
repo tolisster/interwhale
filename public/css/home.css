@@ -328,11 +328,11 @@ input[type=radio], input[type=checkbox] {
 	margin-left: 20px;
 	opacity: 0;
 }
-/*#count-users {
-	bottom: 20px;
+#count-users {
 	position: absolute;
+	top: 560px;
 	width: 100%;
-}*/
+}
 #count-users h3 small {
 	display: block;
 	margin-top: 4px;
@@ -342,6 +342,11 @@ input[type=radio], input[type=checkbox] {
 }
 #count-users h3 small:after {
 	content: " ---------";
+}
+#last-connections {
+	position: absolute;
+	top: 420px;
+	width: 100%;
 }
 #last-connections .list-group-item {
 	border-radius: 0;

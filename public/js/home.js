@@ -1,9 +1,11 @@
 $(document).ready(function() {
-	$("#apps-block > button").hover(function() {
-		$(this).stop(true, false).animate({right: "0px"});
-	}, function() {
-		$(this).stop(true, false).animate({right: "-119px"});
-	});
+	if ($('#apps-block').is(':visible')) {
+		$("#apps-block > button").hover(function() {
+			$(this).stop(true, false).animate({right: "0px"});
+		}, function() {
+			$(this).stop(true, false).animate({right: "-119px"});
+		});
+	}
 	$('#main-buttons > div:nth-child(1) > .btn').click(function() {
 		var duration = 'fast';
 		var $div = $(this).parent();
@@ -66,20 +68,22 @@ $(document).ready(function() {
 		});
 	}
 
-	$('#last-connections .list-group-item:nth-child(2)')
-		.css({opacity: 0.5});
-	var duration = 'slow';
-	function showNextConnection() {
-		$('#last-connections .list-group-item:last')
-			.hide()
-			.css({opacity: 0.0})
-			.prependTo('#last-connections')
-			.slideDown(duration, function() {
-				setTimeout(showNextConnection, 5000);
-			})
-			.animate({opacity: 1.0}, duration);
+	if ($('#last-connections').is(':visible')) {
 		$('#last-connections .list-group-item:nth-child(2)')
-			.animate({opacity: 0.5}, duration);
+			.css({opacity: 0.5});
+		var duration = 'slow';
+		function showNextConnection() {
+			$('#last-connections .list-group-item:last')
+				.hide()
+				.css({opacity: 0.0})
+				.prependTo('#last-connections')
+				.slideDown(duration, function() {
+					setTimeout(showNextConnection, 5000);
+				})
+				.animate({opacity: 1.0}, duration);
+			$('#last-connections .list-group-item:nth-child(2)')
+				.animate({opacity: 0.5}, duration);
+		}
+		showNextConnection();
 	}
-	showNextConnection();
 });
