@@ -26,15 +26,15 @@ body > .container {
 	}
 }
 h1 {
-	font-size: 50px;
+	font-size: 35px;
 	font-weight: 300;
-	margin-bottom: 80px;
+	margin-bottom: 55px;
 }
 h1:first-child {
-	margin-top: 150px;
+	margin-top: 104px;
 }
 h1 small {
-	font-size: 50%;
+	font-size: 43%;
 	color: white;
 	font-weight: inherit;
 	display: block;
@@ -70,7 +70,7 @@ h4 small {
 }
 form {
 	background-color: rgba(22, 76, 136, 0.55);
-	padding: 8px 25px 7px;
+	padding: 8px 30px 7px 26px;
 	margin-bottom: 13px;
 }
 footer {
