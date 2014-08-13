@@ -120,26 +120,28 @@
 				<li class="list-group-item"><strong><img src="http://www.logicsoft.md/images/famfamfam/flag_icons/us.png" width="16" height="11" alt="United States of America" lang="en"> Craig Manson</strong> meet with <strong>Anna Lee <img src="http://www.logicsoft.md/images/famfamfam/flag_icons/hk.png" width="16" height="11" alt="香港特別行政區" lang="cn"></strong></li>
 				<li class="list-group-item"><strong><img src="http://www.logicsoft.md/images/famfamfam/flag_icons/pt.png" width="16" height="11" alt="República Portuguesa" lang="pt"> Christian Bento</strong> meet with <strong>Brian Cors <img src="http://www.logicsoft.md/images/famfamfam/flag_icons/england.png" width="16" height="11" alt="England" lang="en"></strong></li>
 			</ul>
-			<div id="count-users">
+			<div id="count-users" class="hidden-xs hidden-sm">
 				<h3 class="text-center">1,012,568 <small>all users</small></h3>
 			</div>
 		</div>
 		<div class="col-md-4">
-			<div class="dropdown hidden-xs hidden-sm">
-				<button class="btn btn-link dropdown-toggle" type="button" id="languageDropdownMenu" data-toggle="dropdown">
-					<span class="caret"></span>
-					Select language
-				</button>
-				<ul class="dropdown-menu" role="menu" aria-labelledby="languageDropdownMenu">
-					<li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#">English</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="ar">العربية</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="ru">Русский</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="it">Italiano</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="es">Español</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="de">Deutsch</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="fr">Français</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="tr">Türkçe</a></li>
-				</ul>
+			<div class="pull-right">
+				<div class="dropdown hidden-xs hidden-sm">
+					<button class="btn btn-link dropdown-toggle" type="button" id="languageDropdownMenu" data-toggle="dropdown">
+						<span class="caret"></span>
+						Select language
+					</button>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="languageDropdownMenu">
+						<li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#">English</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="ar">العربية</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="ru">Русский</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="it">Italiano</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="es">Español</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="de">Deutsch</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="fr">Français</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="tr">Türkçe</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>
