@@ -261,8 +261,11 @@ input[type=radio], input[type=checkbox] {
 #main-buttons > div.active {
 	background-color: rgba(22, 76, 136, 0.55);
 }
+#main-buttons > div:nth-child(1) {
+	border-right: 1px solid #d7d7d7;
+}
 #main-buttons > div:nth-child(2) {
-	border-left: 2px solid #d7d7d7;
+	border-left: 1px solid #d7d7d7;
 }
 #main-buttons > div > .btn {
 	font-size: 9px;
@@ -282,7 +285,7 @@ input[type=radio], input[type=checkbox] {
 	background-color: #f5f5f5;
 	border: none;
 	padding: 0;
-	width: 161px;
+	width: 162px;
 	display: table;
 	margin-bottom: 23px;
 	right: -119px;
@@ -298,7 +301,7 @@ input[type=radio], input[type=checkbox] {
 	background: linear-gradient(to bottom, #ffffff 0%,#f4f4f4 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f4f4f4',GradientType=0 );
 	border-right: 1px solid #e7e7eb;
-	width: 41px;
+	width: 42px;
 	height: 44px;
 	display: table-cell;
 	vertical-align: middle;
@@ -313,7 +316,7 @@ input[type=radio], input[type=checkbox] {
 	margin-bottom: 3px;
 }
 #signin-block {
-	display: none;
+	/*display: none;*/
 }
 #map {
 	position: absolute;

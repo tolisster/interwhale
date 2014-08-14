@@ -59,7 +59,7 @@
 		</div>
 		<div class="col-md-4">
 			<div class="row" id="main-buttons">
-				<div class="col-xs-6">
+				<div class="col-xs-6 active">
 					<button type="button" class="btn btn-link">Log in</button>
 				</div>
 				<div class="col-xs-6">
