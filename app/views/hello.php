@@ -98,6 +98,38 @@
 					<a href="/forgot-password.html">Forgot your password?</a>
 				</div>
 			</div>
+			<div id="signup-block" class="row">
+				<form id="signin-form" role="form">
+					<h2>Log in to your account</h2>
+					<div class="btn-group btn-group-justified" id="sign-in-with">
+						<div class="btn-group">
+							<button type="button" class="btn btn-default"><span>Sign in with</span> <span><img src="/images/facebook.png" width="8" height="18" alt="Facebook"></span></button>
+						</div>
+						<div class="btn-group">
+							<button type="button" class="btn btn-default"><span>Sign in with</span> <span><img src="/images/google-accounts.png" width="17" height="18" alt="Google Accounts"></span></button>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="email-input" class="sr-only">Email address</label>
+						<input type="email" class="form-control" id="email-input" placeholder="Email address" required autofocus>
+					</div>
+					<div class="form-group">
+						<label for="password-input" class="sr-only">Password</label>
+						<input type="password" class="form-control" id="password-input" placeholder="Password" required>
+					</div>
+					<div class="checkbox text-center">
+						<label>
+							<input type="checkbox"> Remember your password
+						</label>
+					</div>
+					<div class="form-group text-center">
+						<button type="submit" class="btn btn-primary">Log in</button>
+					</div>
+				</form>
+				<div class="row text-center">
+					<a href="/forgot-password.html">Forgot your password?</a>
+				</div>
+			</div>
 			<!--<ul class="nav nav-tabs row" role="tablist">
 				<li class="col-md-6"><a href="#signin" role="tab" data-toggle="tab">Log in</a></li>
 				<li class="col-md-6"><a href="#register" role="tab" data-toggle="tab">Sign up</a></li>
