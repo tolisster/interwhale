@@ -1,14 +1,9 @@
-@media (max-width: 699px) and (min-width: 520px) {
-	@-viewport {
-		width: 640px;
-	}
-}
 html {
 	position: relative;
 	min-height: 100%;
 }
 body {
-	background: #20aac9; /* Old browsers */
+	background: #003363; /* Old browsers */
 	background: -moz-linear-gradient(top, #20aac9 0%, #003363 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#20aac9), color-stop(100%,#003363)); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top, #20aac9 0%,#003363 100%); /* Chrome10+,Safari5.1+ */
@@ -145,7 +140,6 @@ label {
 	text-transform: uppercase;
 }
 .btn {
-	text-transform: uppercase;
 	font-size: 12px;
 	line-height: 1;
 	outline-style: none !important;
@@ -155,17 +149,33 @@ label {
 		padding: 11px 12px;
 	}
 }
-.btn-primary {
+.btn-link {
+	text-transform: uppercase;
+}
+.btn-default, .btn-primary {
 	background-color: #3a8fc8;
 	border: 0 solid;
 	border-radius: 0;
 	font-size: 10px;
-	padding: 10px 38px;
+}
+.btn-default {
+	font-weight: 300;
+	color: white;
+}
+.btn-primary {
 	font-weight: 600;
+	text-transform: uppercase;
+	padding: 10px 38px;
 }
 .btn-primary:first-letter {
 	font-size: 150%;
 	font-weight: 400;
+}
+.form-group, .btn-group {
+	margin-bottom: 12px;
+}
+.form-group:last-child {
+	padding-top: 14px;
 }
 .form-control {
 	border-color: white;
@@ -202,12 +212,6 @@ label {
 	line-height: 18px;
 	text-transform: lowercase;
 	font-weight: 300;
-}
-.form-group {
-	margin-bottom: 12px;
-}
-.form-group:last-child {
-	padding-top: 14px;
 }
 
 .caret {
@@ -364,6 +368,7 @@ input[type=radio], input[type=checkbox] {
 	text-align: center;
 	font-size: 10px;
 	padding: 4px 0;
+	white-space: nowrap;
 }
 #last-connections .list-group-item > strong {
 	font-weight: 400;
@@ -371,4 +376,37 @@ input[type=radio], input[type=checkbox] {
 }
 #last-connections .list-group-item > strong > img {
 	vertical-align: baseline;
+}
+#sign-in-with > .btn-group {
+	padding-left: 2px;
+	padding-right: 2px;
+}
+#sign-in-with > .btn-group:first-child {
+	padding-left: 0;
+}
+#sign-in-with > .btn-group:last-child {
+	padding-right: 0;
+}
+#sign-in-with > .btn-group > .btn {
+	padding: 0;
+}
+#sign-in-with > .btn-group:last-child > .btn-default {
+	background-color: #164c88;
+}
+#sign-in-with > .btn-group:last-child > .btn-default:hover, #sign-in-with > .btn-group:last-child > .btn-default:focus, #sign-in-with > .btn-group:last-child > .btn-default:active, #sign-in-with > .btn-group:last-child > .btn-default.active {
+	background-color: #3071a9;
+}
+#sign-in-with > .btn-group > .btn > span:first-child {
+	line-height: 30px;
+}
+#sign-in-with > .btn-group > .btn > span:last-child {
+	border-left: 1px solid #d7d7d7;
+	width: 34px;
+	vertical-align: middle;
+	float: right;
+	padding: 6px 0;
+}
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
+	color: #ffffff;
+	background-color: #3071a9;
 }

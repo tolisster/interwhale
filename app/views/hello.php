@@ -69,6 +69,14 @@
 			<div id="signin-block" class="row">
 				<form id="signin-form" role="form">
 					<h2>Log in to your account</h2>
+					<div class="btn-group btn-group-justified" id="sign-in-with">
+						<div class="btn-group">
+							<button type="button" class="btn btn-default"><span>Sign in with</span> <span><img src="/images/facebook.png" width="8" height="18" alt="Facebook"></span></button>
+						</div>
+						<div class="btn-group">
+							<button type="button" class="btn btn-default"><span>Sign in with</span> <span><img src="/images/google-accounts.png" width="17" height="18" alt="Google Accounts"></span></button>
+						</div>
+					</div>
 					<div class="form-group">
 						<label for="email-input" class="sr-only">Email address</label>
 						<input type="email" class="form-control" id="email-input" placeholder="Email address" required autofocus>
