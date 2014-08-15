@@ -98,7 +98,7 @@
 					<a href="/forgot-password.html">Forgot your password?</a>
 				</div>
 			</div>
-			<div id="signup-block" class="row">
+			<div id="signup-block">
 				<form id="signin-form" role="form">
 					<h2>Log in to your account</h2>
 					<div class="btn-group btn-group-justified" id="sign-in-with">
