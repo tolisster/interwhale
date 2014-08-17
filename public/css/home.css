@@ -52,25 +52,25 @@ h3 {
 }
 h3 small {
 	color: white;
-	font-size: 11px;
+	font-size: 50%;
 	font-weight: 300;
 	font-style: italic;
 }
 h4 {
-	font-size: 11px;
+	font-size: 11.23px;
 	font-weight: 700;
 	color: #607285;
 	text-transform: uppercase;
 }
 h4 small {
-	font-size: 8px;
+	font-size: 8.11px;
 	color: #b0bdca;
 	display: block;
 	text-transform: none;
 }
 form {
 	background-color: rgba(22, 76, 136, 0.55);
-	padding: 8px 30px 26px 26px;
+	padding: 8px 30px 26px;
 	margin-bottom: 13px;
 }
 footer {
@@ -85,7 +85,7 @@ footer > .container {
 }
 footer > .container > p {
 	margin: 70px 0 45px;
-	font-size: 10px;
+	font-size: 9.84px;
 	font-weight: 300;
 }
 footer > .container > p > img {
@@ -149,14 +149,14 @@ label {
 		padding: 11px 12px;
 	}
 }
-.btn-link {
+.btn-link, .nav-pills.nav-justified > li > a {
 	text-transform: uppercase;
 }
 .btn-default, .btn-primary {
 	background-color: #3a8fc8;
 	border: 0 solid;
 	border-radius: 0;
-	font-size: 10px;
+	font-size: 10.5px;
 }
 .btn-default {
 	font-weight: 300;
@@ -187,28 +187,28 @@ label {
 }
 .form-control::-webkit-input-placeholder { /* WebKit browsers */
 	color: #3a8fc8;/*#1a4e69*/
-	font-size: 10px;
+	font-size: 10.5px;
 	line-height: 18px;
 	text-transform: lowercase;
 	font-weight: 300;
 }
 .form-control:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
 	color: #3a8fc8;
-	font-size: 10px;
+	font-size: 10.5px;
 	line-height: 18px;
 	text-transform: lowercase;
 	font-weight: 300;
 }
 .form-control::-moz-placeholder { /* Mozilla Firefox 19+ */
 	color: #3a8fc8;
-	font-size: 10px;
+	font-size: 10.5px;
 	line-height: 18px;
 	text-transform: lowercase;
 	font-weight: 300;
 }
 .form-control:-ms-input-placeholder { /* Internet Explorer 10+ */
 	color: #3a8fc8;
-	font-size: 10px;
+	font-size: 10.5px;
 	line-height: 18px;
 	text-transform: lowercase;
 	font-weight: 300;
@@ -315,9 +315,6 @@ input[type=radio], input[type=checkbox] {
 #apps-block > button > h4 > small {
 	margin-bottom: 3px;
 }
-#signup-block {
-	display: none;
-}
 #map {
 	position: absolute;
 	top: 120px;
@@ -412,4 +409,27 @@ input[type=radio], input[type=checkbox] {
 .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
 	color: #ffffff;
 	background-color: #3071a9;
+}
+
+.nav-pills.nav-justified > li > a {
+	border-radius: 0;
+	font-size: 9px;
+	font-weight: 400;
+}
+.nav-pills.nav-justified > li > a:first-letter {
+	font-size: 150%;
+	font-weight: 300;
+}
+.nav-pills.nav-justified > li.active > a {
+	background-color: rgba(22, 76, 136, 0.55);
+	color: white;
+}
+.nav-pills.nav-justified > li:nth-child(1) > a {
+	border-right: 1px solid #d7d7d7;
+}
+.nav-pills.nav-justified > li:nth-child(2) > a {
+	border-left: 1px solid #d7d7d7;
+}
+.nav > li > a:hover, .nav > li > a:focus {
+	background-color: transparent;
 }

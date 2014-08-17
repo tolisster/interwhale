@@ -58,103 +58,64 @@
 			</div>
 		</div>
 		<div class="col-md-4">
-			<div class="row" id="main-buttons">
-				<div class="col-xs-6 active">
-					<button type="button" class="btn btn-link">Log in</button>
-				</div>
-				<div class="col-xs-6">
-					<button type="button" class="btn btn-link">Sign up</button>
-				</div>
-			</div>
-			<div id="signin-block" class="row">
-				<form id="signin-form" role="form">
-					<h2>Log in to your account</h2>
-					<div class="btn-group btn-group-justified" id="sign-in-with">
-						<div class="btn-group">
-							<button type="button" class="btn btn-default"><span>Sign in with</span> <span><img src="/images/facebook.png" width="8" height="18" alt="Facebook"></span></button>
-						</div>
-						<div class="btn-group">
-							<button type="button" class="btn btn-default"><span>Sign in with</span> <span><img src="/images/google-accounts.png" width="17" height="18" alt="Google Accounts"></span></button>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="email-input" class="sr-only">Email address</label>
-						<input type="email" class="form-control" id="email-input" placeholder="Email address" required autofocus>
-					</div>
-					<div class="form-group">
-						<label for="password-input" class="sr-only">Password</label>
-						<input type="password" class="form-control" id="password-input" placeholder="Password" required>
-					</div>
-					<div class="checkbox text-center">
-						<label>
-							<input type="checkbox"> Remember your password
-						</label>
-					</div>
-					<div class="form-group text-center">
-						<button type="submit" class="btn btn-primary">Log in</button>
-					</div>
-				</form>
-				<div class="row text-center">
-					<a href="/forgot-password.html">Forgot your password?</a>
-				</div>
-			</div>
-			<div id="signup-block">
-				<form id="signin-form" role="form">
-					<h2>Log in to your account</h2>
-					<div class="btn-group btn-group-justified" id="sign-in-with">
-						<div class="btn-group">
-							<button type="button" class="btn btn-default"><span>Sign in with</span> <span><img src="/images/facebook.png" width="8" height="18" alt="Facebook"></span></button>
-						</div>
-						<div class="btn-group">
-							<button type="button" class="btn btn-default"><span>Sign in with</span> <span><img src="/images/google-accounts.png" width="17" height="18" alt="Google Accounts"></span></button>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="email-input" class="sr-only">Email address</label>
-						<input type="email" class="form-control" id="email-input" placeholder="Email address" required autofocus>
-					</div>
-					<div class="form-group">
-						<label for="password-input" class="sr-only">Password</label>
-						<input type="password" class="form-control" id="password-input" placeholder="Password" required>
-					</div>
-					<div class="checkbox text-center">
-						<label>
-							<input type="checkbox"> Remember your password
-						</label>
-					</div>
-					<div class="form-group text-center">
-						<button type="submit" class="btn btn-primary">Log in</button>
-					</div>
-				</form>
-				<div class="row text-center">
-					<a href="/forgot-password.html">Forgot your password?</a>
-				</div>
-			</div>
-			<!--<ul class="nav nav-tabs row" role="tablist">
-				<li class="col-md-6"><a href="#signin" role="tab" data-toggle="tab">Log in</a></li>
-				<li class="col-md-6"><a href="#register" role="tab" data-toggle="tab">Sign up</a></li>
+			<ul class="nav nav-pills nav-justified" role="tablist">
+				<li class="active"><a href="#log-in" role="tab" data-toggle="pill">Log in</a></li>
+				<li><a href="#sign-up" role="tab" data-toggle="pill">Sign up</a></li>
 			</ul>
 			<div class="tab-content">
-				<div class="tab-pane" id="signin">
-					<form id="signin-form" role="form">
-						<div class="form-group">
-							<label for="email-input" class="sr-only">Enter your email address:</label>
-							<input type="email" class="form-control" id="email-input" placeholder="email address" required autofocus>
+				<div class="tab-pane active" id="log-in">
+					<form role="form">
+						<h2>Log in to your account</h2>
+						<div class="btn-group btn-group-justified" id="sign-in-with">
+							<div class="btn-group">
+								<button type="button" class="btn btn-default"><span>Sign in with</span> <span><img src="/images/facebook.png" width="8" height="18" alt="Facebook"></span></button>
+							</div>
+							<div class="btn-group">
+								<button type="button" class="btn btn-default"><span>Sign in with</span> <span><img src="/images/google-accounts.png" width="17" height="18" alt="Google Accounts"></span></button>
+							</div>
 						</div>
 						<div class="form-group">
-							<label for="password-input" class="sr-only">Enter your password:</label>
-							<input type="password" class="form-control" id="password-input" placeholder="password" required>
+							<label for="email-input" class="sr-only">Email address</label>
+							<input type="email" class="form-control" id="email-input" placeholder="Email address" required autofocus>
+						</div>
+						<div class="form-group">
+							<label for="password-input" class="sr-only">Password</label>
+							<input type="password" class="form-control" id="password-input" placeholder="Password" required>
+						</div>
+						<div class="checkbox text-center">
+							<label>
+								<input type="checkbox"> Remember your password
+							</label>
 						</div>
 						<div class="form-group text-center">
 							<button type="submit" class="btn btn-primary">Log in</button>
 						</div>
 					</form>
-					<div class="row text-center">
-						<a href="/forgot-password.html">Forgot your password?</a>
-					</div>
 				</div>
-				<div class="tab-pane" id="register">...</div>
-			</div>-->
+				<div class="tab-pane" id="sign-up">
+					<form role="form">
+						<h2>Create new account</h2>
+						<div class="form-group">
+							<label for="name-input" class="sr-only">Name</label>
+							<input type="text" class="form-control" id="name-input" placeholder="Name" required>
+						</div>
+						<div class="form-group">
+							<label for="email-input" class="sr-only">Email address</label>
+							<input type="email" class="form-control" id="email-input" placeholder="Email address" required>
+						</div>
+						<div class="form-group">
+							<label for="password-input" class="sr-only">Password</label>
+							<input type="password" class="form-control" id="password-input" placeholder="Password" required>
+						</div>
+						<div class="form-group text-center">
+							<button type="submit" class="btn btn-primary">Sign up</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="row text-center">
+				<a href="/forgot-password.html">Forgot your password?</a>
+			</div>
 			<ul class="list-group hidden-xs hidden-sm" id="last-connections">
 				<li class="list-group-item"><strong><img src="http://www.logicsoft.md/images/famfamfam/flag_icons/it.png" width="16" height="11" alt="Italia" lang="it"> Laura Moretti</strong> meet with <strong>Mikhail Galushko <img src="http://www.logicsoft.md/images/famfamfam/flag_icons/ua.png" width="16" height="11" alt="Україна" lang="ua"></strong></li>
 				<li class="list-group-item"><strong><img src="http://www.logicsoft.md/images/famfamfam/flag_icons/us.png" width="16" height="11" alt="United States of America" lang="en"> Craig Manson</strong> meet with <strong>Anna Lee <img src="http://www.logicsoft.md/images/famfamfam/flag_icons/hk.png" width="16" height="11" alt="香港特別行政區" lang="cn"></strong></li>

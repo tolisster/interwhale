@@ -6,18 +6,6 @@ $(document).ready(function() {
 			$(this).stop(true, false).animate({right: "-119px"});
 		});
 	}
-	$('#main-buttons > div:nth-child(1) > .btn').click(function() {
-		var duration = 'fast';
-		var $div = $(this).parent();
-		if ($div.is('.active')) {
-			$('#signin-block').slideUp(duration, function() {
-				$div.removeClass('active');
-			});
-		} else {
-			$div.addClass('active');
-			$('#signin-block').slideDown(duration);
-		}
-	});
 
 	var image = new Image();
 	image.onload = function () {
