@@ -14,8 +14,6 @@
 	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-	<link rel="stylesheet" href="/css/animate.css">
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,600,700&subset=latin,cyrillic">
 	<link rel="stylesheet" href="/css/home.css">
 	<link rel="shortcut icon" href="http://www.interwhale.com/favicon.ico">
@@ -31,9 +29,8 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/home.html"><img src="/images/logo.png" width="129" height="33" alt="InterWhale"/></a>
+			<a class="navbar-brand" href="/home.html" title="InterWhale - International Dating Service"><img src="/images/logo.png" width="129" height="33" alt="InterWhale - International Dating Service"></a>
 		</div>
-		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="/static.html">About Us</a></li>
@@ -54,7 +51,7 @@
 			<div id="run-text-block" class="hidden-xs hidden-sm">
 				<h1>Find friends <small>around the world</small></h1>
 				<h1>Find friends <small>and acquaintances for travel</small></h1>
-				<h1><small>Payment per year</small> is just $1</h1>
+				<h1><small>Payment per year</small> is just $2.99</h1>
 			</div>
 		</div>
 		<div class="col-md-4">
@@ -154,16 +151,13 @@
 </div>
 <footer>
 	<div class="container">
-		<p><img src="/images/copyright-symbol.png" alt="©" width="14" height="14"> 2014 InterWhale Group</p>
+		<p><img src="/images/copyright-symbol-home.png" alt="©" width="14" height="14"> 2014 InterWhale Group</p>
 	</div>
 </footer>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<script src="/js/lettering.js"></script>
-<script src="/js/textillate.js"></script>
 <script src="/js/home.js"></script>
 </body>
 </html>

@@ -14,7 +14,6 @@ body {
 	margin-bottom: 70px;
 	color: white;
 	font-family: "Open Sans", Georgia, serif;
-	font-weight: 400;
 	font-size: 12px;
 }
 body > .container {
@@ -48,7 +47,7 @@ h2 {
 }
 h3 {
 	font-size: 22px;
-	font-weight: 400;
+	font-weight: normal;
 }
 h3 small {
 	color: white;
@@ -58,7 +57,7 @@ h3 small {
 }
 h4 {
 	font-size: 11.23px;
-	font-weight: 700;
+	font-weight: bold;
 	color: #607285;
 	text-transform: uppercase;
 }
@@ -80,8 +79,8 @@ footer {
 	height: 130px;
 }
 footer > .container {
-  padding-right: 15px;
-  padding-left: 15px;
+	padding-right: 15px;
+	padding-left: 15px;
 }
 footer > .container > p {
 	margin: 70px 0 45px;
@@ -169,7 +168,7 @@ label {
 }
 .btn-primary:first-letter {
 	font-size: 150%;
-	font-weight: 400;
+	font-weight: normal;
 }
 .form-group, .btn-group {
 	margin-bottom: 12px;
@@ -243,7 +242,7 @@ label {
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
 	color: inherit;
 	background-color: transparent;
-	font-weight: 700;
+	font-weight: bold;
 }
 .radio label, .checkbox label {
 	font-weight: 300;
@@ -269,7 +268,7 @@ input[type=radio], input[type=checkbox] {
 }
 #main-buttons > div > .btn {
 	font-size: 9px;
-	font-weight: 400;
+	font-weight: normal;
 }
 #main-buttons > div > .btn:first-letter {
 	font-size: 150%;
@@ -341,11 +340,6 @@ input[type=radio], input[type=checkbox] {
 	margin-left: 20px;
 	opacity: 0;
 }
-#count-users {
-	position: absolute;
-	top: 560px;
-	width: 100%;
-}
 #count-users h3 small {
 	display: block;
 	margin-top: 4px;
@@ -357,9 +351,8 @@ input[type=radio], input[type=checkbox] {
 	content: " ---------";
 }
 #last-connections {
-	position: absolute;
-	top: 420px;
-	width: 100%;
+	margin-top: 60px;
+	height: 140px;
 }
 #last-connections .list-group-item {
 	border-radius: 0;
@@ -371,7 +364,7 @@ input[type=radio], input[type=checkbox] {
 	white-space: nowrap;
 }
 #last-connections .list-group-item > strong {
-	font-weight: 400;
+	font-weight: normal;
 	font-size: 16px;
 }
 #last-connections .list-group-item > strong > img {
@@ -389,6 +382,7 @@ input[type=radio], input[type=checkbox] {
 }
 #sign-in-with > .btn-group > .btn {
 	padding: 0;
+	display: table;
 }
 #sign-in-with > .btn-group:last-child > .btn-default {
 	background-color: #164c88;
@@ -398,13 +392,15 @@ input[type=radio], input[type=checkbox] {
 }
 #sign-in-with > .btn-group > .btn > span:first-child {
 	line-height: 30px;
+	display: table-cell;
+	width:81px;
 }
 #sign-in-with > .btn-group > .btn > span:last-child {
 	border-left: 1px solid #d7d7d7;
 	width: 34px;
 	vertical-align: middle;
-	float: right;
 	padding: 6px 0;
+	display: table-cell;
 }
 .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
 	color: #ffffff;
@@ -414,7 +410,8 @@ input[type=radio], input[type=checkbox] {
 .nav-pills.nav-justified > li > a {
 	border-radius: 0;
 	font-size: 9px;
-	font-weight: 400;
+	font-weight: normal;
+	outline-style: none;
 }
 .nav-pills.nav-justified > li > a:first-letter {
 	font-size: 150%;
