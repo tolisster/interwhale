@@ -17,16 +17,21 @@ Route::get('/', 'HomeController@getHome');
 	return View::make('hello');
 });*/
 
-Route::get('users', 'UserController@getIndex');
+/*Route::get('users', 'UserController@getIndex');
 
 Route::get('users', function()
 {
 	return View::make('users');
-});
+});*/
 
 Route::get('users', function()
 {
 	$users = User::all();
 
 	return View::make('users')->with('users', $users);
+});
+
+Route::post('log-in', function()
+{
+	return 'Hello!';
 });

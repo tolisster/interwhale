@@ -26,7 +26,7 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
-	'local' => array('188-138-223-69.starnet.md'),
+	'local' => array('homestead'),
 
 ));
 

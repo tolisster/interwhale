@@ -61,7 +61,7 @@
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane active" id="log-in">
-					<form role="form">
+					<form role="form" method="post" action="{{ URL::to('/log-in') }}">
 						<h2>Log in to your account</h2>
 						<div class="btn-group btn-group-justified" id="sign-in-with">
 							<div class="btn-group">
