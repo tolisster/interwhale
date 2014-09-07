@@ -1,0 +1,12 @@
+.navbar-default .container {
+	border-bottom: 3px solid rgba(58, 143, 200, 0.75);
+}
+.navbar .navbar-nav .dropdown-toggle {
+	padding-top: 13px;
+}
+#sign-out {
+	height: 67px;
+}
+#sidebar {
+	background-color: #f0f0f0;
+}

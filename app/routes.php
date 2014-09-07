@@ -35,3 +35,23 @@ Route::post('log-in', function()
 {
 	return 'Hello!';
 });
+
+Route::pattern('user', '[A-Za-z0-9]+');
+
+Route::model('user', 'User', function()
+{
+	var_dump(this);
+	exit();
+	throw new NotFoundHttpException;
+});
+
+Route::bind('user', function($value, $route)
+{
+	return User::where('code', $value)->first();
+});
+
+Route::get('{user}', function(User $user = null)
+{
+	return View::make('user')->with('user', $user);
+})/*
+	->where('code', '[A-Za-z0-9]+')*/;

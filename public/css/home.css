@@ -79,8 +79,8 @@ footer {
 	height: 130px;
 }
 footer > .container {
-	padding-right: 15px;
-	padding-left: 15px;
+  padding-right: 15px;
+  padding-left: 15px;
 }
 footer > .container > p {
 	margin: 70px 0 45px;
