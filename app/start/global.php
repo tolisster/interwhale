@@ -53,7 +53,7 @@ App::error(function(Exception $exception, $code)
 
 App::missing(function($exception)
 {
-	return Response::view('errorsMissing', array(), 404);
+	return Response::view('errors.missing', array(), 404);
 });
 
 /*

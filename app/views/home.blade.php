@@ -1,46 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>InterWhale - International Dating Service</title>
-	<!-- Bootstrap -->
-	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+@extends('guestlayout')
 
-	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-	<![endif]-->
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,600,700&subset=latin,cyrillic">
-	<link rel="stylesheet" href="/css/home.css">
-	<link rel="shortcut icon" href="http://www.interwhale.com/favicon.ico">
-</head>
-<body>
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<div class="container">
-		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="/home.html" title="InterWhale - International Dating Service"><img src="/images/logo.png" width="129" height="33" alt="InterWhale - International Dating Service"></a>
-		</div>
-		<div class="collapse navbar-collapse" id="navbar-collapse">
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="/static.html">About Us</a></li>
-				<li><a href="/static.html">Contacts</a></li>
-				<li><a href="/static.html">Terms</a></li>
-				<li><a href="/static.html">Help</a></li>
-			</ul>
-		</div><!-- /.navbar-collapse -->
-	</div>
-</nav>
+@section('content')
 <div id="map">
 	<div>
 	</div>
@@ -61,7 +21,7 @@
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane active" id="log-in">
-					<form role="form" method="post" action="{{ URL::to('/log-in') }}">
+					<form role="form" method="post" action="{{ URL::to('login') }}">
 						<h2>Log in to your account</h2>
 						<div class="btn-group btn-group-justified" id="sign-in-with">
 							<div class="btn-group">
@@ -73,15 +33,15 @@
 						</div>
 						<div class="form-group">
 							<label for="email-input" class="sr-only">Email address</label>
-							<input type="email" class="form-control" id="email-input" placeholder="Email address" required autofocus>
+							<input type="email" name="email" class="form-control" id="email-input" placeholder="Email address" required autofocus>
 						</div>
 						<div class="form-group">
 							<label for="password-input" class="sr-only">Password</label>
-							<input type="password" class="form-control" id="password-input" placeholder="Password" required>
+							<input type="password" name="password" class="form-control" id="password-input" placeholder="Password" required>
 						</div>
 						<div class="checkbox text-center">
 							<label>
-								<input type="checkbox"> Remember your password
+								<input type="checkbox" name="remember"> Remember your password
 							</label>
 						</div>
 						<div class="form-group text-center">
@@ -90,19 +50,20 @@
 					</form>
 				</div>
 				<div class="tab-pane" id="sign-up">
-					<form role="form">
+					<form role="form" method="post" action="{{ URL::to('register') }}">
+						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<h2>Create new account</h2>
 						<div class="form-group">
 							<label for="name-input" class="sr-only">Name</label>
-							<input type="text" class="form-control" id="name-input" placeholder="Name" required>
+							<input type="text" name="name" class="form-control" id="name-input" placeholder="Name" required>
 						</div>
 						<div class="form-group">
 							<label for="email-input" class="sr-only">Email address</label>
-							<input type="email" class="form-control" id="email-input" placeholder="Email address" required>
+							<input type="email" name="email" class="form-control" id="email-input" placeholder="Email address" required>
 						</div>
 						<div class="form-group">
 							<label for="password-input" class="sr-only">Password</label>
-							<input type="password" class="form-control" id="password-input" placeholder="Password" required>
+							<input type="password" name="password" class="form-control" id="password-input" placeholder="Password" required>
 						</div>
 						<div class="form-group text-center">
 							<button type="submit" class="btn btn-primary">Sign up</button>
@@ -111,7 +72,7 @@
 				</div>
 			</div>
 			<div class="row text-center">
-				<a href="/forgot-password.html">Forgot your password?</a>
+				<a href="{{ action('RemindersController@getRemind') }}">Forgot your password?</a>
 			</div>
 			<ul class="list-group hidden-xs hidden-sm" id="last-connections">
 				<li class="list-group-item"><strong><img src="http://www.logicsoft.md/images/famfamfam/flag_icons/it.png" width="16" height="11" alt="Italia" lang="it"> Laura Moretti</strong> meet with <strong>Mikhail Galushko <img src="http://www.logicsoft.md/images/famfamfam/flag_icons/ua.png" width="16" height="11" alt="Україна" lang="ua"></strong></li>
@@ -149,15 +110,4 @@
 	<button type="button"><div><img src="/images/android-logo.png" width="18" height="21" alt="Google Play"/></div> <h4><small>Available on the</small> Google Play</h4></button><!-- href="https://play.google.com/store" rel="nofollow"-->
 	<button type="button"><div><img src="/images/windows-logo.png" width="20" height="20" alt="Windows Phone Store"/></div> <h4><small>Available on the</small> Windows Phone Store</h4></button><!-- href="http://www.windowsphone.com/en-US/store" rel="nofollow"-->
 </div>
-<footer>
-	<div class="container">
-		<p><img src="/images/copyright-symbol-home.png" alt="©" width="14" height="14"> 2014 InterWhale Group</p>
-	</div>
-</footer>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="/js/home.js"></script>
-</body>
-</html>
+@stop
