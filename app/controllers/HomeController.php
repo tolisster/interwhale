@@ -20,4 +20,11 @@ class HomeController extends BaseController {
 		return View::make('home');
 	}
 
+	public function getPage($page)
+	{
+		if (!View::exists('guest.'.$page))
+			App::abort(404);
+		return View::make('guest.'.$page);
+	}
+
 }

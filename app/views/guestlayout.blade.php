@@ -29,14 +29,14 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/" title="InterWhale - International Dating Service"><img src="/images/logo.png" width="129" height="33" alt="InterWhale - International Dating Service"></a>
+			<a class="navbar-brand" href="{{ URL::action('HomeController@getHome') }}" title="InterWhale - International Dating Service"><img src="{{ asset('images/logo.png') }}" width="129" height="33" alt="InterWhale - International Dating Service"></a>
 		</div>
 		<div class="collapse navbar-collapse" id="navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="/static.html">About Us</a></li>
-				<li><a href="/static.html">Contacts</a></li>
-				<li><a href="/static.html">Terms</a></li>
-				<li><a href="/static.html">Help</a></li>
+				<li>{{ link_to_action('HomeController@getPage', 'About Us', array('about-us')) }}</li>
+				<li>{{ link_to_action('HomeController@getPage', 'Contacts', array('contacts')) }}</li>
+				<li>{{ link_to_action('HomeController@getPage', 'Terms', array('terms')) }}</li>
+				<li>{{ link_to_action('HomeController@getPage', 'Help', array('help')) }}</li>
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</div>

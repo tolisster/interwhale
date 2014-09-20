@@ -74,4 +74,9 @@ $(document).ready(function() {
 		}
 		showNextConnection();
 	}
+
+	$('#register form').submit(function() {
+		var btn = $(this).find('.btn-primary');
+		btn.button('loading');
+	});
 });

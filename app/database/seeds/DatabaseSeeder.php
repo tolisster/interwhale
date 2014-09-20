@@ -26,13 +26,14 @@ class UserTableSeeder extends Seeder {
 
 		User::create(array(
 			'email' => 'tolisster@gmail.com',
-			'name' => 'Anatoli Lazar',
-			'code' => 'test1'
-		));
-		User::create(array(
-			'email' => 'tolis@inbox.ru',
-			'name' => 'Лазар Анатолий',
-			'code' => 'test2'
+			'first_name' => 'Anatoli',
+			'last_name' => 'Lazar',
+			'country_code' => 'MD',
+			'country_name' => 'Moldova',
+			'city' => 'Chisinau',
+			'password' => Hash::make('123123'),
+			'code' => 'test1',
+			'active' => 1,
 		));
 	}
 

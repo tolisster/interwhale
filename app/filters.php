@@ -78,3 +78,13 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+Route::filter('localization', function() {
+	$supportedLocales = Config::get('app.supported_locales');
+	$locale = Request::segment(1);
+
+	if (!in_array($locale, $supportedLocales))
+		App::abort(404);
+
+	App::setLocale($locale);
+});

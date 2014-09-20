@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>{{ $user->name }} - International Dating Service</title>
+	<title>{{{ $user->name() }}} - International Dating Service</title>
 	<!-- Bootstrap -->
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 
@@ -31,7 +31,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/" title="InterWhale - International Dating Service"><img src="/images/logo.png" width="156" height="40" alt="InterWhale - International Dating Service"></a>
+			<a class="navbar-brand" href="{{ URL::action('HomeController@getHome') }}" title="InterWhale - International Dating Service"><img src="{{ asset('images/logo.png') }}" width="156" height="40" alt="InterWhale - International Dating Service"></a>
 		</div>
 		<div class="collapse navbar-collapse" id="navbar-collapse">
 			<form class="navbar-form navbar-left" role="search">
@@ -43,20 +43,20 @@
 				</div><!-- /input-group -->
 			</form>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="/static.html">Messages <span class="badge">26</span></a></li>
+				<li><a href="/static.html">Messages<!-- <span class="badge">26</span>--></a></li>
 				<li><a href="/static.html">Alerts</a></li>
-				<li><a href="/static.html">Friends <span class="badge">4</span></a></li>
+				<li><a href="/static.html">Friends<!-- <span class="badge">4</span>--></a></li>
 				<li><a href="/static.html">Photos</a></li>
 				<li class="dropdown">
 					<a href="" class="dropdown-toggle" data-toggle="dropdown">
-						<img src="/images/den-stafford-avatar-small.jpg" width="32" height="32" alt="{{ $user->name }}" class="img-circle">
-						<b class="user-name">{{ $user->name }}</b>
+						<img src="{{ asset('images/den-stafford-avatar-small.jpg') }}" width="32" height="32" alt="{{{ $user->name() }}}" class="img-circle">
+						<b class="user-name">{{{ $user->name() }}}</b>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="{{ URL::to('logout') }}">Disconnect</a></li>
+						<li><a href="{{ URL::route('logout') }}">Disconnect</a></li>
 					</ul>
 				</li>
-				<li><a href="{{ URL::to('logout') }}" id="sign-out" title="Sign out"><span class="sr-only">Sign out</span></a></li>
+				<li><a href="{{ URL::route('logout') }}" id="sign-out" title="Sign out"><span class="sr-only">Sign out</span></a></li>
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</div>

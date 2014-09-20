@@ -16,12 +16,12 @@
 		</div>
 		<div class="col-md-4">
 			<ul class="nav nav-pills nav-justified" role="tablist">
-				<li class="active"><a href="#log-in" role="tab" data-toggle="pill">Log in</a></li>
-				<li><a href="#sign-up" role="tab" data-toggle="pill">Sign up</a></li>
+				<li class="active"><a href="#login" role="tab" data-toggle="pill">Log in</a></li>
+				<li><a href="#register" role="tab" data-toggle="pill">Sign up</a></li>
 			</ul>
 			<div class="tab-content">
-				<div class="tab-pane active" id="log-in">
-					<form role="form" method="post" action="{{ URL::to('login') }}">
+				<div class="tab-pane active" id="login">
+					{{ Form::open(array('url' => 'login', 'method' => 'post', 'role' => 'form')) }}
 						<h2>Log in to your account</h2>
 						<div class="btn-group btn-group-justified" id="sign-in-with">
 							<div class="btn-group">
@@ -32,47 +32,66 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="email-input" class="sr-only">Email address</label>
-							<input type="email" name="email" class="form-control" id="email-input" placeholder="Email address" required autofocus>
+							{{ Form::label('email-login', 'Email address', array('class' => 'sr-only')) }}
+							{{ Form::email('email', Input::old('email'), array('id' => 'email-login', 'class' => 'form-control', 'placeholder' => 'Email address', 'required' => 'required', 'autofocus' => 'autofocus')) }}
 						</div>
 						<div class="form-group">
-							<label for="password-input" class="sr-only">Password</label>
-							<input type="password" name="password" class="form-control" id="password-input" placeholder="Password" required>
+							{{ Form::label('password-login', 'Password', array('class' => 'sr-only')) }}
+							{{ Form::password('password', array('id' => 'password-login', 'class' => 'form-control', 'placeholder' => 'Password', 'required' => 'required')) }}
 						</div>
+						@if ($error = $errors->first('password'))
+						<div class="alert alert-danger">
+							{{ $error }}
+						</div>
+						@endif
 						<div class="checkbox text-center">
 							<label>
-								<input type="checkbox" name="remember"> Remember your password
+								{{ Form::checkbox('remember', '1') }} Remember your password
 							</label>
 						</div>
 						<div class="form-group text-center">
-							<button type="submit" class="btn btn-primary">Log in</button>
+							{{ Form::button('Log in', array('type' => 'submit', 'class' => 'btn btn-primary')) }}
 						</div>
-					</form>
+					{{ Form::close() }}
 				</div>
-				<div class="tab-pane" id="sign-up">
-					<form role="form" method="post" action="{{ URL::to('register') }}">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				<div class="tab-pane" id="register">
+					{{ Form::open(array('url' => 'register', 'method' => 'post', 'role' => 'form')) }}
 						<h2>Create new account</h2>
-						<div class="form-group">
-							<label for="name-input" class="sr-only">Name</label>
-							<input type="text" name="name" class="form-control" id="name-input" placeholder="Name" required>
+					{{-- <div class="form-group">
+							{{ Form::label('first-name-register', 'First name', array('class' => 'sr-only')) }}
+							{{ Form::text('first_name', null, array('id' => 'first-name-register', 'class' => 'form-control', 'placeholder' => 'First name', 'required' => 'required')) }}
 						</div>
 						<div class="form-group">
-							<label for="email-input" class="sr-only">Email address</label>
-							<input type="email" name="email" class="form-control" id="email-input" placeholder="Email address" required>
+							{{ Form::label('last-name-register', 'Last name', array('class' => 'sr-only')) }}
+							{{ Form::text('last_name', null, array('id' => 'last-name-register', 'class' => 'form-control', 'placeholder' => 'Last name', 'required' => 'required')) }}
 						</div>
 						<div class="form-group">
-							<label for="password-input" class="sr-only">Password</label>
-							<input type="password" name="password" class="form-control" id="password-input" placeholder="Password" required>
+							{{ Form::label('email-register', 'Email address', array('class' => 'sr-only')) }}
+							{{ Form::email('email', null, array('id' => 'email-register', 'class' => 'form-control', 'placeholder' => 'Email address', 'required' => 'required')) }}
 						</div>
+						<div class="form-group">
+							{{ Form::label('password-register', 'Password', array('class' => 'sr-only')) }}
+							{{ Form::password('password', array('id' => 'password-register', 'class' => 'form-control', 'placeholder' => 'Password', 'required' => 'required')) }}
+						</div>
+						<div class="form-group">
+							{{ Form::label('password-confirmation-register', 'Password confirmation', array('class' => 'sr-only')) }}
+							{{ Form::password('password_confirmation', array('id' => 'password-confirmation-register', 'class' => 'form-control', 'placeholder' => 'Password confirmation', 'required' => 'required')) }}
+						</div> --}}
+						<div class="form-group">
+							{{ Form::label(null, 'Payment method', array('class' => 'sr-only')) }}
+							<select class="form-control">
+								<option>Will be processed by PayPal</option>
+							</select>
+						</div>
+						<p class="text-center">Payment per year 2.99 USD</p>
 						<div class="form-group text-center">
-							<button type="submit" class="btn btn-primary">Sign up</button>
+							{{ Form::button('Sign up', array('type' => 'submit', 'class' => 'btn btn-primary', 'data-loading-text' => 'Processing...')) }}
 						</div>
-					</form>
+					{{ Form::close() }}
 				</div>
 			</div>
 			<div class="row text-center">
-				<a href="{{ action('RemindersController@getRemind') }}">Forgot your password?</a>
+				{{ link_to_action('RemindersController@getRemind', 'Forgot your password?') }}
 			</div>
 			<ul class="list-group hidden-xs hidden-sm" id="last-connections">
 				<li class="list-group-item"><strong><img src="http://www.logicsoft.md/images/famfamfam/flag_icons/it.png" width="16" height="11" alt="Italia" lang="it"> Laura Moretti</strong> meet with <strong>Mikhail Galushko <img src="http://www.logicsoft.md/images/famfamfam/flag_icons/ua.png" width="16" height="11" alt="Україна" lang="ua"></strong></li>
@@ -91,14 +110,18 @@
 						Select language
 					</button>
 					<ul class="dropdown-menu" role="menu" aria-labelledby="languageDropdownMenu">
-						<li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#">English</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="ar">العربية</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="ru">Русский</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="it">Italiano</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="es">Español</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="de">Deutsch</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="fr">Français</a></li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#" lang="tr">Türkçe</a></li>
+						@if ('en' == App::getLocale())
+						<li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="{{ URL::action('HomeController@getHome') }}">English</a></li>
+						@else
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="{{ URL::action('HomeController@getHome') }}" lang="en">English</a></li>
+						@endif
+						@foreach (Config::get('app.supported_locales') as $locale)
+						@if ($locale == App::getLocale())
+						<li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="/{{ $locale }}">{{ $locale }}</a></li>
+						@else
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="/{{ $locale }}" lang="{{ $locale }}">{{ $locale }}</a></li>
+						@endif
+						@endforeach
 					</ul>
 				</div>
 			</div>

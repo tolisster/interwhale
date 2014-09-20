@@ -1,4 +1,4 @@
-@extends('guestlayout')
+@extends('authlayout')
 
 @section('content')
 <div class="container">
@@ -6,7 +6,7 @@
 		<div class="col-md-3" id="sidebar">
 			<div class="border-right"></div>
 			<div id="avatar">
-				<img src="/images/den-stafford-avatar.jpg" width="108" height="108" alt="{{ $user->name }}" class="img-circle center-block">
+				<img src="/images/den-stafford-avatar.jpg" width="108" height="108" alt="{{{ $user->name() }}}" class="img-circle center-block">
 			</div>
 			<div id="avatar-background" style="background-image:url(/images/den-stafford-background.jpg);background-position:50% 93%">
 				<div>
@@ -15,7 +15,7 @@
 			</div>
 			<div id="online" class="pull-left">Online</div>
 			<div id="time" class="pull-right">9:53 pm</div>
-			<h1>{{ $user->name }} <small>Los Angeles, California</small></h1>
+			<h1>{{{ $user->name() }}} <small>Los Angeles, California</small></h1>
 			<ul class="nav nav-pills nav-stacked" id="user-menu">
 				<li class="active"><a href="#">Settings</a></li>
 				<li><a href="#">Statistics</a></li>
@@ -225,10 +225,10 @@
 					</div>
 					<div class="col-md-5">
 						<ul class="nav nav-pills nav-main">
-							<li><a href="/static.html">About Us</a></li>
-							<li><a href="/static.html">Contacts</a></li>
-							<li><a href="/static.html">Terms</a></li>
-							<li><a href="/static.html">Help</a></li>
+							<li>{{ link_to('about-us', 'About Us') }}</li>
+							<li>{{ link_to('contacts', 'Contacts') }}</li>
+							<li>{{ link_to('terms', 'Terms') }}</li>
+							<li>{{ link_to('help', 'Help') }}</li>
 						</ul>
 					</div>
 				</div>
