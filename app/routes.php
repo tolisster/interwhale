@@ -172,7 +172,7 @@ Route::post('login', function()
 		'active' => 1
 	), Input::has('remember')))
 		return Redirect::intended('profile');
-	$errors = new Illuminate\Support\MessageBag(['password' => ['Email and/or password invalid.']]);
+	$errors = new Illuminate\Support\MessageBag(array('password' => array('Email and/or password invalid.')));
 	return Redirect::back()->withErrors($errors)->withInput(Input::except('password'));
 });
 
