@@ -6,6 +6,7 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	protected $fillable = array('email', 'first_name', 'last_name');
+	protected $softDelete = true;
 	/**
 	 * The database table used by the model.
 	 *
@@ -65,9 +66,29 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return 'remember_token';
 	}
 
-	public function name()
+	public function getFullNameAttribute()
 	{
 		return "$this->first_name $this->last_name";
+	}
+
+	public function getLocationNameAttribute()
+	{
+		return "$this->city, ".($this->country_code == 'US' ? $this->state->name : $this->country->name);
+	}
+
+	public function country()
+	{
+		return $this->belongsTo('Country', 'country_code');
+	}
+
+	public function state()
+	{
+		return $this->belongsTo('State', 'state_code');
+	}
+
+	public function userInfo()
+	{
+		return $this->hasOne('UserInfo');
 	}
 
 }

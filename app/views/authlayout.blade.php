@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>{{{ $user->name() }}} - International Dating Service</title>
+	<title>{{{ $user->full_name }}} - International Dating Service</title>
 	<!-- Bootstrap -->
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 
@@ -49,8 +49,8 @@
 				<li><a href="/static.html">Photos</a></li>
 				<li class="dropdown">
 					<a href="" class="dropdown-toggle" data-toggle="dropdown">
-						<img src="{{ asset('images/den-stafford-avatar-small.jpg') }}" width="32" height="32" alt="{{{ $user->name() }}}" class="img-circle">
-						<b class="user-name">{{{ $user->name() }}}</b>
+						<img src="{{ asset('images/den-stafford-avatar-small.jpg') }}" width="32" height="32" alt="{{{ $user->full_name }}}" class="img-circle">
+						<b class="user-name">{{{ $user->full_name }}}</b>
 					</a>
 					<ul class="dropdown-menu">
 						<li><a href="{{ URL::route('logout') }}">Disconnect</a></li>

@@ -11,11 +11,19 @@
 |
 */
 
-Route::get('profile', array('as' => 'profile', 'before' => 'auth', function()
+Route::pattern('user', '[a-z][a-z0-9]{6}[0-9]');
+Route::model('user', 'User');
+Route::bind('user', function($value, $route)
 {
-	$user = Auth::user();
-	return View::make('user')->with('user', $user);
-}));
+	$user = User::where('code', $value)->first();
+	if ($user == null)
+		App::abort(404);
+	return $user;
+});
+Route::get('{user}', array('before' => 'auth', 'uses' => 'UserController@showProfile'))/*
+	->where('code', '[A-Za-z0-9]+')*/;
+
+Route::get('profile', array('as' => 'profile', 'before' => 'auth', 'uses' => 'UserController@showProfile'));
 
 Route::get('logout', array('as' => 'logout', 'before' => 'auth', function()
 {
@@ -70,7 +78,6 @@ Route::get('register/return', function()
 	$user->first_name = $data['FIRSTNAME'];
 	$user->last_name = $data['LASTNAME'];
 	$user->country_code = $data['COUNTRYCODE'];
-	$user->country_name = $data['SHIPTOCOUNTRYNAME'];
 	$user->state_code = $data['SHIPTOSTATE'];
 	$user->city = $data['SHIPTOCITY'];
 	$user->password = Hash::make($password);
@@ -84,15 +91,19 @@ Route::get('register/return', function()
               substring('abcdefghijklmnopqrstuvwxyz0123456789', rand(@seed:=round(rand(@seed)*4294967296))*36+1, 1),
               substring('abcdefghijklmnopqrstuvwxyz0123456789', rand(@seed:=round(rand(@seed)*4294967296))*36+1, 1),
               substring('abcdefghijklmnopqrstuvwxyz0123456789', rand(@seed:=round(rand(@seed)*4294967296))*36+1, 1),
-              substring('abcdefghijklmnopqrstuvwxyz0123456789', rand(@seed)*36+1, 1)
-             ), active = 1
+              substring('0123456789', rand(@seed)*10+1, 1)
+             )
      WHERE id = ?", array($user->id, $user->id));
+
+	$userInfo = new UserInfo;
+	$userInfo->description = isset($data['PAYMENTREQUEST_0_NOTETEXT']) ? $data['PAYMENTREQUEST_0_NOTETEXT'] : null;
+	$user->userInfo()->save($userInfo);
 
 	Log::info('user created', array_merge($user->toArray(), array('password' => $password)));
 
 	Auth::login($user);
 
-	return Redirect::route('profile');
+	return Redirect::intended('profile');
 });
 
 Route::get('register/cancel', function()
@@ -107,29 +118,12 @@ Route::get('register/cancel', function()
 	return Redirect::route('home');
 });
 
-Route::pattern('user', '[A-Za-z0-9]+');
-
-Route::model('user', 'User');
-
-Route::bind('user', function($value, $route)
+Route::get('search', array('before' => 'auth', function()
 {
-	$user = User::where('code', $value)->first();
-	if ($user == null)
-		App::abort(404);
-	return $user;
-});
+	$users = User::all();
 
-Route::get('{user}', array('before' => 'auth', function(User $user = null)
-{
-	return View::make('user')->with('user', $user);
-}))/*
-	->where('code', '[A-Za-z0-9]+')*/;
-
-Route::post('pay_via_paypal', 'PaymentController@postPayment');
-Route::get('payment_success', 'PaymentController@getSuccessPayment');
-Route::get('cancel_order', function() {
-	return Redirect::route('home');
-});
+	return View::make('search')->with('users', $users);
+}));
 
 $supportedLocales = Config::get('app.supported_locales');
 $locale = Request::segment(1);
@@ -149,27 +143,11 @@ Route::group(array('prefix' => $locale), function() {
 
 });
 
-
-/*Route::get('users', 'UserController@getIndex');
-
-Route::get('users', function()
-{
-	return View::make('users');
-});*/
-
-Route::get('users', array('before' => 'auth', function()
-{
-	$users = User::all();
-
-	return View::make('users')->with('users', $users);
-}));
-
 Route::post('login', function()
 {
 	if (Auth::attempt(array(
 		'email' => Input::get('email'),
-		'password' => Input::get('password'),
-		'active' => 1
+		'password' => Input::get('password')
 	), Input::has('remember')))
 		return Redirect::intended('profile');
 	$errors = new Illuminate\Support\MessageBag(array('password' => array('Email and/or password invalid.')));

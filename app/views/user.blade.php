@@ -6,16 +6,16 @@
 		<div class="col-md-3" id="sidebar">
 			<div class="border-right"></div>
 			<div id="avatar">
-				<img src="/images/den-stafford-avatar.jpg" width="108" height="108" alt="{{{ $user->name() }}}" class="img-circle center-block">
+				<img src="/images/den-stafford-avatar.jpg" width="108" height="108" alt="{{{ $user->full_name }}}" class="img-circle center-block">
 			</div>
 			<div id="avatar-background" style="background-image:url(/images/den-stafford-background.jpg);background-position:50% 93%">
 				<div>
-					<p>Ищу попутчика для путешествия по Индии этим летом.</p>
+					<p>{{{ $user->description }}}</p>
 				</div>
 			</div>
 			<div id="online" class="pull-left">Online</div>
 			<div id="time" class="pull-right">9:53 pm</div>
-			<h1>{{{ $user->name() }}} <small>Los Angeles, California</small></h1>
+			<h1>{{{ $user->full_name }}} <small>{{{ $user->location_name }}}</small></h1>
 			<ul class="nav nav-pills nav-stacked" id="user-menu">
 				<li class="active"><a href="#">Settings</a></li>
 				<li><a href="#">Statistics</a></li>
@@ -40,32 +40,32 @@
 						</div>
 						<table class="table">
 							<tr>
-								<th>Пол:</th>
-								<td>мужской</td>
+								<th>Gender</th>
+								<td>{{ $user->user_info->gender_name }}</td>
 							</tr>
 							<tr>
-								<th>Возраст:</th>
-								<td>24</td>
+								<th>Age</th>
+								<td>{{ $user->user_info->age }}</td>
 							</tr>
 							<tr>
-								<th>Семейное положение:</th>
-								<td>женат</td>
+								<th>Relationship Status</th>
+								<td>{{ $user->user_info->relationship }}</td>
 							</tr>
 							<tr>
-								<th>Язык:</th>
-								<td>английский</td>
+								<th>Languages</th>
+								<td>{{ $user->user_info->language_names }}</td>
 							</tr>
 							<tr>
-								<th>Родной город:</th>
-								<td>Лос-Анджелес</td>
+								<th>Hometown</th>
+								<td>{{{ $user->location_name }}}</td>
 							</tr>
 							<tr>
-								<th>Образование:</th>
-								<td>МГУ</td>
+								<th>Education</th>
+								<td>{{{ $user->user_info->education }}}</td>
 							</tr>
 							<tr>
-								<th>Деятельность:</th>
-								<td>журналист</td>
+								<th>Activity</th>
+								<td>{{{ $user->user_info->activity }}}</td>
 							</tr>
 							<tr>
 								<th>Религия:</th>

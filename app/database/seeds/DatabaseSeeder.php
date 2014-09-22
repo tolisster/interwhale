@@ -22,19 +22,32 @@ class UserTableSeeder extends Seeder {
 
 	public function run()
 	{
+		DB::table('user_infos')->delete();
+
 		DB::table('users')->delete();
 
-		User::create(array(
+		$user = User::create(array(
+			'code' => 'test1',
 			'email' => 'tolisster@gmail.com',
 			'first_name' => 'Anatoli',
 			'last_name' => 'Lazar',
 			'country_code' => 'MD',
-			'country_name' => 'Moldova',
 			'city' => 'Chisinau',
 			'password' => Hash::make('123123'),
-			'code' => 'test1',
-			'active' => 1,
 		));
+
+		$userInfo = new UserInfo(array(
+			'gender' => 'm',
+			'birthdate' => '1982-11-06',
+			'description' => 'Ищу попутчика для путешествия по Индии этим летом.',
+			'relationship' => 'married',
+			'languages' => 'ru,ro,en',
+			'education' => 'UCCM',
+			'activity' => 'Программист'
+		));
+
+		$user->userInfo()->save($userInfo);
+
 	}
 
 }

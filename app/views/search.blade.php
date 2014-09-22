@@ -1,7 +1,7 @@
-@extends('layout')
+@extends('authlayout')
 
 @section('content')
 @foreach($users as $user)
-<p>{{{ $user->name() }}}</p>
+<p>{{{ $user->full_name }}}</p>
 @endforeach
 @stop
