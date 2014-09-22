@@ -8,7 +8,7 @@ return array(
 	// Add in each gateway here
 	'gateways' => array(
 		'paypal' => array(
-			'driver' => 'PayPal_Express',
+			'driver' => '\\App\\Omnipay\\PayPal\\ExtendedExpressGateway',
 			'options' => array(
 				'solutionType' => '',
 				'landingPage' => '',

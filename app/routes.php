@@ -65,7 +65,7 @@ Route::get('register/return', function()
 			$data['LASTNAME'],
 			$data['COUNTRYCODE'],
 			$data['SHIPTOCOUNTRYNAME'],
-			$data['SHIPTOSTATE'],
+			$data['COUNTRYCODE'] == 'US' ? $data['SHIPTOSTATE'] : null,
 			$data['SHIPTOCITY'],
 			isset($data['PAYMENTREQUEST_0_NOTETEXT']) ? $data['PAYMENTREQUEST_0_NOTETEXT'] : null,
 			$data['TOKEN']
@@ -78,7 +78,7 @@ Route::get('register/return', function()
 	$user->first_name = $data['FIRSTNAME'];
 	$user->last_name = $data['LASTNAME'];
 	$user->country_code = $data['COUNTRYCODE'];
-	$user->state_code = $data['SHIPTOSTATE'];
+	$user->state_code = $data['COUNTRYCODE'] == 'US' ? $data['SHIPTOSTATE'] : null;
 	$user->city = $data['SHIPTOCITY'];
 	$user->password = Hash::make($password);
 	$user->save();
@@ -156,6 +156,12 @@ Route::post('login', function()
 
 Route::post('register', array('before' => 'csrf', function()
 {
+	/*$response = Omnipay::fetchExpressCheckoutDetail();
+	$data = $response->getData();
+	Log::info('Omnipay test', $data);
+
+	exit();*/
+
 	$response = Omnipay::purchase(array(
 		'amount' => 2.99,
 		'currency' => 'USD',
