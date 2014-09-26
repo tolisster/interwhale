@@ -186,7 +186,7 @@ Route::post('login', function()
 	return Redirect::back()->withErrors($errors)->withInput(Input::except('password'));
 });
 
-Route::post('register', array('before' => 'csrf', function()
+Route::post('register', array(function()
 {
 	$response = Omnipay::purchase(array(
 		'amount' => 2.99,
