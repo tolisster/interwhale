@@ -99,24 +99,24 @@ User::created(function($user)
 			) where id = ?", array($user->id, $user->id));
 });
 
-Form::macro('selectWithDefault', function($name, $list, $selected = null, $default = null, $attributes = [])
+Form::macro('selectWithDefault', function($name, $list, $selected = null, $default = null, $attributes = array())
 {
 	return Form::select($name, $default + $list, $selected, $attributes);
 });
 
-Form::macro('selectRangeWithDefault', function($name, $begin, $end, $selected = null, $default = null, $options = [])
+Form::macro('selectRangeWithDefault', function($name, $begin, $end, $selected = null, $default = null, $options = array())
 {
 	$range = array_combine($range = range($begin, $end), $range);
 
 	return Form::selectWithDefault($name, $range, $selected, $default, $options);
 });
 
-Form::macro('selectYearWithDefault', function($name, $begin, $end, $selected = null, $default = null, $options = [])
+Form::macro('selectYearWithDefault', function($name, $begin, $end, $selected = null, $default = null, $options = array())
 {
 	return Form::selectRangeWithDefault($name, $begin, $end, $selected, $default, $options);
 });
 
-Form::macro('selectMonthWithDefault', function($name, $selected = null, $default = null, $options = [], $format = '%B')
+Form::macro('selectMonthWithDefault', function($name, $selected = null, $default = null, $options = array(), $format = '%B')
 {
 	$months = array();
 
