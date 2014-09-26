@@ -41,7 +41,10 @@ class UserController extends BaseController {
 			//'state_code' => 'required',
 			'city' => 'required'
 		);
-		$validator = Validator::make(Input::all(), $rules);
+
+		$post = Input::all();
+
+		$validator = Validator::make($post, $rules);
 
 		// process the login
 		if ($validator->fails()) {
@@ -54,8 +57,10 @@ class UserController extends BaseController {
 		} else {
 			// store
 			$user = Auth::user();
-			$user->update(Input::all());
-			$user->userInfo()->update(Input::all()['user_info']);
+
+			$user->update($post);
+			$user->userInfo()->update($post['user_info']);
+
 			return 'Ok';
 		}
 	}
