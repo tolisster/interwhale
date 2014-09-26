@@ -1,12 +1,25 @@
 @extends('authlayout')
 
+@section('title')
+{{{ $user->full_name }}}
+@stop
+
+@section('css')
+<link rel="stylesheet" href="/css/user.css">
+@stop
+
+@section('js')
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<!--<script src="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.min.js"></script>-->
+@stop
+
 @section('content')
 <div class="container">
 	<div class="row equal">
 		<div class="col-md-3" id="sidebar">
 			<div class="border-right"></div>
 			<div id="avatar">
-				<img src="/images/den-stafford-avatar.jpg" width="108" height="108" alt="{{{ $user->full_name }}}" class="img-circle center-block">
+				<img src="/images/den-stafford-avatar.jpg" alt="{{{ $user->full_name }}}" class="img-circle center-block">
 			</div>
 			<div id="avatar-background" style="background-image:url(/images/den-stafford-background.jpg);background-position:50% 93%">
 				<div>
@@ -49,7 +62,7 @@
 							</tr>
 							<tr>
 								<th>Relationship Status</th>
-								<td>{{ $user->user_info->relationship }}</td>
+								<td>{{ $user->user_info->relationship_name }}</td>
 							</tr>
 							<tr>
 								<th>Languages</th>
@@ -57,7 +70,7 @@
 							</tr>
 							<tr>
 								<th>Hometown</th>
-								<td>{{{ $user->location_name }}}</td>
+								<td>{{{ $user->city }}}</td>
 							</tr>
 							<tr>
 								<th>Education</th>
@@ -165,25 +178,25 @@
 					<ul class="nav nav-pills">
 						<li class="active">
 							<a href="#">
-								<img src="/images/chris-bale-avatar-middle.jpg" width="45" height="45" alt="Chris Bale" class="img-circle">
+								<img src="/images/chris-bale-avatar-middle.jpg" alt="Chris Bale" class="img-circle">
 								<b>Chris Bale <small>Brazil</small></b>
 							</a>
 						</li>
 						<li>
 							<a href="#">
-								<img src="/images/diana-beasley-avatar-middle.jpg" width="45" height="45" alt="Chris Bale" class="img-circle">
+								<img src="/images/diana-beasley-avatar-middle.jpg" alt="Chris Bale" class="img-circle">
 								<b>Diana Beasley <small>Canada</small></b>
 							</a>
 						</li>
 						<li>
 							<a href="#">
-								<img src="/images/dina-henkel-avatar-middle.jpg" width="45" height="45" alt="Chris Bale" class="img-circle">
+								<img src="/images/dina-henkel-avatar-middle.jpg" alt="Chris Bale" class="img-circle">
 								<b>Dina Henkel <small>Germany</small></b>
 							</a>
 						</li>
 						<li>
 							<a href="#">
-								<img src="/images/martin-green-avatar-middle.jpg" width="45" height="45" alt="Chris Bale" class="img-circle">
+								<img src="/images/martin-green-avatar-middle.jpg" alt="Chris Bale" class="img-circle">
 								<b>Martin Green <small>England</small></b>
 							</a>
 						</li>

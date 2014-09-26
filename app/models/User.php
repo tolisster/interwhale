@@ -5,8 +5,8 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
-	protected $fillable = array('email', 'first_name', 'last_name');
 	protected $softDelete = true;
+	protected $fillable = array('email', 'first_name', 'last_name', 'country_code', 'state_code', 'city');
 	/**
 	 * The database table used by the model.
 	 *
@@ -71,9 +71,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return "$this->first_name $this->last_name";
 	}
 
+	public function getLocationName($delimiter = ', ')
+	{
+		return $this->city.$delimiter.($this->country_code == 'US' ? $this->state->name : $this->country->name);
+	}
+
 	public function getLocationNameAttribute()
 	{
-		return "$this->city, ".($this->country_code == 'US' ? $this->state->name : $this->country->name);
+		return $this->getLocationName();
 	}
 
 	public function country()

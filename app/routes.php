@@ -16,7 +16,7 @@ Route::model('user', 'User');
 Route::bind('user', function($value, $route)
 {
 	$user = User::where('code', $value)->first();
-	if ($user == null)
+	if (is_null($user))
 		App::abort(404);
 	return $user;
 });
@@ -24,6 +24,8 @@ Route::get('{user}', array('before' => 'auth', 'uses' => 'UserController@showPro
 	->where('code', '[A-Za-z0-9]+')*/;
 
 Route::get('profile', array('as' => 'profile', 'before' => 'auth', 'uses' => 'UserController@showProfile'));
+Route::get('profile/edit', array('as' => 'profile.edit', 'before' => 'auth', 'uses' => 'UserController@editProfile'));
+Route::post('profile/update', array('as' => 'profile.update', 'before' => 'auth', 'uses' => 'UserController@updateProfile'));
 
 Route::get('logout', array('as' => 'logout', 'before' => 'auth', function()
 {
@@ -41,6 +43,11 @@ Route::get('register/return', function()
 	))->send();
 	$data = $response->getData();
 	Log::info('Omnipay complete purchase', $data);
+
+	if (!$response->isSuccessful()) {
+		Log::error('Omnipay error', array($response->getMessage()));
+		App::abort(500);
+	}
 
 	DB::update('UPDATE payments SET amount = ?, currency = ?, fee = ?,
 	updated_at = NOW() WHERE token = ?',
@@ -83,23 +90,11 @@ Route::get('register/return', function()
 	$user->password = Hash::make($password);
 	$user->save();
 
-	DB::update("UPDATE users SET code = concat(
-              substring('abcdefghijklmnopqrstuvwxyz', rand(@seed:=round(rand(?)*4294967296))*26+1, 1),
-              substring('abcdefghijklmnopqrstuvwxyz0123456789', rand(@seed:=round(rand(@seed)*4294967296))*36+1, 1),
-              substring('abcdefghijklmnopqrstuvwxyz0123456789', rand(@seed:=round(rand(@seed)*4294967296))*36+1, 1),
-              substring('abcdefghijklmnopqrstuvwxyz0123456789', rand(@seed:=round(rand(@seed)*4294967296))*36+1, 1),
-              substring('abcdefghijklmnopqrstuvwxyz0123456789', rand(@seed:=round(rand(@seed)*4294967296))*36+1, 1),
-              substring('abcdefghijklmnopqrstuvwxyz0123456789', rand(@seed:=round(rand(@seed)*4294967296))*36+1, 1),
-              substring('abcdefghijklmnopqrstuvwxyz0123456789', rand(@seed:=round(rand(@seed)*4294967296))*36+1, 1),
-              substring('0123456789', rand(@seed)*10+1, 1)
-             )
-     WHERE id = ?", array($user->id, $user->id));
-
 	$userInfo = new UserInfo;
 	$userInfo->description = isset($data['PAYMENTREQUEST_0_NOTETEXT']) ? $data['PAYMENTREQUEST_0_NOTETEXT'] : null;
 	$user->userInfo()->save($userInfo);
 
-	Log::info('user created', array_merge($user->toArray(), array('password' => $password)));
+	Log::info('user created', $user->toArray() + array('password' => $password));
 
 	Auth::login($user);
 
@@ -120,7 +115,44 @@ Route::get('register/cancel', function()
 
 Route::get('search', array('before' => 'auth', function()
 {
-	$users = User::all();
+	$query = User::query();
+
+	if (Input::has('country'))
+		$query->whereCountryCode(Input::get('country'));
+
+	if (Input::has('gender') || Input::has('from-age') || Input::has('to-age') || Input::has('relationship'))
+		$query->whereHas('userInfo', function($query)
+		{
+			if (Input::has('gender'))
+				$query->where(function($query)
+				{
+					$query->where('gender', null)
+						->orWhere('gender', Input::get('gender'));
+				});
+
+			if (Input::has('from-age') || Input::has('to-age'))
+				$query->where(function($query)
+				{
+					$query->whereBirthdate(null)
+						->orWhere(function($query) {
+							if (Input::has('from-age'))
+								$query->whereRaw('timestampdiff(year, birthdate, curdate()) >= ?',
+									array(Input::get('from-age')));
+							if (Input::has('to-age'))
+								$query->whereRaw('timestampdiff(year, birthdate, curdate()) <= ?',
+									array(Input::get('to-age')));
+						});
+				});
+
+			if (Input::has('relationship'))
+				$query->where(function($query)
+				{
+					$query->where('relationship', null)
+						->orWhere('relationship', Input::get('relationship'));
+				});
+		});
+
+	$users = $query->get();
 
 	return View::make('search')->with('users', $users);
 }));
@@ -156,12 +188,6 @@ Route::post('login', function()
 
 Route::post('register', array('before' => 'csrf', function()
 {
-	/*$response = Omnipay::fetchExpressCheckoutDetail();
-	$data = $response->getData();
-	Log::info('Omnipay test', $data);
-
-	exit();*/
-
 	$response = Omnipay::purchase(array(
 		'amount' => 2.99,
 		'currency' => 'USD',

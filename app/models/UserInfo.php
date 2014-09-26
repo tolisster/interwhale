@@ -3,6 +3,8 @@
 class UserInfo extends Eloquent {
 
 	public $timestamps = false;
+	protected $fillable = array('gender', 'birthdate', 'relationship', 'languages', 'education', 'activity',
+		'description');
 
 	public static $languageCodes = array(
 		'aa' => 'Afar',
@@ -191,44 +193,69 @@ class UserInfo extends Eloquent {
 		'zu' => 'Zulu'
 	);
 
-	public function getDates()
+	public static $genders = array(
+		'm' => 'Male',
+		'f' => 'Female'
+	);
+
+	public static $relationships = array(
+		'married' => 'Married',
+		'single' => 'Single',
+		'divorced' => 'Divorced',
+		'widowed' => 'Widowed',
+		'cohabiting' => 'Cohabiting',
+		'civil union' => 'Civil union',
+		'domestic partnership' => 'Domestic partnership',
+		'unmarried partners' => 'Unmarried partners'
+	);
+
+	const MIN_AGE = 16;
+	const MAX_AGE = 99;
+
+	public function user()
 	{
-		return array('birthdate');
+		return $this->belongsTo('User');
 	}
 
 	public function getGenderNameAttribute()
 	{
-		if ($this->gender == 'm')
-			return 'male';
-		if ($this->gender == 'f')
-			return 'female';
-		return null;
+		if (is_null($this->gender))
+			return null;
+		return self::$genders[$this->gender];
 	}
 
 	public function getAgeAttribute()
 	{
-		if ($this->birthdate == null)
+		if (is_null($this->birthdate))
 			return null;
+		$birthdate = DateTime::createFromFormat('Y-m-d', $this->birthdate);
 		$now = new DateTime();
-		return $now->diff($this->birthdate)->y;
+		return $now->diff($birthdate)->y;
 	}
 
 	public function getLanguagesAttribute($value)
 	{
-		if ($value == null)
+		if (is_null($value))
 			return null;
 		return explode(',', $value);
 	}
 
 	public function getLanguageNamesAttribute()
 	{
-		if ($this->languages == null)
+		if (is_null($this->languages))
 			return null;
 		$text = array();
 		foreach ($this->languages as $code) {
-			$text[] = UserInfo::$languageCodes[$code];
+			$text[] = self::$languageCodes[$code];
 		}
 		return implode(', ', $text);
+	}
+
+	public function getRelationshipNameAttribute()
+	{
+		if (is_null($this->relationship))
+			return null;
+		return self::$relationships[$this->relationship];
 	}
 
 }

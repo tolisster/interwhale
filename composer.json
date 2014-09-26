@@ -6,7 +6,8 @@
 	"require": {
 		"laravel/framework": "4.1.*",
 		"ignited/laravel-omnipay": "1.*",
-		"omnipay/paypal": "*"
+		"omnipay/paypal": "*",
+		"barryvdh/laravel-debugbar": "1.x"
 	},
 	"autoload": {
 		"classmap": [

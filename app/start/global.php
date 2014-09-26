@@ -84,3 +84,46 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+User::created(function($user)
+{
+	DB::update("update users set code = concat(
+			substring('abcdefghijklmnopqrstuvwxyz', rand(@seed:=round(rand(?)*4294967296))*26+1, 1),
+			substring('abcdefghijklmnopqrstuvwxyz0123456789', rand(@seed:=round(rand(@seed)*4294967296))*36+1, 1),
+			substring('abcdefghijklmnopqrstuvwxyz0123456789', rand(@seed:=round(rand(@seed)*4294967296))*36+1, 1),
+			substring('abcdefghijklmnopqrstuvwxyz0123456789', rand(@seed:=round(rand(@seed)*4294967296))*36+1, 1),
+			substring('abcdefghijklmnopqrstuvwxyz0123456789', rand(@seed:=round(rand(@seed)*4294967296))*36+1, 1),
+			substring('abcdefghijklmnopqrstuvwxyz0123456789', rand(@seed:=round(rand(@seed)*4294967296))*36+1, 1),
+			substring('abcdefghijklmnopqrstuvwxyz0123456789', rand(@seed:=round(rand(@seed)*4294967296))*36+1, 1),
+			substring('0123456789', rand(@seed)*10+1, 1)
+			) where id = ?", array($user->id, $user->id));
+});
+
+Form::macro('selectWithDefault', function($name, $list, $selected = null, $default = null, $attributes = [])
+{
+	return Form::select($name, $default + $list, $selected, $attributes);
+});
+
+Form::macro('selectRangeWithDefault', function($name, $begin, $end, $selected = null, $default = null, $options = [])
+{
+	$range = array_combine($range = range($begin, $end), $range);
+
+	return Form::selectWithDefault($name, $range, $selected, $default, $options);
+});
+
+Form::macro('selectYearWithDefault', function($name, $begin, $end, $selected = null, $default = null, $options = [])
+{
+	return Form::selectRangeWithDefault($name, $begin, $end, $selected, $default, $options);
+});
+
+Form::macro('selectMonthWithDefault', function($name, $selected = null, $default = null, $options = [], $format = '%B')
+{
+	$months = array();
+
+	foreach (range(1, 12) as $month)
+	{
+		$months[$month] = strftime($format, mktime(0, 0, 0, $month, 1));
+	}
+
+	return Form::selectWithDefault($name, $months, $selected, $default, $options);
+});

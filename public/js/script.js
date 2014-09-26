@@ -25,4 +25,13 @@ $(document).ready(function() {
 	/*$('.random-users .panel-body').slick({
 		//setting-name: setting-value
 	});*/
+	$('#sidebar form select.form-control').on('change', function() {
+		this.form.submit();
+	});
+	$('#main-content .panel .panel-heading .btn').on('click', function() {
+		var $panelBody = $(this).closest('.panel-heading').next();
+		$.get("profile/edit", function(data) {
+			$panelBody.replaceWith('<div class="panel-body">' + data + '</div>');
+		});
+	});
 });

@@ -1,5 +1,4 @@
 .navbar-default .container {
-	border-bottom: 3px solid rgba(58, 143, 200, 0.75);
 }
 .navbar .navbar-nav .dropdown-toggle {
 	padding-top: 13px;
@@ -7,6 +6,90 @@
 #sign-out {
 	height: 67px;
 }
+.container > .row.equal {
+	border-top: 3px solid rgba(58, 143, 200, 0.75);
+}
 #sidebar {
 	background-color: #f0f0f0;
+	padding-right: 5px;
+}
+#sidebar > .border-right {
+	background-color: #cacaca;
+}
+#main-content .panel {
+	font-size: 15px;
+}
+#main-content .panel a {
+	color: #21649b;
+}
+#main-content .panel-heading {
+	text-align: center;
+	background-color: #f0f0f0;
+	line-height: 1.3;
+}
+#main-content .panel-heading select {
+	float: right;
+	width: 175px;
+}
+#main-content .list-group > .list-group-item {
+	padding: 16px 15px 20px;
+	border-radius: 0;
+	border: 2px solid transparent;
+}
+#main-content .list-group > .list-group-item > .border-left {
+	position: absolute;
+	width: 5px;
+	height: 100%;
+	left: -7px;
+	top: 0px;
+}
+#main-content .list-group > .list-group-item:hover, #main-content .list-group > .list-group-item:focus {
+	border-color: #f0f0f0;
+}
+#main-content .list-group > .list-group-item:hover > .border-left, #main-content .list-group > .list-group-item:focus > .border-left {
+	background-color: #65a1c9;
+}
+#main-content .list-group > .list-group-item > a b {
+	font-size: 23px;
+	text-align: right;
+	margin-top: 36px;
+	line-height: 1.2;
+}
+#main-content .list-group > .list-group-item > a b small {
+	font-size: 15px;
+	font-weight: normal;
+	display: block;
+}
+#main-content .list-group > .list-group-item > a > span {
+	text-align: center;
+}
+#main-content .list-group > .list-group-item > a > span > .img-circle {
+	border: 5px solid #65a1c9;
+}
+#main-content .list-group > .list-group-item > .nav-pills {
+	margin-top: 26px;
+}
+#main-content .list-group > .list-group-item > .nav-pills > li > a {
+	border-radius: 0;
+	padding: 0;
+	line-height: 1.2;
+}
+#main-content .list-group > .list-group-item > .nav > li > a:hover, #main-content .list-group > .list-group-item > .nav > li > a:focus {
+	background-color: transparent;
+	text-decoration: underline;
+}
+
+form {
+	padding: 18px 22px;
+}
+.form-group {
+	margin-bottom: 2px;
+}
+label {
+	font-weight: 600;
+	font-size: 10px;
+	color: #164c88;
+	text-transform: uppercase;
+	line-height: 1.8;
+	margin-bottom: 0;
 }

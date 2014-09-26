@@ -138,8 +138,23 @@ a, .btn-link {
     padding-right: 0;
 }
 
+.row.equal {
+	display: table;
+	width: 100%;
+}
+.equal > [class*="col-"] {
+	float: none;
+	display: table-cell;
+	vertical-align: top;
+}
 #sidebar {
 	font-size: 10px;
+}
+#sidebar > .border-right {
+	position: absolute;
+	width: 5px;
+	height: 100%;
+	right: 0;
 }
 #sidebar > footer {
 	position: absolute;
@@ -169,8 +184,6 @@ a, .btn-link {
 .panel-heading {
     border-radius: 0;
 	color: #3a8fc8;
-	font-weight: bold;
-	text-transform: uppercase;
 	padding: 15px 37px;
 }
 .panel-body {
