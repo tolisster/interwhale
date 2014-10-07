@@ -1,8 +1,4 @@
-@if (empty($photos))
-<div class="panel-body">
-	No photos
-</div>
-@else
+@if (count($photos) > 0)
 <div class="border-top"></div>
 <div class="row">
 	<div class="col-md-8">
@@ -50,4 +46,8 @@
 	@endif
 </div>
 @endif
+@else
+<div class="panel-body">
+	No photos
+</div>
 @endif
