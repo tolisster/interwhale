@@ -23,15 +23,20 @@
 			</div>
 			<div id="avatar-background" style="background-image:url(/images/den-stafford-background.jpg);background-position:50% 93%">
 				<div>
-					<p>{{{ $user->description }}}</p>
+					<p>{{{ $user->user_info->status }}}</p>
 				</div>
 			</div>
 			<div id="online" class="pull-left">Online</div>
 			<div id="time" class="pull-right">9:53 pm</div>
 			<h1>{{{ $user->full_name }}} <small>{{{ $user->location_name }}}</small></h1>
 			<ul class="nav nav-pills nav-stacked" id="user-menu">
-				<li class="active"><a href="#">Settings</a></li>
+				@if (Auth::user() == $user)
+				<li><a href="#">Settings</a></li>
 				<li><a href="#">Statistics</a></li>
+				@else
+				<li><a href="#">Send Message</a></li>
+				<li><a href="#">Add to Friends</a></li>
+				@endif
 			</ul>
 			<ul class="nav nav-pills" id="user-links">
 				<li><a href="#" title="Dribbble" style="background-image:url(/images/dribbble-connect.png)"></a></li>
@@ -45,68 +50,21 @@
 		<div class="col-md-9" id="main-content">
 			<div class="row">
 				<div class="col-md-7">
-					<div class="panel">
+					<div class="panel" data-name="info">
 						<div class="panel-heading">
 							Information
 							<span class="editable"></span>
-							<a class="btn" href="#" role="button">Edit</a>
+							<a class="btn" href="#" role="button" data-src="{{ URL::route('profile.edit', array('info')) }}">Edit</a>
 						</div>
-						<table class="table">
-							<tr>
-								<th>Gender</th>
-								<td>{{ $user->user_info->gender_name }}</td>
-							</tr>
-							<tr>
-								<th>Age</th>
-								<td>{{ $user->user_info->age }}</td>
-							</tr>
-							<tr>
-								<th>Relationship Status</th>
-								<td>{{ $user->user_info->relationship_name }}</td>
-							</tr>
-							<tr>
-								<th>Languages</th>
-								<td>{{ $user->user_info->language_names }}</td>
-							</tr>
-							<tr>
-								<th>Hometown</th>
-								<td>{{{ $user->city }}}</td>
-							</tr>
-							<tr>
-								<th>Education</th>
-								<td>{{{ $user->user_info->education }}}</td>
-							</tr>
-							<tr>
-								<th>Activity</th>
-								<td>{{{ $user->user_info->activity }}}</td>
-							</tr>
-							<tr>
-								<th>Религия:</th>
-								<td>католицизм</td>
-							</tr>
-							<tr>
-								<th>Интересы:</th>
-								<td>спорт, путешествие</td>
-							</tr>
-							<tr>
-								<th>Хобби:</th>
-								<td>стрит арт</td>
-							</tr>
-							<tr>
-								<th>Мечта:</th>
-								<td>полететь в космос</td>
-							</tr>
-						</table>
+						@include('user.info')
 					</div>
-					<div class="panel">
+					<div class="panel" data-name="about">
 						<div class="panel-heading">
 							About Me
 							<span class="editable"></span>
-							<a class="btn" href="#" role="button">Edit</a>
+							<a class="btn" href="#" role="button" data-src="{{ URL::route('profile.edit', array('about')) }}">Edit</a>
 						</div>
-						<div class="panel-body">
-							<p>Душа моя озарена неземной радостью, как эти чудесные весенние утра, которыми я наслаждаюсь от всего сердца. Я совсем один и блаженствую в здешнем краю, словно созданном для таких, как я. Я так счастлив, мой друг, так упоен ощущением покоя, что искусство мое страдает от этого.</p>
-						</div>
+						@include('user.about')
 					</div>
 				</div>
 				<div class="col-md-5">
@@ -114,45 +72,9 @@
 						<div class="panel-heading">
 							Photos
 							<span class="editable"></span>
-							<a class="btn" href="#" role="button">Edit</a>
+							<a class="btn" href="#" role="button" data-src="{{ URL::route('photo.create') }}">Add a photo</a>
 						</div>
-						<div class="border-top"></div>
-						<div class="row">
-							<div class="col-md-8">
-								<a href="#" class="thumbnail">
-									<img src="/images/photo200x200_1.jpg" width="200" height="200" alt="Photo description">
-									<span></span>
-								</a>
-							</div>
-							<div class="col-md-4">
-								<a href="#" class="thumbnail">
-									<img src="/images/photo100x100_1.jpg" width="100" height="100" alt="Photo description">
-									<span></span>
-								</a>
-								<a href="#" class="thumbnail">
-									<img src="/images/photo100x100_2.jpg" width="100" height="100" alt="Photo description">
-									<span></span>
-								</a>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-4">
-								<a href="#" class="thumbnail">
-									<img src="/images/photo100x100_3.jpg" width="100" height="100" alt="Photo description">
-									<span></span>
-								</a>
-								<a href="#" class="thumbnail">
-									<img src="/images/photo100x100_4.jpg" width="100" height="100" alt="Photo description">
-									<span></span>
-								</a>
-							</div>
-							<div class="col-md-8">
-								<a href="#" class="thumbnail">
-									<img src="/images/photo200x200_2.jpg" width="200" height="200" alt="Photo description">
-									<span></span>
-								</a>
-							</div>
-						</div>
+						@include('photo.index')
 					</div>
 				</div>
 			</div>

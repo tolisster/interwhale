@@ -53,7 +53,7 @@
 						<b class="user-name">{{{ Auth::user()->full_name }}}</b>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="{{ URL::route('profile.edit') }}">Edit</a></li>
+						<li><a href="{{ URL::route('profile.edit', array('main')) }}">Main information</a></li>
 						<li><a href="{{ URL::route('logout') }}">Disconnect</a></li>
 					</ul>
 				</li>

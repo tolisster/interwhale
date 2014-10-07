@@ -80,7 +80,7 @@
     color: white;
 }
 #user-menu > li > a:hover, #user-menu > li > a:focus {
-    background-color: transparent;
+    background-color: #21649b;
 }
 #user-links {
 	text-align: center;

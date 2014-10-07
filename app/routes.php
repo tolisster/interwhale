@@ -24,8 +24,8 @@ Route::get('{user}', array('before' => 'auth', 'uses' => 'UserController@showPro
 	->where('code', '[A-Za-z0-9]+')*/;
 
 Route::get('profile', array('as' => 'profile', 'before' => 'auth', 'uses' => 'UserController@showProfile'));
-Route::get('profile/edit', array('as' => 'profile.edit', 'before' => 'auth', 'uses' => 'UserController@editProfile'));
-Route::post('profile/update', array('as' => 'profile.update', 'before' => 'auth', 'uses' => 'UserController@updateProfile'));
+Route::get('profile/edit/{panel}', array('as' => 'profile.edit', 'before' => 'auth', 'uses' => 'UserController@editProfile'));
+Route::post('profile/update/{panel}', array('as' => 'profile.update', 'before' => 'auth', 'uses' => 'UserController@updateProfile'));
 
 Route::get('logout', array('as' => 'logout', 'before' => 'auth', function()
 {
@@ -91,7 +91,7 @@ Route::get('register/return', function()
 	$user->save();
 
 	$userInfo = new UserInfo;
-	$userInfo->description = isset($data['PAYMENTREQUEST_0_NOTETEXT']) ? $data['PAYMENTREQUEST_0_NOTETEXT'] : null;
+	$userInfo->status = isset($data['PAYMENTREQUEST_0_NOTETEXT']) ? $data['PAYMENTREQUEST_0_NOTETEXT'] : '';
 	$user->userInfo()->save($userInfo);
 
 	Log::info('user created', $user->toArray() + array('password' => $password));
@@ -113,48 +113,80 @@ Route::get('register/cancel', function()
 	return Redirect::route('home');
 });
 
-Route::get('search', array('before' => 'auth', function()
+Route::get('search', array('as' => 'search', 'before' => 'auth', function()
 {
+	$searchQuery = Auth::user()->search_query;
+	if (is_null($searchQuery)) {
+		$searchQuery = new SearchQuery;
+	} else {
+		if (count(Input::all()) == 0) {
+			$search = array_intersect_key($searchQuery->toArray(), array_flip($searchQuery->getFillable()));
+			array_walk_recursive($search, function(&$item, $key) {
+				$item = !is_null($item) ? $item : '';
+			});
+			return Redirect::route('search', $search);
+		}
+		$searchQuery->country_code = null;
+		$searchQuery->gender = null;
+		$searchQuery->from_age = null;
+		$searchQuery->to_age = null;
+		$searchQuery->relationship = null;
+	}
+
 	$query = User::query();
 
-	if (Input::has('country'))
-		$query->whereCountryCode(Input::get('country'));
+	if (Input::has('country_code')) {
+		$query->whereCountryCode(Input::get('country_code'));
+		$searchQuery->country_code = Input::get('country_code');
+	}
 
-	if (Input::has('gender') || Input::has('from-age') || Input::has('to-age') || Input::has('relationship'))
-		$query->whereHas('userInfo', function($query)
+	if (Input::has('gender') || Input::has('from_age') || Input::has('to_age') || Input::has('relationship'))
+		$query->whereHas('userInfo', function($query) use (&$searchQuery)
 		{
-			if (Input::has('gender'))
+			if (Input::has('gender')) {
 				$query->where(function($query)
 				{
 					$query->where('gender', null)
 						->orWhere('gender', Input::get('gender'));
 				});
+				$searchQuery->gender = Input::get('gender');
+			}
 
-			if (Input::has('from-age') || Input::has('to-age'))
-				$query->where(function($query)
+			if (Input::has('from_age') || Input::has('to_age'))
+				$query->where(function($query) use (&$searchQuery)
 				{
 					$query->whereBirthdate(null)
-						->orWhere(function($query) {
-							if (Input::has('from-age'))
+						->orWhere(function($query) use (&$searchQuery) {
+							if (Input::has('from_age')) {
 								$query->whereRaw('timestampdiff(year, birthdate, curdate()) >= ?',
-									array(Input::get('from-age')));
-							if (Input::has('to-age'))
+									array(Input::get('from_age')));
+								$searchQuery->from_age = Input::get('from_age');
+							}
+							if (Input::has('to_age')) {
 								$query->whereRaw('timestampdiff(year, birthdate, curdate()) <= ?',
-									array(Input::get('to-age')));
+									array(Input::get('to_age')));
+								$searchQuery->to_age = Input::get('to_age');
+							}
 						});
 				});
 
-			if (Input::has('relationship'))
+			if (Input::has('relationship')) {
 				$query->where(function($query)
 				{
 					$query->where('relationship', null)
 						->orWhere('relationship', Input::get('relationship'));
 				});
+				$searchQuery->relationship = Input::get('relationship');
+			}
 		});
 
 	$users = $query->get();
 
-	return View::make('search')->with('users', $users);
+	$view = View::make('search')->with('users', $users);
+
+	Auth::user()->searchQuery()->save($searchQuery);
+
+	return $view;
 }));
 
 $supportedLocales = Config::get('app.supported_locales');
@@ -212,3 +244,7 @@ Route::post('register', array(function()
 
 	}
 }));
+
+Route::resource('photo', 'PhotoController', array('only' => array('create', 'store')));
+
+Route::when('imagecache/*', 'auth');

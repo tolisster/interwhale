@@ -8,13 +8,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	protected $softDelete = true;
 	protected $fillable = array('email', 'first_name', 'last_name', 'country_code', 'state_code', 'city');
 	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'users';
-
-	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
@@ -94,6 +87,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function userInfo()
 	{
 		return $this->hasOne('UserInfo');
+	}
+
+	public function searchQuery()
+	{
+		return $this->hasOne('SearchQuery');
+	}
+
+	public function photos()
+	{
+		return $this->hasMany('Photo');
 	}
 
 }

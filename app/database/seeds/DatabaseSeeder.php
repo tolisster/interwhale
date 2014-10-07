@@ -38,11 +38,16 @@ class UserTableSeeder extends Seeder {
 		$userInfo = new UserInfo(array(
 			'gender' => 'm',
 			'birthdate' => '1982-11-06',
-			'description' => 'Ищу попутчика для путешествия по Индии этим летом.',
+			'status' => 'Ищу попутчика для путешествия по Индии этим летом.',
+			'description' => 'Душа моя озарена неземной радостью, как эти чудесные весенние утра, '.
+			'которыми я наслаждаюсь от всего сердца. Я совсем один и блаженствую в здешнем краю, '.
+			'словно созданном для таких, как я. Я так счастлив, мой друг, так упоен ощущением покоя, '.
+			'что искусство мое страдает от этого.',
 			'relationship' => 'married',
-			'languages' => 'ru,ro,en',
+			'languages' => array('ru', 'ro' , 'en'),
 			'education' => 'UCCM',
-			'activity' => 'Программист'
+			'activity' => 'Программист',
+			'religion' => 'christianity',
 		));
 
 		$user->userInfo()->save($userInfo);

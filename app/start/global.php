@@ -51,6 +51,19 @@ App::error(function(Exception $exception, $code)
 	Log::error($exception);
 });
 
+/*App::error(function(HttpExceptionInterface $exception, $code)
+{
+	Log::error($exception);
+	if (Request::wantsJson()) {
+		return Response::json(array(
+			'error' => true,
+			'message' => $exception->getMessage(),
+			'code' => $code),
+			$code
+		);
+	}
+});*/
+
 App::missing(function($exception)
 {
 	return Response::view('errors.missing', array(), 404);

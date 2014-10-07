@@ -14,14 +14,18 @@ class CreateUserInfosTable extends Migration {
 	{
 		Schema::create('user_infos', function(Blueprint $table)
 		{
-			$table->integer('user_id');
-			$table->enum('gender', array_keys(UserInfo::$genders))->nullable();
+			$table->integer('user_id')->primary();
 			$table->date('birthdate')->nullable();
-			$table->enum('relationship', array_keys(UserInfo::$relationships))->nullable();
-			$table->string('languages')->nullable();
-			$table->string('education')->nullable();
-			$table->string('activity')->nullable();
-			$table->text('description')->nullable();
+			$table->boolean('show_date_birth')->default(true);
+			$table->boolean('show_age')->default(true);
+			$table->enum('gender', array_keys(UserInfo::$genders))->nullable()->index();
+			$table->enum('relationship', array_keys(UserInfo::$relationships))->nullable()->index();
+			$table->enum('religion', array_keys(UserInfo::$religions))->nullable();
+			$table->string('languages');
+			$table->string('education');
+			$table->string('activity');
+			$table->string('status');
+			$table->text('description');
 		});
 	}
 

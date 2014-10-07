@@ -7,7 +7,10 @@
 		"laravel/framework": "4.1.*",
 		"ignited/laravel-omnipay": "1.*",
 		"omnipay/paypal": "*",
-		"barryvdh/laravel-debugbar": "1.x"
+		"barryvdh/laravel-debugbar": "1.x",
+		"barryvdh/laravel-ide-helper": "1.*",
+		"intervention/image": "2.*",
+		"intervention/imagecache": "2.*"
 	},
 	"autoload": {
 		"classmap": [
@@ -29,6 +32,7 @@
 		],
 		"post-update-cmd": [
 			"php artisan clear-compiled",
+			"php artisan ide-helper:generate",
 			"php artisan optimize"
 		],
 		"post-create-project-cmd": [

@@ -109,6 +109,8 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider',
 		'Barryvdh\Debugbar\ServiceProvider',
+		'Intervention\Image\ImageServiceProvider',
+		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 	),
 
 	/*
@@ -176,6 +178,7 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Omnipay'         => 'Ignited\LaravelOmnipay\Facades\OmnipayFacade',
 		'Debugbar'        => 'Barryvdh\Debugbar\Facade',
+		'Image'           => 'Intervention\Image\Facades\Image'
 
 	),
 

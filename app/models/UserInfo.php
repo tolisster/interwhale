@@ -4,7 +4,7 @@ class UserInfo extends Eloquent {
 
 	public $timestamps = false;
 	protected $fillable = array('gender', 'birthdate', 'relationship', 'languages', 'education', 'activity',
-		'description');
+		'status', 'description');
 
 	public static $languageCodes = array(
 		'aa' => 'Afar',
@@ -209,6 +209,14 @@ class UserInfo extends Eloquent {
 		'unmarried partners' => 'Unmarried partners'
 	);
 
+	public static $religions = array(
+		'christianity' => 'Christianity',
+		'islam' => 'Islam',
+		'buddhism' => 'Buddhism',
+		'hinduism' => 'Hinduism',
+		'chinese folk' => 'Chinese folk religion'
+	);
+
 	const MIN_AGE = 16;
 	const MAX_AGE = 99;
 
@@ -219,14 +227,14 @@ class UserInfo extends Eloquent {
 
 	public function getGenderNameAttribute()
 	{
-		if (is_null($this->gender))
-			return null;
+		if (!array_key_exists($this->gender, self::$genders))
+			return '';
 		return self::$genders[$this->gender];
 	}
 
 	public function getAgeAttribute()
 	{
-		if (is_null($this->birthdate))
+		if (is_null($this->birthdate) || $this->birthdate == '0000-00-00')
 			return null;
 		$birthdate = DateTime::createFromFormat('Y-m-d', $this->birthdate);
 		$now = new DateTime();
@@ -235,17 +243,24 @@ class UserInfo extends Eloquent {
 
 	public function getLanguagesAttribute($value)
 	{
-		if (is_null($value))
-			return null;
+		if (empty($value))
+			return array();
 		return explode(',', $value);
+	}
+
+	public function setLanguagesAttribute($value)
+	{
+		$this->attributes['languages'] = implode(',', $value);
 	}
 
 	public function getLanguageNamesAttribute()
 	{
-		if (is_null($this->languages))
-			return null;
+		if (empty($this->languages))
+			return '';
 		$text = array();
 		foreach ($this->languages as $code) {
+			if (!array_key_exists($code, self::$languageCodes))
+				continue;
 			$text[] = self::$languageCodes[$code];
 		}
 		return implode(', ', $text);
@@ -253,9 +268,16 @@ class UserInfo extends Eloquent {
 
 	public function getRelationshipNameAttribute()
 	{
-		if (is_null($this->relationship))
-			return null;
+		if (!array_key_exists($this->relationship, self::$relationships))
+			return '';
 		return self::$relationships[$this->relationship];
+	}
+
+	public function getReligionNameAttribute()
+	{
+		if (!array_key_exists($this->religion, self::$religions))
+			return '';
+		return self::$religions[$this->religion];
 	}
 
 }

@@ -13,31 +13,31 @@ Search
 	<div class="row equal">
 		<div class="col-md-3" id="sidebar">
 			<div class="border-right"></div>
-			<form role="form">
+			{{ Form::model(Auth::user()->search_query, array('route' => array('search'), 'method' => 'get', 'role' => 'form')) }}
 				<div class="form-group">
 					<label for="country-control">Country</label>
-					{{ Form::selectWithDefault('country', Country::all()->lists('name', 'code'), Input::get('country'), array('' => 'Select...'), array('class' => 'form-control', 'id' => 'country-control')) }}
+					{{ Form::selectWithDefault('country_code', Country::all()->lists('name', 'code'), null, array('' => 'Select...'), array('class' => 'form-control', 'id' => 'country-control')) }}
 				</div>
 				<div class="form-group">
 					<label for="gender-control">Gender</label>
-					{{ Form::selectWithDefault('gender', UserInfo::$genders, Input::get('gender'), array('' => 'Select...'), array('class' => 'form-control', 'id' => 'gender-control')) }}
+					{{ Form::selectWithDefault('gender', UserInfo::$genders, null, array('' => 'Select...'), array('class' => 'form-control', 'id' => 'gender-control')) }}
 				</div>
 				<div class="form-group">
 					<label>Age</label>
 					<div class="row">
 						<label for="from-age-control" class="col-sm-2 control-label text-right">From</label>
 						<div class="col-sm-4">
-							{{ Form::selectRangeWithDefault('from-age', UserInfo::MIN_AGE, UserInfo::MAX_AGE, Input::get('from-age'), array('' => 'Select...'), array('class' => 'form-control', 'id' => 'from-age-control')) }}
+							{{ Form::selectRangeWithDefault('from_age', UserInfo::MIN_AGE, UserInfo::MAX_AGE, null, array('' => 'Select...'), array('class' => 'form-control', 'id' => 'from-age-control')) }}
 						</div>
 						<label for="to-age-control" class="col-sm-2 control-label text-right">To</label>
 						<div class="col-sm-4">
-							{{ Form::selectRangeWithDefault('to-age', UserInfo::MIN_AGE, UserInfo::MAX_AGE, Input::get('to-age'), array('' => 'Select...'), array('class' => 'form-control', 'id' => 'to-age-control')) }}
+							{{ Form::selectRangeWithDefault('to_age', UserInfo::MIN_AGE, UserInfo::MAX_AGE, null, array('' => 'Select...'), array('class' => 'form-control', 'id' => 'to-age-control')) }}
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="relationship-control">Relationship</label>
-					{{ Form::selectWithDefault('relationship', UserInfo::$relationships, Input::get('relationship'), array('' => 'Select...'), array('class' => 'form-control', 'id' => 'relationship-control')) }}
+					{{ Form::selectWithDefault('relationship', UserInfo::$relationships, null, array('' => 'Select...'), array('class' => 'form-control', 'id' => 'relationship-control')) }}
 				</div>
 			</form>
 			<footer>
