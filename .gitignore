@@ -16,4 +16,14 @@
 *.exe
 *.out
 *.app
+
+# Directory-based project format
+.idea/
+
+# IDE Helper
+_ide_helper.php
+
+# Composer
+composer.phar
 vendor/
+composer.lock

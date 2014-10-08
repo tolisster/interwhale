@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration {
 			$table->timestamps();
 		});
 
-		File::makeDirectory(storage_path('uploads'));
+		File::makeDirectory(storage_path('uploads/avatars'));
 	}
 
 	/**
@@ -38,7 +38,7 @@ class CreateUsersTable extends Migration {
 	 */
 	public function down()
 	{
-		File::deleteDirectory(storage_path('uploads'));
+		File::deleteDirectory(storage_path('uploads/avatars'));
 
 		Schema::drop('users');
 	}
