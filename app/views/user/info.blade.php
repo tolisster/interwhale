@@ -34,15 +34,15 @@
 		<td>{{ $user->user_info->religion_name }}</td>
 	</tr>
 	<tr>
-		<th>Интересы:</th>
-		<td>спорт, путешествие</td>
+		<th>Interests</th>
+		<td>{{{ $user->user_info->interests }}}</td>
 	</tr>
 	<tr>
-		<th>Хобби:</th>
-		<td>стрит арт</td>
+		<th>Hobby</th>
+		<td>{{{ $user->user_info->hobby }}}</td>
 	</tr>
 	<tr>
-		<th>Мечта:</th>
-		<td>полететь в космос</td>
+		<th>Dream</th>
+		<td>{{{ $user->user_info->dream }}}</td>
 	</tr>
 </table>

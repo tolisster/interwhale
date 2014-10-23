@@ -1,8 +1,7 @@
 <?php
 
-class Photo extends Eloquent {
+class Avatar extends Eloquent {
 
-	protected $softDelete = true;
 	protected $hidden = array('id');
 
 	public function user()
@@ -12,7 +11,7 @@ class Photo extends Eloquent {
 
 	public function filePath($makePath = false)
 	{
-		$path = storage_path('uploads/photos') . '/' . intval($this->id / 10000);
+		$path = storage_path('uploads/avatars') . '/' . intval($this->id / 10000);
 
 		if ($makePath && !File::exists($path))
 			File::makeDirectory($path);
@@ -22,7 +21,7 @@ class Photo extends Eloquent {
 
 	public function url($template = 'original')
 	{
-		return asset('imagecache/' . $template . '/photos/' . intval($this->id / 10000) .
+		return asset('imagecache/' . $template . '/avatars/' . intval($this->id / 10000) .
 			'/' . ($this->id % 10000) . '.jpg');
 	}
 }

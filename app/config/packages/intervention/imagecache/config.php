@@ -49,12 +49,24 @@ return array(
    
     'templates' => array(
 
-        'thumb100' => function($image) {
+        'photo100' => function($image) {
             return $image->fit(100);
         },
-        'thumb200' => function($image) {
+        'photo200' => function($image) {
             return $image->fit(200);
-        }
+        },
+		'avatar32' => function($image) {
+			return $image->fit(32);
+		},
+		'avatar44' => function($image) {
+			return $image->fit(44);
+		},
+		'avatar100' => function($image) {
+			return $image->fit(100);
+		},
+		'avatar108' => function($image) {
+			return $image->fit(108);
+		}
 
     ),
 

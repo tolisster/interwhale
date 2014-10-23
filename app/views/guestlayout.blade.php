@@ -29,7 +29,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="{{ URL::action('HomeController@getHome') }}" title="InterWhale - International Dating Service"><img src="{{ asset('images/logo.png') }}" width="129" height="33" alt="InterWhale - International Dating Service"></a>
+			<a class="navbar-brand" href="{{ URL::action('HomeController@getHome') }}" title="InterWhale - International Dating Service"><img src="{{ asset('images/logo.png') }}" width="152" height="40" alt="InterWhale - International Dating Service"></a>
 		</div>
 		<div class="collapse navbar-collapse" id="navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">

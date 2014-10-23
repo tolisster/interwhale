@@ -24,8 +24,14 @@ Route::get('{user}', array('before' => 'auth', 'uses' => 'UserController@showPro
 	->where('code', '[A-Za-z0-9]+')*/;
 
 Route::get('profile', array('as' => 'profile', 'before' => 'auth', 'uses' => 'UserController@showProfile'));
+Route::get('profile/settings', array('as' => 'settings', 'before' => 'auth', 'uses' => 'UserController@settings'));
 Route::get('profile/edit/{panel}', array('as' => 'profile.edit', 'before' => 'auth', 'uses' => 'UserController@editProfile'));
 Route::post('profile/update/{panel}', array('as' => 'profile.update', 'before' => 'auth', 'uses' => 'UserController@updateProfile'));
+Route::resource('friends', 'FriendController', array('only' => array('index', 'store')));
+Route::resource('alerts', 'AlertController', array('only' => array('destroy')));
+
+Route::get('chat/{user}', array('as' => 'chat', 'before' => 'auth', 'uses' => 'UserController@showChat'));
+Route::post('chat/{user}', array('as' => 'chat', 'before' => 'auth', 'uses' => 'UserController@postChatMessage'));
 
 Route::get('logout', array('as' => 'logout', 'before' => 'auth', function()
 {
@@ -133,56 +139,9 @@ Route::get('search', array('as' => 'search', 'before' => 'auth', function()
 		$searchQuery->relationship = null;
 	}
 
-	$query = User::query();
+	$users = User::filter(Input::instance(), $searchQuery)->paginate(15);
 
-	if (Input::has('country_code')) {
-		$query->whereCountryCode(Input::get('country_code'));
-		$searchQuery->country_code = Input::get('country_code');
-	}
-
-	if (Input::has('gender') || Input::has('from_age') || Input::has('to_age') || Input::has('relationship'))
-		$query->whereHas('userInfo', function($query) use (&$searchQuery)
-		{
-			if (Input::has('gender')) {
-				$query->where(function($query)
-				{
-					$query->where('gender', null)
-						->orWhere('gender', Input::get('gender'));
-				});
-				$searchQuery->gender = Input::get('gender');
-			}
-
-			if (Input::has('from_age') || Input::has('to_age'))
-				$query->where(function($query) use (&$searchQuery)
-				{
-					$query->whereBirthdate(null)
-						->orWhere(function($query) use (&$searchQuery) {
-							if (Input::has('from_age')) {
-								$query->whereRaw('timestampdiff(year, birthdate, curdate()) >= ?',
-									array(Input::get('from_age')));
-								$searchQuery->from_age = Input::get('from_age');
-							}
-							if (Input::has('to_age')) {
-								$query->whereRaw('timestampdiff(year, birthdate, curdate()) <= ?',
-									array(Input::get('to_age')));
-								$searchQuery->to_age = Input::get('to_age');
-							}
-						});
-				});
-
-			if (Input::has('relationship')) {
-				$query->where(function($query)
-				{
-					$query->where('relationship', null)
-						->orWhere('relationship', Input::get('relationship'));
-				});
-				$searchQuery->relationship = Input::get('relationship');
-			}
-		});
-
-	$users = $query->get();
-
-	$view = View::make('search')->with('users', $users);
+	$view = View::make('users')->with('users', $users);
 
 	Auth::user()->searchQuery()->save($searchQuery);
 
@@ -246,5 +205,6 @@ Route::post('register', array(function()
 }));
 
 Route::resource('photo', 'PhotoController', array('only' => array('create', 'store')));
+Route::resource('avatar', 'AvatarController', array('only' => array('store')));
 
 Route::when('imagecache/*', 'auth');

@@ -14,7 +14,7 @@ class CreateUserInfosTable extends Migration {
 	{
 		Schema::create('user_infos', function(Blueprint $table)
 		{
-			$table->integer('user_id')->primary();
+			$table->integer('user_id')->primary()->unsigned();
 			$table->date('birthdate')->nullable();
 			$table->boolean('show_date_birth')->default(true);
 			$table->boolean('show_age')->default(true);
@@ -26,6 +26,9 @@ class CreateUserInfosTable extends Migration {
 			$table->string('activity');
 			$table->string('status');
 			$table->text('description');
+			$table->string('interests');
+			$table->string('hobby');
+			$table->string('dream');
 		});
 	}
 

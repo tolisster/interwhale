@@ -108,9 +108,10 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider',
-		'Barryvdh\Debugbar\ServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
+		'Barryvdh\Debugbar\ServiceProvider',
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
+		'Artdarek\Pusherer\PushererServiceProvider'
 	),
 
 	/*

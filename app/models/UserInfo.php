@@ -4,7 +4,7 @@ class UserInfo extends Eloquent {
 
 	public $timestamps = false;
 	protected $fillable = array('gender', 'birthdate', 'relationship', 'languages', 'education', 'activity',
-		'status', 'description');
+		'status', 'description', 'interests', 'hobby', 'dream');
 
 	public static $languageCodes = array(
 		'aa' => 'Afar',

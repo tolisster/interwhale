@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePhotosTable extends Migration {
+class CreateAlertsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,17 +12,13 @@ class CreatePhotosTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('photos', function(Blueprint $table)
+		Schema::create('alerts', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('user_id')->index()->unsigned();
-			$table->softDeletes();
-			$table->string('filename');
-			$table->string('description');
+			$table->morphs('alertable');
 			$table->timestamps();
 		});
-
-		File::makeDirectory(storage_path('uploads/photos'));
 	}
 
 	/**
@@ -32,9 +28,7 @@ class CreatePhotosTable extends Migration {
 	 */
 	public function down()
 	{
-		File::deleteDirectory(storage_path('uploads/photos'));
-
-		Schema::drop('photos');
+		Schema::drop('alerts');
 	}
 
 }

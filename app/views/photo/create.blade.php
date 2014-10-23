@@ -7,7 +7,7 @@
 </div>
 <div class="form-group">
 	<div class="col-sm-offset-3 col-sm-9">
-		<button type="submit" class="btn btn-default">Upload</button>
+		{{ Form::button('Upload', array('type' => 'submit', 'class' => 'btn btn-default', 'data-loading-text' => 'Uploading...')) }}
 	</div>
 </div>
 {{ Form::close() }}

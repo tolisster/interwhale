@@ -40,11 +40,6 @@ $(document).ready(function() {
 					$('#day-birthdate-profile-edit').val(parseInt(parts[2]));
 					$('#year-birthdate-profile-edit').val(parts[0]);
 				}
-
-				$('#state-profile-edit').closest('.form-group').toggle($('#country-profile-edit').val() == 'US');
-				$('#country-profile-edit').on('change', function() {
-					$('#state-profile-edit').closest('.form-group').toggle($('#country-profile-edit').val() == 'US');
-				});
 			}
 		});
 	});
@@ -85,4 +80,217 @@ $(document).ready(function() {
 			}
 		});
 	});
+
+	var $avatar = $('.panel .panel-body .avatar');
+	if ($avatar.length) {
+		function setCoords(c) {
+			$('#crop-avatar-profile-edit').val(c.x + ',' + c.y + ',' + c.w + ',' + c.h);
+		}
+		var avatarWidth = $avatar.attr('width');
+		var avatarHeight = $avatar.attr('height');
+		var selectionWidth = 110;
+		var selectionHeight = 110;
+		var x = avatarWidth / 2 - selectionWidth / 2;
+		var y = avatarHeight / 2 - selectionHeight / 2;
+		$avatar.Jcrop({
+			onSelect: setCoords,
+			onChange: setCoords,
+			aspectRatio: 1 / 1,
+			minSize: [selectionWidth, selectionHeight],
+			setSelect: [x, y, x + selectionWidth, y + selectionHeight]
+		});
+	}
+	$('#user-menu li a').on('click', function(event) {
+		var $a = $(this);
+		if ($a.data('method') == 'post') {
+			event.preventDefault();
+			$.post($a.attr('href'), $a.data('body'), function(data) {
+			});
+		} else if ($a.data('method') == 'get') {
+			event.preventDefault();
+			$.get($a.attr('href'), function(data) {
+				$('#main-content').html(data);
+			});
+		}
+	});
+
+	$('body').on('click', '.btn[data-loading-text]', function() {
+		var btn = $(this);
+		btn.button('loading');
+	});
+
+	if ($('#country-profile-edit').length) {
+		$('#state-profile-edit').closest('.form-group').toggle($('#country-profile-edit').val() == 'US');
+		$('#country-profile-edit').on('change', function() {
+			$('#state-profile-edit').closest('.form-group').toggle($('#country-profile-edit').val() == 'US');
+		});
+	}
+
+	var originalLeave = $.fn.popover.Constructor.prototype.leave;
+	$.fn.popover.Constructor.prototype.leave = function(obj){
+		var self = obj instanceof this.constructor ?
+			obj : $(obj.currentTarget)[this.type](this.getDelegateOptions()).data('bs.' + this.type)
+		var container, timeout;
+
+		originalLeave.call(this, obj);
+
+		if(obj.currentTarget) {
+			container = self.options.container ?
+				$(self.options.container).children('.popover') : $(obj.currentTarget).siblings('.popover');
+			timeout = self.timeout;
+			container.one('mouseenter', function(){
+				//We entered the actual popover – call off the dogs
+				clearTimeout(timeout);
+				//Let's monitor popover content instead
+				container.one('mouseleave', function(){
+					$.fn.popover.Constructor.prototype.leave.call(self, self);
+				});
+			})
+		}
+	};
+
+	$('.navbar-nav a[data-toggle="popover"]').popover({
+		delay: {show: 50, hide: 100},
+		template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content list-group"></div></div>',
+		trigger: 'hover',
+		placement: 'bottom',
+		container: '.navbar',
+		html: true,
+		content: function () {
+			var $a = $(this);
+			var $contentPopover = $a.next('.content-popover');
+			if (!$contentPopover.children().length)
+				return;
+			if ($a.parent().is("[data-item=alerts]")) {
+				var ids = [];
+				$contentPopover.children().each(function() {
+					ids.push($(this).data('id'));
+				});
+				$.ajax({
+					type: "DELETE",
+					url: '/alerts/' + ids
+				});
+			}
+			return $contentPopover.html();
+		}
+	});
+
+	if ($('html').data('user')) {
+		/*Pusher.log = function(message) {
+			if (window.console && window.console.log) {
+				window.console.log(message);
+			}
+		};*/
+
+		var pusher = new Pusher('b80544fb99d1bd1cbdee');
+		var channel = pusher.subscribe('user-' + $('html').data('user'));
+		channel.bind('friend-request', function(data) {
+			var count = parseInt($('.navbar-nav [data-item=friends] .badge').text()) || 0;
+			$('.navbar-nav [data-item=friends] .badge').text(count + 1);
+			$('.navbar-nav [data-item=friends] .content-popover').html(data.view);
+		});
+		channel.bind('friend-added', function(data) {
+			var $addFriend = $('[data-add-friend-code=' + data.code + ']');
+			$addFriend.text($addFriend.data('add-friend-text'));
+		});
+		channel.bind('friend-accepted', function(data) {
+			var count = parseInt($('.navbar-nav [data-item=alerts] .badge').text()) || 0;
+			$('.navbar-nav [data-item=alerts] .badge').text(count + 1);
+			$('.navbar-nav [data-item=alerts] .content-popover').html(data.view);
+		});
+		channel.bind('alert-deleted', function(data) {
+			$('.navbar-nav [data-item=alerts] .badge').text('');
+			$('.navbar-nav [data-item=alerts] .content-popover').html('');
+		});
+		channel.bind('chat-message-send', function(data) {
+			if ($('#chat[data-code=' + data.code + '] ul').length)
+				$('#chat[data-code=' + data.code + '] ul').append(data.view);
+			else if ($('#sidebar .list-group a[data-code=' + data.code + ']').length) {
+				var count = parseInt($('#sidebar .list-group a[data-code=' + data.code + '] .badge').text()) || 0;
+				$('#sidebar .list-group a[data-code=' + data.code + '] .badge').text(count + 1);
+			} else {
+				var count = parseInt($('.navbar-nav [data-item=messages] .badge').text()) || 0;
+				$('.navbar-nav [data-item=messages] .badge').text(count + 1);
+				$('.navbar-nav [data-item=messages] .content-popover').html(data.view);
+			}
+		});
+		channel.bind('chat-message-sent', function(data) {
+			$('#chat[data-code=' + data.code + '] ul').append(data.view);
+		});
+		channel.bind('chat-call', function(data) {
+			if ($('#chat[data-code=' + data.code + '] ul').length) {
+				$('<div class="text-center"><video autoplay style="width: 400px; height: 300px" id="publisherElement"></video></div>').insertBefore('#chat ul');
+
+				$.post('/chat/' + data.code, 'sessionId=' + data.sessionId, function(data) {
+					var apiKey    = "16819511";
+
+					var session = OT.initSession(apiKey, data.sessionId);
+
+					session.on("streamCreated", function(event) {
+						session.subscribe(event.stream);
+					});
+
+					session.connect(data.token, function(error) {
+						var publisher = OT.initPublisher('publisherElement');
+						session.publish(publisher);
+					});
+				});
+			} else {
+				$('.modal .modal-body').html(data.view);
+				$('.modal .btn.btn-primary').attr('href', '/chat/' + data.code +
+					'?call=true&session=' + data.sessionId);
+				$('.modal').modal();
+			}
+		});
+	}
+
+	$('form[data-type=ajax]').on('submit', function(event) {
+		event.preventDefault();
+		var $form = $(this);
+		var formSerialized = $form.serializeArray();
+		$.post($form.attr('action'), $.param(formSerialized));
+	});
+
+	$('a[data-call-code]').on('click', function(event) {
+		event.preventDefault();
+		var $a = $(this);
+		if ($('#chat[data-code=' + $a.data('call-code') + ']').length) {
+			$('<div class="text-center"><video autoplay style="width: 400px; height: 300px" id="publisherElement"></video></div>').insertBefore('#chat ul');
+
+			$.post('/chat/' + $a.data('call-code'), 'call=true', function(data) {
+				var apiKey    = "16819511";
+
+				var session = OT.initSession(apiKey, data.sessionId);
+
+				session.on("streamCreated", function(event) {
+					session.subscribe(event.stream);
+				});
+
+				session.connect(data.token, function(error) {
+					var publisher = OT.initPublisher('publisherElement');
+					session.publish(publisher);
+				});
+			});
+		}
+	})
+
+	if ($('#chat[autocall]').length) {
+		$('<div class="text-center"><video autoplay style="width: 400px; height: 300px" id="publisherElement"></video></div>').insertBefore('#chat ul');
+
+		$.post('/chat/' + $('#chat').data('code'), 'call=true', function(data) {
+			var apiKey    = "16819511";
+
+			var session = OT.initSession(apiKey, data.sessionId);
+
+			session.on("streamCreated", function(event) {
+				session.subscribe(event.stream);
+			});
+
+			session.connect(data.token, function(error) {
+				var publisher = OT.initPublisher('publisherElement');
+				session.publish(publisher);
+			});
+		});
+	}
+
 });

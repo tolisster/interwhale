@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-user="{{ Auth::user()->code }}">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,7 +31,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="{{ URL::route('profile') }}" title="InterWhale - International Dating Service"><img src="{{ asset('images/logo.png') }}" width="156" height="40" alt="InterWhale - International Dating Service"></a>
+			<a class="navbar-brand" href="{{ URL::route('profile') }}" title="InterWhale - International Dating Service"><img src="{{ asset('images/logo.png') }}" width="152" height="40" alt="InterWhale - International Dating Service"></a>
 		</div>
 		<div class="collapse navbar-collapse" id="navbar-collapse">
 			<form class="navbar-form navbar-left" role="search">
@@ -43,19 +43,45 @@
 				</div><!-- /input-group -->
 			</form>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="/static.html">Messages<!-- <span class="badge">26</span>--></a></li>
-				<li><a href="/static.html">Alerts</a></li>
-				<li><a href="/static.html">Friends<!-- <span class="badge">4</span>--></a></li>
+				<li><a href="{{ URL::route('search') }}">Search</a></li>
+				<li data-item="messages">
+					<a href="#" data-toggle="popover">Messages <span class="badge">{{ Auth::user()->messages()->where('sender_id', '<>', Auth::user()->id)->count() ?: '' }}</span></a>
+					<div class="content-popover hide">
+						@foreach (Auth::user()->messages()->where('sender_id', '<>', Auth::user()->id)->get() as $message)
+						<?php $sender = User::find($message->sender_id); ?>
+						@include('messages.alert')
+						@endforeach
+					</div>
+				</li>
+				<li data-item="alerts">
+					<a href="#" data-toggle="popover">Alerts <span class="badge">{{ Auth::user()->alerts()->count() ?: '' }}</span></a>
+					<div class="content-popover hide">
+						@foreach (Auth::user()->alerts as $alert)
+							@if ($alert->alertable instanceof User)
+								<?php $user = $alert->alertable; ?>
+								@include('user.line.friend')
+							@endif
+						@endforeach
+					</div>
+				</li>
+				<li data-item="friends">
+					<a href="{{ URL::route('friends.index') }}" data-toggle="popover">Friends <span class="badge">{{ Auth::user()->friendships()->wherePivot('state', 'pending')->count() ?: '' }}</span></a>
+					<div class="content-popover hide">
+						@foreach (Auth::user()->friendships()->wherePivot('state', 'pending')->with(array('country', 'avatar'))->get() as $user)
+						@include('user.line.friendship')
+						@endforeach
+					</div>
+				</li>
 				<li><a href="/static.html">Photos</a></li>
-				<li class="dropdown">
-					<a href="" class="dropdown-toggle" data-toggle="dropdown">
-						<img src="{{ asset('images/den-stafford-avatar-small.jpg') }}" alt="{{{ Auth::user()->full_name }}}" class="img-circle">
+				<li>
+					<a href="{{ URL::route('profile') }}" class="avatar">
+						@if (is_null(Auth::user()->avatar_id))
+						<img src="{{ asset('images/avatar32.png') }}" class="img-circle">
+						@else
+						<img src="{{ Auth::user()->avatar->url('avatar32') }}" alt="{{{ Auth::user()->full_name }}}" class="img-circle">
+						@endif
 						<b class="user-name">{{{ Auth::user()->full_name }}}</b>
 					</a>
-					<ul class="dropdown-menu">
-						<li><a href="{{ URL::route('profile.edit', array('main')) }}">Main information</a></li>
-						<li><a href="{{ URL::route('logout') }}">Disconnect</a></li>
-					</ul>
 				</li>
 				<li><a href="{{ URL::route('logout') }}" id="sign-out" title="Sign out"><span class="sr-only">Sign out</span></a></li>
 			</ul>
@@ -64,10 +90,28 @@
 </nav>
 
 @yield('content')
+
+<div class="modal fade">
+	<div class="modal-dialog" style="width: 400px">
+		<div class="modal-content">
+			<div class="modal-body">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Reject</button>
+				<a class="btn btn-primary" role="button">Accept</a>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//js.pusher.com/2.2/pusher.min.js"></script>
+
 @yield('js')
 <script src="/js/script.js"></script>
 </body>

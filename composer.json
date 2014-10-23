@@ -10,7 +10,9 @@
 		"barryvdh/laravel-debugbar": "1.x",
 		"barryvdh/laravel-ide-helper": "1.*",
 		"intervention/image": "2.*",
-		"intervention/imagecache": "2.*"
+		"intervention/imagecache": "2.*",
+		"artdarek/pusherer": "1.0.*",
+		"opentok/opentok": "2.2.x"
 	},
 	"autoload": {
 		"classmap": [

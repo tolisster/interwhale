@@ -48,6 +48,9 @@ class UserTableSeeder extends Seeder {
 			'education' => 'UCCM',
 			'activity' => 'Программист',
 			'religion' => 'christianity',
+			'interests' => 'спорт, путешествие',
+			'hobby' => 'стрит арт',
+			'dream' => 'полететь в космос'
 		));
 
 		$user->userInfo()->save($userInfo);

@@ -1,9 +1,9 @@
 <?php
 
-class PhotoController extends \BaseController {
+class AlertController extends \BaseController {
 
 	/**
-	 * Instantiate a new PhotoController instance.
+	 * Instantiate a new AlertController instance.
 	 */
 	public function __construct()
 	{
@@ -28,7 +28,7 @@ class PhotoController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('photo.create');
+		//
 	}
 
 
@@ -39,25 +39,7 @@ class PhotoController extends \BaseController {
 	 */
 	public function store()
 	{
-		if (!Input::hasFile('photo'))
-			return App::abort(400);
-
-		$file = Input::file('photo');
-		if (!$file->isValid())
-			return App::abort(400);
-
-		$img = Image::make($file);
-		if (!$img)
-			return App::abort(400);
-
-		$photo = new Photo;
-		$photo->filename = $file->getClientOriginalName();
-		Auth::user()->photos()->save($photo);
-
-		$img->fit(1024, 768);
-		$img->save($photo->filePath(true));
-
-		return Redirect::route('profile');
+		//
 	}
 
 
@@ -105,7 +87,20 @@ class PhotoController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$ids = explode(',', $id);
+
+		foreach ($ids as $id) {
+			Auth::user()->alerts()->find($id)->delete();
+		}
+
+		Pusherer::trigger('user-' . Auth::user()->code, 'alert-deleted', array(
+			'ids' => $ids
+		));
+
+		return Response::json(array(
+			'message' => 'Ok',
+			'code' => 200
+		));
 	}
 
 

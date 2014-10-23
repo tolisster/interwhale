@@ -7,12 +7,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	protected $softDelete = true;
 	protected $fillable = array('email', 'first_name', 'last_name', 'country_code', 'state_code', 'city');
+	protected $appends = array('full_name');
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
 	 */
-	protected $hidden = array('id', 'password');
+	protected $hidden = array('id', 'password', 'avatar_id', 'deleted_at', 'email', 'remember_token');
 
 	/**
 	 * Get the unique identifier for the user.
@@ -97,6 +98,102 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function photos()
 	{
 		return $this->hasMany('Photo');
+	}
+
+	public function avatars()
+	{
+		return $this->hasMany('Avatar');
+	}
+
+	public function avatar()
+	{
+		return $this->belongsTo('Avatar');
+	}
+
+	public function friends()
+	{
+		return $this->belongsToMany('User', 'friends', 'user_id', 'friend_id')->withTimestamps();
+	}
+
+	public function friendships()
+	{
+		return $this->belongsToMany('User', 'friends', 'friend_id', 'user_id')->withTimestamps();
+	}
+
+	public function scopeFilter($query, $request, $filter = null)
+	{
+		if ($request->has('country_code')) {
+			$query->whereCountryCode($request->get('country_code'));
+			if (!is_null($filter))
+				$filter->country_code = $request->get('country_code');
+		}
+
+		if ($request->has('gender') || $request->has('from_age') || $request->has('to_age') || $request->has('relationship'))
+			$query->whereHas('userInfo', function($query) use ($request, $filter)
+			{
+				if ($request->has('gender')) {
+					$query->where(function($query) use ($request)
+					{
+						$query->where('gender', null)
+							->orWhere('gender', $request->get('gender'));
+					});
+					if (!is_null($filter))
+						$filter->gender = $request->get('gender');
+				}
+
+				if ($request->has('from_age') || $request->has('to_age'))
+					$query->where(function($query) use ($request, $filter)
+					{
+						$query->whereBirthdate(null)
+							->orWhere(function($query) use ($request, $filter) {
+								if ($request->has('from_age')) {
+									$query->whereRaw('timestampdiff(year, birthdate, curdate()) >= ?',
+										array($request->get('from_age')));
+									if (!is_null($filter))
+										$filter->from_age = $request->get('from_age');
+								}
+								if ($request->has('to_age')) {
+									$query->whereRaw('timestampdiff(year, birthdate, curdate()) <= ?',
+										array($request->get('to_age')));
+									if (!is_null($filter))
+										$filter->to_age = $request->get('to_age');
+								}
+							});
+					});
+
+				if ($request->has('relationship')) {
+					$query->where(function($query) use ($request)
+					{
+						$query->where('relationship', null)
+							->orWhere('relationship', $request->get('relationship'));
+					});
+					if (!is_null($filter))
+						$filter->relationship = $request->get('relationship');
+				}
+			});
+
+		return $query->with(array('country', 'avatar'));
+	}
+
+	public function alerts()
+	{
+		return $this->hasMany('Alert');
+		//return $this->morphMany('Alert', 'alertable');
+	}
+
+	public function alertsOf()
+	{
+		return $this->morphMany('Alert', 'alertable');
+	}
+
+	public function talkers()
+	{
+		return $this->belongsToMany('User', 'talkers', 'user_id', 'talker_id')->withTimestamps();
+	}
+
+	public function messages()
+	{
+		return $this->hasMany('Message');
 	}
 
 }

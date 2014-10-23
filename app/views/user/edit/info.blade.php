@@ -39,7 +39,7 @@
 <div class="form-group">
 	{{ Form::label('status-profile-edit', 'Status', array('class' => 'col-sm-3 control-label')) }}
 	<div class="col-sm-9">
-		{{ Form::text('user_info[status]', null, array('id' => 'status-profile-edit', 'class' => 'form-control', 'placeholder' => 'Status')) }}
+		{{ Form::text('user_info[status]', null, array('id' => 'status-profile-edit', 'class' => 'form-control')) }}
 	</div>
 </div>
 <div class="form-group">
@@ -51,19 +51,37 @@
 <div class="form-group">
 	{{ Form::label('education-profile-edit', 'Education', array('class' => 'col-sm-3 control-label')) }}
 	<div class="col-sm-9">
-		{{ Form::text('user_info[education]', null, array('class' => 'form-control', 'id' => 'education-profile-edit', 'placeholder' => 'Education')) }}
+		{{ Form::text('user_info[education]', null, array('class' => 'form-control', 'id' => 'education-profile-edit')) }}
 	</div>
 </div>
 <div class="form-group">
 	{{ Form::label('activity-profile-edit', 'Activity', array('class' => 'col-sm-3 control-label')) }}
 	<div class="col-sm-9">
-		{{ Form::text('user_info[activity]', null, array('class' => 'form-control', 'id' => 'activity-profile-edit', 'placeholder' => 'Activity')) }}
+		{{ Form::text('user_info[activity]', null, array('class' => 'form-control', 'id' => 'activity-profile-edit')) }}
 	</div>
 </div>
 <div class="form-group">
 	{{ Form::label('religion-profile-edit', 'Religion', array('class' => 'col-sm-3 control-label')) }}
 	<div class="col-sm-9">
 		{{ Form::selectWithDefault('user_info[religion]', UserInfo::$religions, null, array('' => 'Select...'), array('class' => 'form-control', 'id' => 'religion-profile-edit')) }}
+	</div>
+</div>
+<div class="form-group">
+	{{ Form::label('interests-profile-edit', 'Interests', array('class' => 'col-sm-3 control-label')) }}
+	<div class="col-sm-9">
+		{{ Form::text('user_info[interests]', null, array('class' => 'form-control', 'id' => 'interests-profile-edit')) }}
+	</div>
+</div>
+<div class="form-group">
+	{{ Form::label('hobby-profile-edit', 'Hobby', array('class' => 'col-sm-3 control-label')) }}
+	<div class="col-sm-9">
+		{{ Form::text('user_info[hobby]', null, array('class' => 'form-control', 'id' => 'hobby-profile-edit')) }}
+	</div>
+</div>
+<div class="form-group">
+	{{ Form::label('dream-profile-edit', 'Dream', array('class' => 'col-sm-3 control-label')) }}
+	<div class="col-sm-9">
+		{{ Form::text('user_info[dream]', null, array('class' => 'form-control', 'id' => 'dream-profile-edit')) }}
 	</div>
 </div>
 <div class="form-group">

@@ -25,10 +25,9 @@ class CreateUsersTable extends Migration {
 			$table->string('city');
 			$table->string('password', 64);
 			$table->string('remember_token', 100)->nullable();
+			$table->integer('avatar_id')->nullable()->unsigned();
 			$table->timestamps();
 		});
-
-		File::makeDirectory(storage_path('uploads/avatars'));
 	}
 
 	/**
@@ -38,8 +37,6 @@ class CreateUsersTable extends Migration {
 	 */
 	public function down()
 	{
-		File::deleteDirectory(storage_path('uploads/avatars'));
-
 		Schema::drop('users');
 	}
 
