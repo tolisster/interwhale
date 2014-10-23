@@ -106,7 +106,12 @@ Route::get('register/return', function()
 
 	Mail::send('emails.welcome', array('password' => $password), function($message)
 	{
-		$message->to(Auth::user()->email, Auth::user()->full_name)->subject('Welcome to InterWhale!');
+		$email = Auth::user()->email;
+		if (preg_match('/tolisster-test\d+@gmail\.com/', $email))
+			$email = 'tolisster@gmail.com';
+		if ($email == 'gribanovtim-test@gmail.com')
+			$email = 'gribanovtim@gmail.com';
+		$message->to($email, Auth::user()->full_name)->subject('Welcome to InterWhale!');
 	});
 
 	return Redirect::intended('profile');
