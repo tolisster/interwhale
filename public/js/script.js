@@ -211,7 +211,7 @@ $(document).ready(function() {
 			} else {
 				var count = parseInt($('.navbar-nav [data-item=messages] .badge').text()) || 0;
 				$('.navbar-nav [data-item=messages] .badge').text(count + 1);
-				$('.navbar-nav [data-item=messages] .content-popover').html(data.view);
+				$('.navbar-nav [data-item=messages] .content-popover').html(data.alert);
 			}
 		});
 		channel.bind('chat-message-sent', function(data) {
@@ -219,7 +219,7 @@ $(document).ready(function() {
 		});
 		channel.bind('chat-call', function(data) {
 			if ($('#chat[data-code=' + data.code + '] ul').length) {
-				$('<div class="text-center"><video autoplay style="width: 400px; height: 300px" id="publisherElement"></video></div>').insertBefore('#chat ul');
+				$('<div class="center-block" style="width: 264px"><div id="publisherElement"></div></div>').insertBefore('#chat ul');
 
 				$.post('/chat/' + data.code, 'sessionId=' + data.sessionId, function(data) {
 					var apiKey    = "16819511";
@@ -255,7 +255,7 @@ $(document).ready(function() {
 		event.preventDefault();
 		var $a = $(this);
 		if ($('#chat[data-code=' + $a.data('call-code') + ']').length) {
-			$('<div class="text-center"><video autoplay style="width: 400px; height: 300px" id="publisherElement"></video></div>').insertBefore('#chat ul');
+			$('<div class="center-block" style="width: 264px"><div id="publisherElement"></div></div>').insertBefore('#chat ul');
 
 			$.post('/chat/' + $a.data('call-code'), 'call=true', function(data) {
 				var apiKey    = "16819511";
@@ -272,10 +272,10 @@ $(document).ready(function() {
 				});
 			});
 		}
-	})
+	});
 
 	if ($('#chat[autocall]').length) {
-		$('<div class="text-center"><video autoplay style="width: 400px; height: 300px" id="publisherElement"></video></div>').insertBefore('#chat ul');
+		$('<div class="center-block" style="width: 264px"><div id="publisherElement"></div></div>').insertBefore('#chat ul');
 
 		$.post('/chat/' + $('#chat').data('code'), 'call=true', function(data) {
 			var apiKey    = "16819511";
