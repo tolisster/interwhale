@@ -104,6 +104,11 @@ Route::get('register/return', function()
 
 	Auth::login($user);
 
+	Mail::send('emails.welcome', array('password' => $password), function($message)
+	{
+		$message->to(Auth::user()->email, Auth::user()->full_name)->subject('Welcome to InterWhale!');
+	});
+
 	return Redirect::intended('profile');
 });
 

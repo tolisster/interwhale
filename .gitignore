@@ -27,3 +27,6 @@ _ide_helper.php
 composer.phar
 vendor/
 composer.lock
+
+# Uploads
+app/uploads/
