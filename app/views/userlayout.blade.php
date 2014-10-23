@@ -12,18 +12,22 @@
 				<img src="{{ $user->avatar->url('avatar108') }}" alt="{{{ $user->full_name }}}" class="img-circle center-block">
 				@endif
 			</div>
-			<div id="avatar-background" style="background-image:url(/images/den-stafford-background.jpg);background-position:50% 93%">
+			<div id="avatar-background"{{ App::environment('local') ? ' style="background-image:url(/images/den-stafford-background.jpg);background-position:50% 93%"' : '' }}>
 				<div>
 					<p>{{{ $user->user_info->status }}}</p>
 				</div>
 			</div>
+			@if (App::environment('local'))
 			<div id="online" class="pull-left">Online</div>
 			<div id="time" class="pull-right">9:53 pm</div>
+			@endif
 			<h1>{{{ $user->full_name }}} <small>{{{ $user->location_name }}}</small></h1>
 			<ul class="nav nav-pills nav-stacked" id="user-menu">
 				@if (Auth::user() == $user)
 				<li><a href="{{ URL::route('settings') }}" class="settings">Settings</a></li>
+				@if (App::environment('local'))
 				<li><a href="#">Statistics</a></li>
+				@endif
 				@else
 				<li><a href="{{ URL::route('chat', $user->code) }}">Send Message</a></li>
 					@if (Auth::user()->friends->contains($user->id))
@@ -37,11 +41,13 @@
 					@endif
 				@endif
 			</ul>
+			@if (App::environment('local'))
 			<ul class="nav nav-pills" id="user-links">
 				<li><a href="#" title="Dribbble" style="background-image:url(/images/dribbble-connect.png)"></a></li>
 				<li class="active"><a href="#" title="Vimeo" style="background-image:url(/images/vimeo-connect.png)"></a></li>
 				<li><a href="#" title="Facebook" style="background-image:url(/images/facebook-connect.png)"></a></li>
 			</ul>
+			@endif
 			@include('footer.copyright')
 		</div>
 		<div class="col-md-9" id="main-content">

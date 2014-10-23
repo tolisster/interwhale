@@ -9,8 +9,10 @@
 @stop
 
 @section('js')
+@if (App::environment('local'))
 <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <!--<script src="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.min.js"></script>-->
+@endif
 @stop
 
 @section('main-content')
@@ -51,6 +53,7 @@
 		</div>
 	</div>
 </div>
+@if (App::environment('local'))
 <div class="panel user-map">
 	<div class="panel-heading">
 		Find friends on the map
@@ -104,4 +107,5 @@
 		</ul>
 	</div>
 </div>
+@endif
 @stop

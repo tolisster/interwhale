@@ -23,6 +23,7 @@
 				<div class="tab-pane active" id="login">
 					{{ Form::open(array('url' => 'login', 'method' => 'post', 'role' => 'form')) }}
 						<h2>Log in to your account</h2>
+						@if (App::environment('local'))
 						<div class="btn-group btn-group-justified" id="sign-in-with">
 							<div class="btn-group">
 								<button type="button" class="btn btn-default"><span>Sign in with</span> <span><img src="/images/facebook.png" width="8" height="18" alt="Facebook"></span></button>
@@ -31,6 +32,7 @@
 								<button type="button" class="btn btn-default"><span>Sign in with</span> <span><img src="/images/google-accounts.png" width="17" height="18" alt="Google Accounts"></span></button>
 							</div>
 						</div>
+						@endif
 						<div class="form-group">
 							{{ Form::label('email-login', 'Email address', array('class' => 'sr-only')) }}
 							{{ Form::email('email', Input::old('email'), array('id' => 'email-login', 'class' => 'form-control', 'placeholder' => 'Email address', 'required' => 'required', 'autofocus' => 'autofocus')) }}
@@ -93,6 +95,7 @@
 			<div class="row text-center">
 				{{ link_to_action('RemindersController@getRemind', 'Forgot your password?') }}
 			</div>
+			@if (App::environment('local'))
 			<ul class="list-group hidden-xs hidden-sm" id="last-connections">
 				<li class="list-group-item"><strong><img src="http://www.logicsoft.md/images/famfamfam/flag_icons/it.png" width="16" height="11" alt="Italia" lang="it"> Laura Moretti</strong> meet with <strong>Mikhail Galushko <img src="http://www.logicsoft.md/images/famfamfam/flag_icons/ua.png" width="16" height="11" alt="Україна" lang="ua"></strong></li>
 				<li class="list-group-item"><strong><img src="http://www.logicsoft.md/images/famfamfam/flag_icons/us.png" width="16" height="11" alt="United States of America" lang="en"> Craig Manson</strong> meet with <strong>Anna Lee <img src="http://www.logicsoft.md/images/famfamfam/flag_icons/hk.png" width="16" height="11" alt="香港特別行政區" lang="cn"></strong></li>
@@ -101,6 +104,7 @@
 			<div id="count-users" class="hidden-xs hidden-sm">
 				<h3 class="text-center">1,012,568 <small>all users</small></h3>
 			</div>
+			@endif
 		</div>
 		<div class="col-md-4">
 			<div class="pull-right">
@@ -128,9 +132,11 @@
 		</div>
 	</div>
 </div>
+@if (App::environment('local'))
 <div id="apps-block" class="hidden-xs hidden-sm">
 	<button type="button"><div><img src="/images/apple-logo.png" width="18" height="21" alt="App Store"/></div> <h4><small>Available on the</small> App Store</h4></button><!-- href="https://itunes.apple.com/genre/id36" rel="nofollow"-->
 	<button type="button"><div><img src="/images/android-logo.png" width="18" height="21" alt="Google Play"/></div> <h4><small>Available on the</small> Google Play</h4></button><!-- href="https://play.google.com/store" rel="nofollow"-->
 	<button type="button"><div><img src="/images/windows-logo.png" width="20" height="20" alt="Windows Phone Store"/></div> <h4><small>Available on the</small> Windows Phone Store</h4></button><!-- href="http://www.windowsphone.com/en-US/store" rel="nofollow"-->
 </div>
+@endif
 @stop

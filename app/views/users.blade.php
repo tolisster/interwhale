@@ -50,10 +50,12 @@ Search
 			<div class="panel">
 				<div class="panel-heading">
 					@section('panel-heading')
+					@if (App::environment('local'))
 					<select class="form-control" id="country-control">
 						<option>По дате регистрации</option>
 						<option>По популярности</option>
 					</select>
+					@endif
 					@choice('search.found_users', count($users), array('count' => '<b>'.count($users).'</b>'))
 					@show
 				</div>
@@ -72,9 +74,13 @@ Search
 							</span>
 						</a>
 						<ul class="nav nav-pills nav-stacked col-md-4">
+							@if (App::environment('local'))
 							<li><a href="#">Call</a></li>
+							@endif
 							<li><a href="{{ URL::route('chat', $user->code) }}">Write</a></li>
+							@if (App::environment('local'))
 							<li><a href="#">Remove</a></li>
+							@endif
 						</ul>
 					</li>
 					@endforeach

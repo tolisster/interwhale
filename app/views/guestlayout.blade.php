@@ -34,9 +34,11 @@
 		<div class="collapse navbar-collapse" id="navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<li>{{ link_to_action('HomeController@getPage', 'About Us', array('about-us')) }}</li>
+				@if (App::environment('local'))
 				<li>{{ link_to_action('HomeController@getPage', 'Contacts', array('contacts')) }}</li>
 				<li>{{ link_to_action('HomeController@getPage', 'Terms', array('terms')) }}</li>
 				<li>{{ link_to_action('HomeController@getPage', 'Help', array('help')) }}</li>
+				@endif
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</div>

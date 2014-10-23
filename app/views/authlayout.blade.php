@@ -34,6 +34,7 @@
 			<a class="navbar-brand" href="{{ URL::route('profile') }}" title="InterWhale - International Dating Service"><img src="{{ asset('images/logo.png') }}" width="152" height="40" alt="InterWhale - International Dating Service"></a>
 		</div>
 		<div class="collapse navbar-collapse" id="navbar-collapse">
+			@if (App::environment('local'))
 			<form class="navbar-form navbar-left" role="search">
 				<div class="input-group">
 					<input type="search" class="form-control" placeholder="Search">
@@ -42,6 +43,7 @@
 					</span>
 				</div><!-- /input-group -->
 			</form>
+			@endif
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="{{ URL::route('search') }}">Search</a></li>
 				<li data-item="messages">
@@ -72,7 +74,9 @@
 						@endforeach
 					</div>
 				</li>
+				@if (App::environment('local'))
 				<li><a href="/static.html">Photos</a></li>
+				@endif
 				<li>
 					<a href="{{ URL::route('profile') }}" class="avatar">
 						@if (is_null(Auth::user()->avatar_id))
