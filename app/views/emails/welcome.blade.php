@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 </head>
 <body>
-<h2>Welcome, {{{ Auth::user->full_name }}}!</h2>
+<h2>Welcome, {{{ Auth::user()->full_name }}}!</h2>
 
 <div>
 	Your temporary password: {{ $password }}<br>
