@@ -7,7 +7,7 @@
 			<div class="border-right"></div>
 			<div id="avatar">
 				@if (is_null($user->avatar_id))
-				<img src="{{ asset('images/avatar108.png') }}" class="img-circle center-block">
+				<img src="{{ asset('images/noavatar108.png') }}" class="img-circle center-block">
 				@else
 				<img src="{{ $user->avatar->url('avatar108') }}" alt="{{{ $user->full_name }}}" class="img-circle center-block">
 				@endif

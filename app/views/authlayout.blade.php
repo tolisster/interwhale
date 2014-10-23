@@ -76,7 +76,7 @@
 				<li>
 					<a href="{{ URL::route('profile') }}" class="avatar">
 						@if (is_null(Auth::user()->avatar_id))
-						<img src="{{ asset('images/avatar32.png') }}" class="img-circle">
+						<img src="{{ asset('images/noavatar32.png') }}" class="img-circle">
 						@else
 						<img src="{{ Auth::user()->avatar->url('avatar32') }}" alt="{{{ Auth::user()->full_name }}}" class="img-circle">
 						@endif

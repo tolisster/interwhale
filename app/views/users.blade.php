@@ -65,7 +65,7 @@ Search
 							<b class="col-md-6">{{{ $user->full_name }}} <small>{{{ $user->getLocationName('/') }}}</small></b>
 							<span class="col-md-6">
 								@if (is_null($user->avatar_id))
-								<img src="{{ asset('images/avatar100.png') }}" class="img-circle">
+								<img src="{{ asset('images/noavatar100.png') }}" class="img-circle">
 								@else
 								<img src="{{ $user->avatar->url('avatar100') }}" alt="{{{ $user->full_name }}}" class="img-circle">
 								@endif
