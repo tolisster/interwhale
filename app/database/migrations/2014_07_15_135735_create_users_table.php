@@ -30,6 +30,8 @@ class CreateUsersTable extends Migration {
 			$table->timestamp('subscription_ends_at');
 			$table->timestamps();
 		});
+
+		DB::statement('ALTER TABLE `users` ADD `ip_address` VARBINARY(16)');
 	}
 
 	/**

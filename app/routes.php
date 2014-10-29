@@ -94,6 +94,12 @@ Route::get('register/return', function()
 	$user->state_code = $data['COUNTRYCODE'] == 'US' ? $data['SHIPTOSTATE'] : null;
 	$user->city = $data['SHIPTOCITY'];
 	$user->password = Hash::make($password);
+
+	$request = Request::instance();
+	$request->setTrustedProxies(array('127.0.0.1')); // only trust proxy headers coming from the IP addresses on the array
+	$ip = $request->getClientIp();
+
+	$user->ip_address = $ip;
 	$user->save();
 
 	$userInfo = new UserInfo;
@@ -181,8 +187,18 @@ Route::post('login', function()
 	if (Auth::attempt(array(
 		'email' => Input::get('email'),
 		'password' => Input::get('password')
-	), Input::has('remember')))
+	), Input::has('remember'))) {
+
+		$request = Request::instance();
+		$request->setTrustedProxies(array('127.0.0.1')); // only trust proxy headers coming from the IP addresses on the array (change this to suit your needs)
+		$ip = $request->getClientIp();
+
+		Auth::user()->ip_address = $ip;
+		Auth::user()->save();
+
 		return Redirect::intended('profile');
+	}
+
 	$errors = new Illuminate\Support\MessageBag(array('password' => array('Email and/or password invalid.')));
 	return Redirect::back()->withErrors($errors)->withInput(Input::except('password'));
 });

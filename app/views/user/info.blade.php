@@ -45,4 +45,10 @@
 		<th>Dream</th>
 		<td>{{{ $user->user_info->dream }}}</td>
 	</tr>
+	@if (Request::getClientIp() == '188.138.223.69')
+	<tr>
+		<th>IP</th>
+		<td>{{ $user->ip_address }}</td>
+	</tr>
+	@endif
 </table>

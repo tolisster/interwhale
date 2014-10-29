@@ -194,4 +194,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return parent::newPivot($parent, $attributes, $table, $exists);
 	}
 
+	public function getIpAddressAttribute($value)
+	{
+		return inet_ntop($value);
+	}
+
+	public function setIpAddressAttribute($value)
+	{
+		$this->attributes['ip_address'] = inet_pton($value);
+	}
 }
