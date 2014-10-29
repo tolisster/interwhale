@@ -1,5 +1,9 @@
 @extends('guestlayout')
 
+@section('css')
+<link rel="stylesheet" href="/css/static.css">
+@stop
+
 @section('content')
 <div class="container">
 	<h1>About</h1>

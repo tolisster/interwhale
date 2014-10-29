@@ -16,6 +16,7 @@
 	<![endif]-->
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,600,700&subset=latin,cyrillic">
 	<link rel="stylesheet" href="/css/home.css">
+	@yield('css')
 	<link rel="shortcut icon" href="http://www.interwhale.com/favicon.ico">
 </head>
 <body>
@@ -55,6 +56,7 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="/js/home.js"></script>
+@if (App::environment('production') && Request::getClientIp() != '188.138.223.69')
 <script>
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -65,5 +67,6 @@
 	ga('send', 'pageview');
 
 </script>
+@endif
 </body>
 </html>

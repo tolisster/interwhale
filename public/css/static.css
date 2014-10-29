@@ -1,0 +1,18 @@
+body {
+	background: white; /* Old browsers */
+	color: black;
+	font-size: 16px;
+	font-weight: 600;
+}
+body > .container {
+    min-height: 600px;
+}
+h1:first-child {
+	margin-top: 33px;
+}
+h1 {
+	font-size: 28px;
+    font-weight: normal;
+    margin-bottom: 33px;
+    text-decoration: underline;
+}

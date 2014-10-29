@@ -5,6 +5,7 @@
 @stop
 
 @section('css')
+<!--<link rel="stylesheet" href="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.css">-->
 <link rel="stylesheet" href="/css/user.css">
 @stop
 
