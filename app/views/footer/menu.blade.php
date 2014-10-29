@@ -31,7 +31,7 @@
 		</div>
 		<div class="col-md-5">
 			<ul class="nav nav-pills nav-main">
-				<li>{{ link_to('about-us', 'About Us') }}</li>
+				<li>{{ link_to('about', 'About') }}</li>
 				@if (App::environment('local'))
 				<li>{{ link_to('contacts', 'Contacts') }}</li>
 				<li>{{ link_to('terms', 'Terms') }}</li>
