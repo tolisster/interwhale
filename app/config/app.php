@@ -179,8 +179,11 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Omnipay'         => 'Ignited\LaravelOmnipay\Facades\OmnipayFacade',
 		'Debugbar'        => 'Barryvdh\Debugbar\Facade',
-		'Image'           => 'Intervention\Image\Facades\Image'
+		'Image'           => 'Intervention\Image\Facades\Image',
+		'Collection'      => 'Illuminate\Database\Eloquent\Collection',
 
 	),
+
+	'data_dir' => getenv('OPENSHIFT_DATA_DIR'),
 
 );

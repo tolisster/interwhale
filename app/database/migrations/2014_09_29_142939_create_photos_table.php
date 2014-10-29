@@ -22,7 +22,7 @@ class CreatePhotosTable extends Migration {
 			$table->timestamps();
 		});
 
-		File::makeDirectory(app_path('uploads/photos'));
+		File::makeDirectory(Config::get('app.data_dir') . 'photos');
 	}
 
 	/**
@@ -32,7 +32,7 @@ class CreatePhotosTable extends Migration {
 	 */
 	public function down()
 	{
-		File::deleteDirectory(app_path('uploads/photos'));
+		File::deleteDirectory(Config::get('app.data_dir') . 'photos');
 
 		Schema::drop('photos');
 	}

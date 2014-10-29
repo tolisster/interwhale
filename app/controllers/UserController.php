@@ -94,22 +94,48 @@ class UserController extends BaseController {
 		}
 	}
 
+	private function chatRoom(User $user = null)
+	{
+		$currentChatRoom = null;
+
+		$users = new Collection;
+
+		$chatRooms = Auth::user()->chatRooms;
+		foreach ($chatRooms as $chatRoom) {
+			$talkers = $chatRoom->users;
+			if ($talkers->count() != 2)
+				continue;
+
+			foreach ($talkers as $talker) {
+				if ($talker->id == Auth::user()->id)
+					continue;
+
+				$users->add($talker);
+
+				$currentChatRoom = $chatRoom;
+			}
+		}
+		return array($currentChatRoom, $users);
+	}
+
 	/**
 	 * Show the chat for the given user.
 	 */
 	public function showChat(User $user = null)
 	{
-		if (!Auth::user()->talkers->contains($user->id))
-			Auth::user()->talkers()->attach($user);
+		list($currentChatRoom, $users) = $this->chatRoom($user);
+		if (is_null($currentChatRoom)) {
+			$currentChatRoom = new ChatRoom;
+			$currentChatRoom->save();
+			Auth::user()->chatRooms()->attach($currentChatRoom);
+			$user->chatRooms()->attach($currentChatRoom);
+			$users->add($user);
+		}
 
 		return View::make('chat', array(
-			'users' => Auth::user()->talkers,
+			'users' => $users,
 			'activeTalker' => $user,
-			'messages' => Auth::user()->messages()->where(function($q) use ($user)
-				{
-					$q->whereSenderId($user->id)->orWhere('receiver_id', $user->id);
-
-				})->get()
+			'messages' => $currentChatRoom->messages
 		));
 	}
 
@@ -119,31 +145,30 @@ class UserController extends BaseController {
 	public function postChatMessage(User $user = null)
 	{
 		if (Input::has('message')) {
-			if (!Auth::user()->talkers->contains($user->id))
+			list($currentChatRoom, $users) = $this->chatRoom($user);
+
+			if (is_null($currentChatRoom))
 				return Response::json(array(
 					'code' => 500,
 				), 500);
 
 			$message = new Message;
 			$message->sender_id = Auth::user()->id;
-			$message->receiver_id = $user->id;
 			$message->text = Input::get('message');
-			Auth::user()->messages()->save($message);
+			$currentChatRoom->messages()->save($message);
 
-			$talkerMessage = new Message;
-			$talkerMessage->sender_id = Auth::user()->id;
-			$talkerMessage->receiver_id = $user->id;
-			$talkerMessage->text = Input::get('message');
-			Auth::user()->talkers()->whereTalkerId($user->id)->first()->messages()->save($talkerMessage);
+			$alert = new Alert;
+			$alert->user_id = $user->id;
+			$message->alerts()->save($alert);
 
 			Pusherer::trigger('user-' . $user->code, 'chat-message-send', array(
 				'code' => Auth::user()->code,
 				'view' => View::make('messages.message', array(
-						'message' => $talkerMessage,
+						'message' => $message,
 						'sender' => Auth::user()
 					))->render(),
 				'alert' => View::make('messages.alert', array(
-						'message' => $talkerMessage,
+						'message' => $message,
 						'sender' => Auth::user()
 					))->render()
 			));

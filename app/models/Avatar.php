@@ -11,7 +11,7 @@ class Avatar extends Eloquent {
 
 	public function filePath($makePath = false)
 	{
-		$path = app_path('uploads/avatars') . '/' . intval($this->id / 10000);
+		$path = Config::get('app.data_dir') . 'avatars' . '/' . intval($this->id / 10000);
 
 		if ($makePath && !File::exists($path))
 			File::makeDirectory($path);

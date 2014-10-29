@@ -2,6 +2,7 @@
 
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
@@ -112,7 +113,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function friends()
 	{
-		return $this->belongsToMany('User', 'friends', 'user_id', 'friend_id')->withTimestamps();
+		return $this->belongsToMany('User', 'friends', 'user_id', 'friend_id')->withPivot('id')->withTimestamps();
 	}
 
 	public function friendships()
@@ -178,22 +179,19 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function alerts()
 	{
 		return $this->hasMany('Alert');
-		//return $this->morphMany('Alert', 'alertable');
 	}
 
-	public function alertsOf()
+	public function chatRooms()
 	{
-		return $this->morphMany('Alert', 'alertable');
+		return $this->belongsToMany('ChatRoom', 'talkers')->withTimestamps();
 	}
 
-	public function talkers()
+	public function newPivot(Model $parent, array $attributes, $table, $exists)
 	{
-		return $this->belongsToMany('User', 'talkers', 'user_id', 'talker_id')->withTimestamps();
-	}
-
-	public function messages()
-	{
-		return $this->hasMany('Message');
+		if ($parent instanceof User) {
+			return new Friend($parent, $attributes, $table, $exists);
+		}
+		return parent::newPivot($parent, $attributes, $table, $exists);
 	}
 
 }

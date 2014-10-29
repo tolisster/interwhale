@@ -15,12 +15,10 @@ class CreateMessagesTable extends Migration {
 		Schema::create('messages', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('user_id')->unsigned()->index();
+			$table->integer('chat_room_id')->unsigned()->index();
 			$table->integer('sender_id')->unsigned();
-			$table->integer('receiver_id')->unsigned();
 			$table->text('text');
 			$table->timestamps();
-			$table->index(array('sender_id', 'receiver_id'));
 		});
 	}
 

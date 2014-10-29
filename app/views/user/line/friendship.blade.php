@@ -1,4 +1,4 @@
-<a href="{{ URL::to($user->code) }}" class="list-group-item row">
+<a href="{{ URL::to($user->code) }}" class="list-group-item row" data-id="{{ $user->pivot->id }}">
 	<div class="col-md-2">
 		@if (is_null($user->avatar_id))
 		<img src="{{ asset('images/noavatar32.png') }}" class="img-circle">

@@ -47,20 +47,23 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="{{ URL::route('search') }}">Search</a></li>
 				<li data-item="messages">
-					<a href="#" data-toggle="popover">Messages <span class="badge">{{ Auth::user()->messages()->where('sender_id', '<>', Auth::user()->id)->count() ?: '' }}</span></a>
+					<a href="#" data-toggle="popover">Messages <span class="badge">{{ Auth::user()->alerts()->whereAlertableType('Message')->count() ?: '' }}</span></a>
 					<div class="content-popover hide">
-						@foreach (Auth::user()->messages()->where('sender_id', '<>', Auth::user()->id)->get() as $message)
-						<?php $sender = User::find($message->sender_id); ?>
-						@include('messages.alert')
+						@foreach (Auth::user()->alerts()->whereAlertableType('Message')->get() as $alert)
+							@if ($alert->alertable instanceof Message)
+								<?php $message = $alert->alertable; ?>
+								<?php $sender = User::find($message->sender_id); ?>
+								@include('messages.alert')
+							@endif
 						@endforeach
 					</div>
 				</li>
 				<li data-item="alerts">
-					<a href="#" data-toggle="popover">Alerts <span class="badge">{{ Auth::user()->alerts()->count() ?: '' }}</span></a>
+					<a href="#" data-toggle="popover">Alerts <span class="badge">{{ Auth::user()->alerts()->where('alertable_type', '<>', 'Message')->count() ?: '' }}</span></a>
 					<div class="content-popover hide">
-						@foreach (Auth::user()->alerts as $alert)
-							@if ($alert->alertable instanceof User)
-								<?php $user = $alert->alertable; ?>
+						@foreach (Auth::user()->alerts()->where('alertable_type', '<>', 'Message')->get() as $alert)
+							@if ($alert->alertable instanceof Friend)
+								<?php $user = User::find($alert->alertable->user_id); ?>
 								@include('user.line.friend')
 							@endif
 						@endforeach

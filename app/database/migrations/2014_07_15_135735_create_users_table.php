@@ -26,6 +26,8 @@ class CreateUsersTable extends Migration {
 			$table->string('password', 64);
 			$table->string('remember_token', 100)->nullable();
 			$table->integer('avatar_id')->nullable()->unsigned();
+			$table->timestamp('trial_ends_at');
+			$table->timestamp('subscription_ends_at');
 			$table->timestamps();
 		});
 	}

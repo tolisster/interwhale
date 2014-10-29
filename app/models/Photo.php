@@ -12,8 +12,7 @@ class Photo extends Eloquent {
 
 	public function filePath($makePath = false)
 	{
-		$path = app_path('uploads/photos') . '/' . intval($this->id / 10000);
-
+		$path = Config::get('app.data_dir') . 'photos' . '/' . intval($this->id / 10000);
 		if ($makePath && !File::exists($path))
 			File::makeDirectory($path);
 

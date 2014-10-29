@@ -20,7 +20,7 @@ class CreateAvatarsTable extends Migration {
 			$table->timestamps();
 		});
 
-		File::makeDirectory(app_path('uploads/avatars'));
+		File::makeDirectory(Config::get('app.data_dir') . 'avatars');
 	}
 
 	/**
@@ -30,7 +30,7 @@ class CreateAvatarsTable extends Migration {
 	 */
 	public function down()
 	{
-		File::deleteDirectory(app_path('uploads/avatars'));
+		File::deleteDirectory(Config::get('app.data_dir') . 'avatars');
 
 		Schema::drop('avatars');
 	}

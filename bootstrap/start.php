@@ -27,7 +27,7 @@ $app = new Illuminate\Foundation\Application;
 $env = $app->detectEnvironment(array(
 
 	'local' => array('homestead'),
-	'development' => array('ex-std-node97.prod.rhcloud.com'),
+	'development' => array('ex-std-node40.prod.rhcloud.com'),
 
 ));
 

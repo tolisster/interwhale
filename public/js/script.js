@@ -231,7 +231,7 @@ $(document).ready(function() {
 					});
 
 					session.connect(data.token, function(error) {
-						var publisher = OT.initPublisher('publisherElement');
+						var publisher = OT.initPublisher();
 						session.publish(publisher);
 					});
 				});

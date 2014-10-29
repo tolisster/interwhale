@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTalkersTable extends Migration {
+class CreateChatRoomsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,13 +12,10 @@ class CreateTalkersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('talkers', function(Blueprint $table)
+		Schema::create('chat_rooms', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('user_id')->unsigned();
-			$table->integer('chat_room_id')->unsigned();
 			$table->timestamps();
-			$table->unique(array('user_id', 'chat_room_id'));
 		});
 	}
 
@@ -29,7 +26,7 @@ class CreateTalkersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('talkers');
+		Schema::drop('chat_rooms');
 	}
 
 }

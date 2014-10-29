@@ -53,8 +53,7 @@ class FriendController extends \BaseController {
 
 				$alert = new Alert;
 				$alert->user_id = $friend->id;
-
-				Auth::user()->alertsOf()->save($alert);
+				Auth::user()->friends()->wherePivot('friend_id', $friend->id)->first()->pivot->alerts()->save($alert);
 
 				Pusherer::trigger('user-' . $friend->code, 'friend-accepted', array(
 					'view' => View::make('user.line.friend', array(

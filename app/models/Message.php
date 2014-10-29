@@ -2,9 +2,14 @@
 
 class Message extends Eloquent {
 
-	public function user()
+	public function chatRoom()
 	{
-		return $this->belongsTo('User');
+		return $this->belongsTo('ChatRoom');
+	}
+
+	public function alerts()
+	{
+		return $this->morphMany('Alert', 'alertable');
 	}
 
 }

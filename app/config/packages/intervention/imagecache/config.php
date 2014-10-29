@@ -31,7 +31,7 @@ return array(
     */
     
     'paths' => array(
-		app_path('uploads')
+		Config::get('app.data_dir')
     ),
 
     /*
