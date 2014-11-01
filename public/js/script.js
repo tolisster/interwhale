@@ -201,6 +201,8 @@ $(document).ready(function() {
 		channel.bind('alert-deleted', function(data) {
 			$('.navbar-nav [data-item=alerts] .badge').text('');
 			$('.navbar-nav [data-item=alerts] .content-popover').html('');
+			$('.navbar-nav [data-item=messages] .badge').text('');
+			$('.navbar-nav [data-item=messages] .content-popover').html('');
 		});
 		channel.bind('chat-message-send', function(data) {
 			if ($('.panel-chat[data-code=' + data.code + '] .list-group').length)
@@ -305,11 +307,12 @@ $(document).ready(function() {
 			if (typeof id != 'undefined')
 				ids.push(id);
 		});
-		console.log(ids);
-		/*$.ajax({
-			type: "DELETE",
-			url: '/alerts/' + ids
-		});*/
+		if (ids.length) {
+			$.ajax({
+				type: "DELETE",
+				url: '/alerts/' + ids
+			});
+		}
 	}
 
 	$('abbr.timeago').timeago();
