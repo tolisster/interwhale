@@ -140,3 +140,8 @@ Form::macro('selectMonthWithDefault', function($name, $selected = null, $default
 
 	return Form::selectWithDefault($name, $months, $selected, $default, $options);
 });
+
+HTML::macro('datetime', function($value)
+{
+	return '<abbr class="timeago" title="' . $value->toIso8601String() . '">' . $value->toDayDateTimeString() . '</abbr>';
+});

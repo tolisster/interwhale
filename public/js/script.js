@@ -203,8 +203,8 @@ $(document).ready(function() {
 			$('.navbar-nav [data-item=alerts] .content-popover').html('');
 		});
 		channel.bind('chat-message-send', function(data) {
-			if ($('#chat[data-code=' + data.code + '] ul').length)
-				$('#chat[data-code=' + data.code + '] ul').append(data.view);
+			if ($('.panel-chat[data-code=' + data.code + '] .list-group').length)
+				$('.panel-chat[data-code=' + data.code + '] .list-group').append(data.view);
 			else if ($('#sidebar .list-group a[data-code=' + data.code + ']').length) {
 				var count = parseInt($('#sidebar .list-group a[data-code=' + data.code + '] .badge').text()) || 0;
 				$('#sidebar .list-group a[data-code=' + data.code + '] .badge').text(count + 1);
@@ -215,11 +215,11 @@ $(document).ready(function() {
 			}
 		});
 		channel.bind('chat-message-sent', function(data) {
-			$('#chat[data-code=' + data.code + '] ul').append(data.view);
+			$('.panel-chat[data-code=' + data.code + '] .list-group').append(data.view);
 		});
 		channel.bind('chat-call', function(data) {
-			if ($('#chat[data-code=' + data.code + '] ul').length) {
-				$('<div class="center-block" style="width: 264px"><div id="publisherElement"></div></div>').insertBefore('#chat ul');
+			if ($('.panel-chat[data-code=' + data.code + '] .list-group').length) {
+				$('<div class="center-block" style="width: 264px"><div id="publisherElement"></div></div>').insertBefore('.panel-chat .list-group');
 
 				$.post('/chat/' + data.code, 'sessionId=' + data.sessionId, function(data) {
 					var apiKey    = "16819511";
@@ -248,14 +248,18 @@ $(document).ready(function() {
 		event.preventDefault();
 		var $form = $(this);
 		var formSerialized = $form.serializeArray();
-		$.post($form.attr('action'), $.param(formSerialized));
+		$form.find(':input:not(:disabled)').prop('disabled',true);
+		$.post($form.attr('action'), $.param(formSerialized), function() {
+			$form.get(0).reset();
+			$form.find(':input:disabled').prop('disabled',false);
+		});
 	});
 
 	$('a[data-call-code]').on('click', function(event) {
 		event.preventDefault();
 		var $a = $(this);
-		if ($('#chat[data-code=' + $a.data('call-code') + ']').length) {
-			$('<div class="center-block" style="width: 264px"><div id="publisherElement"></div></div>').insertBefore('#chat ul');
+		if ($('.panel-chat[data-code=' + $a.data('call-code') + ']').length) {
+			$('<div class="center-block" style="width: 264px"><div id="publisherElement"></div></div>').insertBefore('.panel-chat .list-group');
 
 			$.post('/chat/' + $a.data('call-code'), 'call=true', function(data) {
 				var apiKey    = "16819511";
@@ -274,23 +278,46 @@ $(document).ready(function() {
 		}
 	});
 
-	if ($('#chat[autocall]').length) {
-		$('<div class="center-block" style="width: 264px"><div id="publisherElement"></div></div>').insertBefore('#chat ul');
+	if ($('.panel-chat[data-code]').length) {
+		if ($('.panel-chat[autocall]').length) {
+			$('<div class="center-block" style="width: 264px"><div id="publisherElement"></div></div>').insertBefore('.panel-chat .list-group');
 
-		$.post('/chat/' + $('#chat').data('code'), 'call=true', function(data) {
-			var apiKey    = "16819511";
+			$.post('/chat/' + $('.panel-chat').data('code'), 'call=true', function(data) {
+				var apiKey    = "16819511";
 
-			var session = OT.initSession(apiKey, data.sessionId);
+				var session = OT.initSession(apiKey, data.sessionId);
 
-			session.on("streamCreated", function(event) {
-				session.subscribe(event.stream);
+				session.on("streamCreated", function(event) {
+					session.subscribe(event.stream);
+				});
+
+				session.connect(data.token, function(error) {
+					var publisher = OT.initPublisher('publisherElement');
+					session.publish(publisher);
+				});
 			});
+		}
 
-			session.connect(data.token, function(error) {
-				var publisher = OT.initPublisher('publisherElement');
-				session.publish(publisher);
-			});
+		var $content = $('.panel-chat[data-code] > .list-group');
+		var ids = [];
+		$content.children().each(function() {
+			var id = $(this).data('id');
+			if (typeof id != 'undefined')
+				ids.push(id);
 		});
+		console.log(ids);
+		/*$.ajax({
+			type: "DELETE",
+			url: '/alerts/' + ids
+		});*/
 	}
+
+	$('abbr.timeago').timeago();
+
+	$('#message-chat').on('keyup', function(e) {
+		if (e.which == 13 && ! e.shiftKey) {
+			$(this.form).submit();
+		}
+	});
 
 });

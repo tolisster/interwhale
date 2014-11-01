@@ -15,6 +15,6 @@
 		</div>
 	</div>
 	<div class="col-md-2">
-		<time>{{ $user->pivot->created_at->diffForHumans() }}</time>
+		<time>{{ HTML::datetime($user->pivot->created_at) }}</time>
 	</div>
 </a>

@@ -161,24 +161,29 @@ class UserController extends BaseController {
 			$alert->user_id = $user->id;
 			$message->alerts()->save($alert);
 
+			$associatedAlert = null;
+			if ($message->alerts()->whereUserId(Auth::user()->id)->count() > 0)
+				$associatedAlert = $message->alerts()->whereUserId(Auth::user()->id)->first();
+
+			$messageView = View::make('messages.message', array(
+				'message' => $message,
+				'sender' => Auth::user(),
+				'associatedAlert' => $associatedAlert
+			))->render();
+
 			Pusherer::trigger('user-' . $user->code, 'chat-message-send', array(
 				'code' => Auth::user()->code,
-				'view' => View::make('messages.message', array(
-						'message' => $message,
-						'sender' => Auth::user()
-					))->render(),
+				'view' => $messageView,
 				'alert' => View::make('messages.alert', array(
 						'message' => $message,
-						'sender' => Auth::user()
+						'sender' => Auth::user(),
+						'alert' => $alert
 					))->render()
 			));
 
 			Pusherer::trigger('user-' . Auth::user()->code, 'chat-message-sent', array(
 				'code' => $user->code,
-				'view' => View::make('messages.message', array(
-						'message' => $message,
-						'sender' => Auth::user()
-					))->render()
+				'view' => $messageView
 			));
 
 			return Response::json(array(

@@ -15,6 +15,6 @@
 		</div>
 	</div>
 	<div class="col-md-2">
-		<time>{{ $alert->created_at->diffForHumans() }}</time>
+		<time>{{ HTML::datetime($alert->created_at) }}</time>
 	</div>
 </a>

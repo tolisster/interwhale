@@ -1,0 +1,118 @@
+.navbar-default .container {
+}
+.navbar .navbar-nav .dropdown-toggle {
+	padding-top: 13px;
+}
+#sign-out {
+	height: 67px;
+}
+.container > .row.equal {
+	border-top: 3px solid rgba(58, 143, 200, 0.75);
+}
+#sidebar {
+	background-color: #f0f0f0;
+	padding-right: 5px;
+}
+#sidebar > .border-right {
+	background-color: #cacaca;
+}
+.title-dialogs {
+	font-size: 12px;
+	color: white;
+	text-align: center;
+	background-color: #3a8fc8;
+	margin-top: 10px;
+	padding: 7px;
+}
+
+.nav-dialogs {
+	margin-top: 10px;
+}
+
+.nav-dialogs > li > a {
+    border-radius: 0;
+	font-size: 15px;
+	padding: 15px 35px;
+}
+
+.nav-dialogs > li.active > a, .nav-dialogs > li.active > a:hover, .nav-dialogs > li.active > a:focus {
+    background-color: white;
+	color: #3a8fc8;
+	font-weight: bold;
+}
+.nav-dialogs > li.active > .border-right {
+	background-color: #3a8fc8;
+	position: absolute;
+	width: 5px;
+	height: 100%;
+	right: -5px;
+	top: 0px;
+}
+
+.nav-dialogs > li > a > .bullet {
+	font-size: 24px;
+    position: absolute;
+    left: 15px;
+    top: 16%;
+}
+.nav-dialogs > li > a > .badge {
+	font-size: 15px;
+	font-weight: normal;
+	background-color: transparent;
+	color: #3a8fc8;
+    border: none;
+    top: 30%;
+	margin-right: 10px;
+}
+
+.panel-chat > .panel-heading {
+    padding: 7px 60px;
+	background-color: #f0f0f0;
+}
+.panel-chat > .panel-heading > .panel-title {
+  font-size: 15px;
+  line-height: 2;
+}
+.panel-chat > .panel-heading .btn {
+	padding: 2px 12px;
+	text-transform: lowercase;
+	font-size: 15px;
+}
+.panel-chat > .panel-heading .btn[disabled] {
+	color: #c8c8c8;
+	opacity: 1;
+}
+.panel-chat > .panel-heading .solid-vertical-bar {
+	font-size: 24px;
+	font-weight: bold;
+	vertical-align: sub;
+	line-height: 1;
+}
+
+.panel-chat > .list-group {
+	margin-top: 12px;
+}
+.panel-chat > .list-group > .list-group-item {
+	padding: 11px 7px 11px 10px;
+    border-radius: 0;
+	border: 2px solid transparent;
+}
+.panel-chat > .list-group > .list-group-item .list-group-item-avatar {
+	text-align: center;
+}
+.panel-chat > .list-group > .list-group-item .list-group-item-heading {
+	font-size: 16px;
+	color: #c8c8c8;
+}
+.panel-chat > .list-group > .list-group-item .list-group-item-heading a {
+	color: #3a8fc8;
+}
+.panel-chat > .list-group > .list-group-item .list-group-item-text {
+	font-size: 13px;
+	padding-bottom: 8px;
+}
+.panel-chat > .list-group > .list-group-item .list-group-item-time {
+	font-size: 10px;
+	text-align: right;
+	color: #c8c8c8;
+}

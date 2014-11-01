@@ -1,4 +1,4 @@
-<a href="{{ URL::route('chat', $sender->code) }}" class="list-group-item row">
+<a href="{{ URL::route('chat', $sender->code) }}" class="list-group-item row" data-id="{{ $alert->id }}">
 	<div class="col-md-2">
 		@if (is_null($sender->avatar_id))
 		<img src="{{ asset('images/noavatar32.png') }}" class="img-circle">
@@ -15,6 +15,6 @@
 		</div>
 	</div>
 	<div class="col-md-2">
-		<time>{{ $message->created_at->diffForHumans() }}</time>
+		<time>{{ HTML::datetime($message->created_at) }}</time>
 	</div>
 </a>
