@@ -57,6 +57,7 @@
 					{{ Form::close() }}
 				</div>
 				<div class="tab-pane" id="register">
+					@if (App::environment('local'))
 					{{ Form::open(array('url' => 'register', 'method' => 'post', 'role' => 'form')) }}
 						<h2>Create new account</h2>
 					{{-- <div class="form-group">
@@ -82,7 +83,10 @@
 						<div class="form-group">
 							{{ Form::label(null, 'Payment method', array('class' => 'sr-only')) }}
 							<select class="form-control">
-								<option>Will be processed by PayPal</option>
+								<option value="skrill">Will be processed by Skrill</option>
+								@if (App::environment('local'))
+								<option value="paypal">Will be processed by PayPal</option>
+								@endif
 							</select>
 						</div>
 						<p class="text-center">Payment per year 2.99 USD</p>
@@ -90,6 +94,9 @@
 							{{ Form::button('Sign up', array('type' => 'submit', 'class' => 'btn btn-primary', 'data-loading-text' => 'Processing...')) }}
 						</div>
 					{{ Form::close() }}
+					@else
+						<p class="text-center">Currently registration is not possible. Please try later.</p>
+					@endif
 				</div>
 			</div>
 			<div class="row text-center">
