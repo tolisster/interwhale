@@ -57,8 +57,8 @@
 					{{ Form::close() }}
 				</div>
 				<div class="tab-pane" id="register">
-					@if (App::environment('local'))
 					{{ Form::open(array('url' => 'register', 'method' => 'post', 'role' => 'form')) }}
+						@if (App::environment('local'))
 						<h2>Create new account</h2>
 					{{-- <div class="form-group">
 							{{ Form::label('first-name-register', 'First name', array('class' => 'sr-only')) }}
@@ -93,10 +93,10 @@
 						<div class="form-group text-center">
 							{{ Form::button('Sign up', array('type' => 'submit', 'class' => 'btn btn-primary', 'data-loading-text' => 'Processing...')) }}
 						</div>
-					{{ Form::close() }}
-					@else
+						@else
 						<p class="text-center">Currently registration is not possible. Please try later.</p>
-					@endif
+						@endif
+					{{ Form::close() }}
 				</div>
 			</div>
 			<div class="row text-center">
