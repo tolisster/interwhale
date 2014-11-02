@@ -213,13 +213,13 @@ Route::post('register', array(function()
 	))->send();
 	$data = $response->getData();
 	Log::info('Omnipay purchase', $data);
-	DB::insert('INSERT INTO payments (token, created_at, updated_at) values (?, NOW(), NOW())', array($data['TOKEN']));
 	if ($response->isSuccessful()) {
 // payment was successful: update database
 		//print_r($response);
 		Log::info('Omnipay successful', $data);
 	} elseif ($response->isRedirect()) {
 // redirect to offsite payment gateway
+		DB::insert('INSERT INTO payments (token, created_at, updated_at) values (?, NOW(), NOW())', array($data['TOKEN']));
 		$response->redirect();
 
 	} else {
