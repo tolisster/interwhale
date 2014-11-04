@@ -21,7 +21,7 @@
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane active" id="login">
-					{{ Form::open(array('url' => 'login', 'method' => 'post', 'role' => 'form')) }}
+					{{ Form::open(array('url' => 'login', 'method' => 'post', 'role' => 'form', 'class' => 'form-auth')) }}
 						<h2>Log in to your account</h2>
 						@if (App::environment('local'))
 						<div class="btn-group btn-group-justified" id="sign-in-with">
@@ -57,8 +57,7 @@
 					{{ Form::close() }}
 				</div>
 				<div class="tab-pane" id="register">
-					{{ Form::open(array('url' => 'register', 'method' => 'post', 'role' => 'form')) }}
-						@if (App::environment('local'))
+					{{ Form::open(array('url' => 'register', 'method' => 'post', 'role' => 'form', 'class' => 'form-auth')) }}
 						<h2>Create new account</h2>
 					{{-- <div class="form-group">
 							{{ Form::label('first-name-register', 'First name', array('class' => 'sr-only')) }}
@@ -82,20 +81,15 @@
 						</div> --}}
 						<div class="form-group">
 							{{ Form::label(null, 'Payment method', array('class' => 'sr-only')) }}
-							<select class="form-control">
+							<select name="gateway" class="form-control">
 								<option value="skrill">Will be processed by Skrill</option>
-								@if (App::environment('local'))
 								<option value="paypal">Will be processed by PayPal</option>
-								@endif
 							</select>
 						</div>
 						<p class="text-center">Payment per year 2.99 USD</p>
 						<div class="form-group text-center">
 							{{ Form::button('Sign up', array('type' => 'submit', 'class' => 'btn btn-primary', 'data-loading-text' => 'Processing...')) }}
 						</div>
-						@else
-						<p class="text-center">Currently registration is not possible. Please try later.</p>
-						@endif
 					{{ Form::close() }}
 				</div>
 			</div>

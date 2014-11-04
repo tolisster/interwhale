@@ -67,7 +67,7 @@ h4 small {
 	display: block;
 	text-transform: none;
 }
-form {
+.form-auth {
 	background-color: rgba(22, 76, 136, 0.55);
 	padding: 8px 30px 26px;
 	margin-bottom: 13px;

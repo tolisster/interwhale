@@ -5,7 +5,6 @@ return array(
 	// The default gateway to use
 	'default' => 'paypal',
 
-	// Add in each gateway here
 	'gateways' => array(
 		'paypal' => array(
 			'driver' => '\\App\\Omnipay\\PayPal\\ExtendedExpressGateway',
@@ -20,6 +19,15 @@ return array(
 				'password' => 'C4KX683EECA7EEVY',
 				'signature' => 'AFcWxV21C7fd0v3bYYYRCpSSRl31AWOIS4xFkqTcLGzEwYynfXu1Bdyb',
 				'testMode' => true
+			)
+		),
+		'skrill' => array(
+			'driver' => 'Skrill',
+			'options' => array(
+				'logoUrl' => 'http://www.interwhale.com/images/logo.png',
+				'email' => 'logicsoft@logicsoft.md',
+				'password' => '125QIH645',
+				'testMode' => false
 			)
 		)
 	)

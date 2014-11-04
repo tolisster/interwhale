@@ -125,12 +125,16 @@ Route::get('register/return', function()
 
 Route::get('register/cancel', function()
 {
-	Log::info('Omnipay canceled', array(Input::get('token')));
+	dd($_SERVER);
+	if (isset($_SERVER['HTTP_REFERER'])) {
 
-	DB::update('UPDATE payments SET canceled = 1, updated_at = NOW() WHERE token = ?',
-		array(
-			Input::get('token')
-		));
+		Log::info('Omnipay canceled', array($_SERVER['HTTP_REFERER']));
+
+		DB::update('UPDATE payments SET canceled = 1, updated_at = NOW() WHERE token = ?',
+			array(
+				Input::get('token')
+			));
+	}
 
 	return Redirect::route('home');
 });
@@ -205,28 +209,38 @@ Route::post('login', function()
 
 Route::post('register', array(function()
 {
-	$response = Omnipay::purchase(array(
+	$gateway = Input::get('gateway');
+	Omnipay::setGateway($gateway);
+
+	$purchaseOptions = array(
 		'amount' => 2.99,
 		'currency' => 'USD',
 		'returnUrl' => URL::to('register/return'),
 		'cancelUrl' => URL::to('register/cancel')
-	))->send();
+	);
+	if ($gateway == 'skrill') {
+		$purchaseOptions['language'] = 'EN';
+		$purchaseOptions['details'] = array('Sign Up' => 'Registration at the InterWhale');
+	}
+
+	$response = Omnipay::purchase($purchaseOptions)->send();
+
 	$data = $response->getData();
-	Log::info('Omnipay purchase', $data);
+	Log::info('Omnipay purchase', (array) $data);
 	if ($response->isSuccessful()) {
-// payment was successful: update database
-		//print_r($response);
-		Log::info('Omnipay successful', $data);
+		// payment was successful: update database
+		Log::info('Omnipay successful', (array) $data);
 	} elseif ($response->isRedirect()) {
-// redirect to offsite payment gateway
-		DB::insert('INSERT INTO payments (token, created_at, updated_at) values (?, NOW(), NOW())', array($data['TOKEN']));
+		// redirect to offsite payment gateway
+		if ($gateway == 'paypal')
+			$token = $response->getTransactionReference();
+		elseif ($gateway == 'skrill')
+			$token = $response->getSessionId();
+		DB::insert('INSERT INTO payments (token, created_at, updated_at) values (?, NOW(), NOW())', array($token));
 		$response->redirect();
-
 	} else {
-
-// payment failed: display message to customer
+		// payment failed: display message to customer
 		echo $response->getMessage();
-
 	}
 }));
 
