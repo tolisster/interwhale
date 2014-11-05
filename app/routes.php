@@ -39,72 +39,128 @@ Route::get('logout', array('as' => 'logout', 'before' => 'auth', function()
 	return Redirect::route('home');
 }));
 
-Route::get('register/return', function()
+Route::get('register/{gateway}/notify', function($gateway)
 {
-	$response = Omnipay::completePurchase(array(
-		'amount' => 2.99,
-		'currency' => 'USD',
-		'returnUrl' => URL::to('register/return'),
-		'cancelUrl' => URL::to('register/cancel')
-	))->send();
-	$data = $response->getData();
-	Log::info('Omnipay complete purchase', $data);
+	if ($gateway == 'skrill') {
+		$statusCallback = new StatusCallback(Input::all());
 
-	if (!$response->isSuccessful()) {
-		Log::error('Omnipay error', array($response->getMessage()));
-		App::abort(500);
+		if (!$statusCallback->isSuccessful()) {
+			Log::error('Omnipay error', array($statusCallback->getMessage()));
+			return 'Ok';
+		}
+
+		DB::update('UPDATE payments SET email = ?, amount = ?, currency = ?,
+		updated_at = NOW(), canceled = ? WHERE id = ?',
+			array(
+				$statusCallback->getCustomerEmail(),
+				$statusCallback->getAmount(),
+				$statusCallback->getCurrency(),
+				$statusCallback->getStatus() == -1 ? 1 : 0,
+				$statusCallback->getTransactionId()
+			));
+
+		if ($statusCallback->getStatus() == -1) {
+			Log::info('Omnipay canceled', array(Input::all()));
+			return 'Ok';
+		}
+
+		Log::info('Omnipay complete purchase', Input::all());
+
+		$password = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 8);
+
+		$request = Request::instance();
+		$request->setTrustedProxies(array('127.0.0.1')); // only trust proxy headers coming from the IP addresses on the array
+		$ip = $request->getClientIp();
+
+		$user = new User;
+		$user->email = $statusCallback->getCustomerEmail();
+		$user->password = Hash::make($password);
+		$user->ip_address = $ip;
+		$user->save();
 	}
 
-	DB::update('UPDATE payments SET amount = ?, currency = ?, fee = ?,
-	updated_at = NOW() WHERE token = ?',
-		array(
-			$data['PAYMENTINFO_0_AMT'],
-			$data['PAYMENTINFO_0_CURRENCYCODE'],
-			$data['PAYMENTINFO_0_FEEAMT'],
-			Input::get('token')
+	Log::info('user created', $user->toArray() + array('password' => $password));
+
+	Mail::send('emails.welcome', array('password' => $password), function($message)
+	{
+		$email = Auth::user()->email;
+		if (preg_match('/tolisster-test\d+@gmail\.com/', $email))
+			$email = 'tolisster@gmail.com';
+		if ($email == 'gribanovtim-test@gmail.com')
+			$email = 'gribanovtim@gmail.com';
+		$message->to($email, Auth::user()->full_name)->subject('Welcome to InterWhale!');
+	});
+
+	return 'Ok';
+});
+
+Route::get('register/{gateway}/return', function($gateway)
+{
+	if ($gateway == 'paypal') {
+		$response = Omnipay::completePurchase(array(
+			'amount' => 2.99,
+			'currency' => 'USD',
+			'returnUrl' => URL::to("register/{$gateway}/return"),
+			'cancelUrl' => URL::to("register/{$gateway}/cancel")
+		))->send();
+		$data = $response->getData();
+		Log::info('Omnipay complete purchase', $data);
+
+		if (!$response->isSuccessful()) {
+			Log::error('Omnipay error', array($response->getMessage()));
+			App::abort(500);
+		}
+
+		DB::update('UPDATE payments SET amount = ?, currency = ?, fee = ?,
+		updated_at = NOW() WHERE token = ?',
+			array(
+				$data['PAYMENTINFO_0_AMT'],
+				$data['PAYMENTINFO_0_CURRENCYCODE'],
+				$data['PAYMENTINFO_0_FEEAMT'],
+				Input::get('token')
+			));
+
+		$response = Omnipay::fetchExpressCheckoutDetail(array(
+			'transactionReference' => $data['TOKEN']
 		));
+		$data = $response->getData();
+		Log::info('Omnipay fetch detail', $data);
+		DB::update('UPDATE payments SET email = ?, first_name = ?, last_name = ?,
+		country_code = ?, country_name = ?, state_code = ?, city = ?, note = ?,
+		updated_at = NOW() WHERE token = ?',
+			array(
+				$data['EMAIL'],
+				$data['FIRSTNAME'],
+				$data['LASTNAME'],
+				$data['COUNTRYCODE'],
+				$data['SHIPTOCOUNTRYNAME'],
+				$data['COUNTRYCODE'] == 'US' ? $data['SHIPTOSTATE'] : null,
+				$data['SHIPTOCITY'],
+				isset($data['PAYMENTREQUEST_0_NOTETEXT']) ? $data['PAYMENTREQUEST_0_NOTETEXT'] : null,
+				$data['TOKEN']
+			));
 
-	$response = Omnipay::fetchExpressCheckoutDetail(array(
-		'transactionReference' => $data['TOKEN']
-	));
-	$data = $response->getData();
-	Log::info('Omnipay fetch detail', $data);
-	DB::update('UPDATE payments SET email = ?, first_name = ?, last_name = ?,
-	country_code = ?, country_name = ?, state_code = ?, city = ?, note = ?,
-	updated_at = NOW() WHERE token = ?',
-		array(
-			$data['EMAIL'],
-			$data['FIRSTNAME'],
-			$data['LASTNAME'],
-			$data['COUNTRYCODE'],
-			$data['SHIPTOCOUNTRYNAME'],
-			$data['COUNTRYCODE'] == 'US' ? $data['SHIPTOSTATE'] : null,
-			$data['SHIPTOCITY'],
-			isset($data['PAYMENTREQUEST_0_NOTETEXT']) ? $data['PAYMENTREQUEST_0_NOTETEXT'] : null,
-			$data['TOKEN']
-		));
+		$password = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 8);
 
-	$password = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 8);
+		$request = Request::instance();
+		$request->setTrustedProxies(array('127.0.0.1')); // only trust proxy headers coming from the IP addresses on the array
+		$ip = $request->getClientIp();
 
-	$user = new User;
-	$user->email = $data['EMAIL'];
-	$user->first_name = $data['FIRSTNAME'];
-	$user->last_name = $data['LASTNAME'];
-	$user->country_code = $data['COUNTRYCODE'];
-	$user->state_code = $data['COUNTRYCODE'] == 'US' ? $data['SHIPTOSTATE'] : null;
-	$user->city = $data['SHIPTOCITY'];
-	$user->password = Hash::make($password);
+		$user = new User;
+		$user->email = $data['EMAIL'];
+		$user->first_name = $data['FIRSTNAME'];
+		$user->last_name = $data['LASTNAME'];
+		$user->country_code = $data['COUNTRYCODE'];
+		$user->state_code = $data['COUNTRYCODE'] == 'US' ? $data['SHIPTOSTATE'] : null;
+		$user->city = $data['SHIPTOCITY'];
+		$user->password = Hash::make($password);
+		$user->ip_address = $ip;
+		$user->save();
 
-	$request = Request::instance();
-	$request->setTrustedProxies(array('127.0.0.1')); // only trust proxy headers coming from the IP addresses on the array
-	$ip = $request->getClientIp();
-
-	$user->ip_address = $ip;
-	$user->save();
-
-	$userInfo = new UserInfo;
-	$userInfo->status = isset($data['PAYMENTREQUEST_0_NOTETEXT']) ? $data['PAYMENTREQUEST_0_NOTETEXT'] : '';
-	$user->userInfo()->save($userInfo);
+		$userInfo = new UserInfo;
+		$userInfo->status = isset($data['PAYMENTREQUEST_0_NOTETEXT']) ? $data['PAYMENTREQUEST_0_NOTETEXT'] : '';
+		$user->userInfo()->save($userInfo);
+	}
 
 	Log::info('user created', $user->toArray() + array('password' => $password));
 
@@ -123,13 +179,11 @@ Route::get('register/return', function()
 	return Redirect::intended('profile');
 });
 
-Route::get('register/cancel', function()
+Route::get('register/{gateway}/cancel', function($gateway)
 {
-	dd($_SERVER);
-	if (isset($_SERVER['HTTP_REFERER'])) {
+	Log::info('Omnipay canceled', array(Input::all()));
 
-		Log::info('Omnipay canceled', array($_SERVER['HTTP_REFERER']));
-
+	if ($gateway == 'paypal') {
 		DB::update('UPDATE payments SET canceled = 1, updated_at = NOW() WHERE token = ?',
 			array(
 				Input::get('token')
@@ -209,18 +263,28 @@ Route::post('login', function()
 
 Route::post('register', array(function()
 {
+	$request = Request::instance();
+	$request->setTrustedProxies(array('127.0.0.1')); // only trust proxy headers coming from the IP addresses on the array (change this to suit your needs)
+	$ip = $request->getClientIp();
+
 	$gateway = Input::get('gateway');
 	Omnipay::setGateway($gateway);
 
 	$purchaseOptions = array(
-		'amount' => 2.99,
+		'amount' =>  App::environment('production') ? 2.99 : 0.01,
 		'currency' => 'USD',
-		'returnUrl' => URL::to('register/return'),
-		'cancelUrl' => URL::to('register/cancel')
+		'returnUrl' => URL::to("register/{$gateway}/return"),
+		'cancelUrl' => URL::to("register/{$gateway}/cancel")
 	);
 	if ($gateway == 'skrill') {
-		$purchaseOptions['language'] = 'EN';
+		$config = Config::get("ignited/laravel-omnipay::gateways.{$gateway}.requestOptions");
+		foreach($config as $optionName => $value) {
+			$purchaseOptions[$optionName] = $value;
+		}
 		$purchaseOptions['details'] = array('Sign Up' => 'Registration at the InterWhale');
+		DB::insert('INSERT INTO payments (created_at, updated_at, ip_address) values (NOW(), NOW(), ?)',
+			array(inet_pton($ip)));
+		$purchaseOptions['transactionId'] = DB::getPdo()->lastInsertId();
 	}
 
 	$response = Omnipay::purchase($purchaseOptions)->send();
@@ -232,11 +296,11 @@ Route::post('register', array(function()
 		Log::info('Omnipay successful', (array) $data);
 	} elseif ($response->isRedirect()) {
 		// redirect to offsite payment gateway
-		if ($gateway == 'paypal')
-			$token = $response->getTransactionReference();
-		elseif ($gateway == 'skrill')
-			$token = $response->getSessionId();
-		DB::insert('INSERT INTO payments (token, created_at, updated_at) values (?, NOW(), NOW())', array($token));
+		if ($gateway == 'paypal') {
+			DB::insert('INSERT INTO payments (token, created_at, updated_at, ip_address) values (?, NOW(), NOW(), ?)',
+				array($response->getTransactionReference(), inet_pton($ip)));
+		}
+
 		$response->redirect();
 	} else {
 		// payment failed: display message to customer

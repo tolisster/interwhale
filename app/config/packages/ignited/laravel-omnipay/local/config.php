@@ -24,10 +24,15 @@ return array(
 		'skrill' => array(
 			'driver' => 'Skrill',
 			'options' => array(
-				'logoUrl' => 'http://www.interwhale.com/images/logo.png',
 				'email' => 'logicsoft@logicsoft.md',
-				'password' => '125QIH645',
-				'testMode' => false
+				//'password' => '125QIH645',
+				'notifyUrl' => URL::to('register/skrill/notify'),
+				'testMode' => true
+			),
+			'requestOptions' => array(
+				'language' => 'EN',
+				'recipientDescription' => 'Test InterWhale - International Dating Service',
+				//'logoUrl' => 'http://www.interwhale.com/images/logo.png',
 			)
 		)
 	)
