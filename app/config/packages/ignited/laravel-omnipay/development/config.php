@@ -24,7 +24,7 @@ return array(
 		'skrill' => array(
 			'driver' => 'Skrill',
 			'options' => array(
-				'email' => 'logicsoft@logicsoft.md',
+				'email' => 'skrilltest@logicsoft.md',
 				//'password' => '125QIH645',
 				'notifyUrl' => URL::to('register/skrill/notify'),
 				'testMode' => true

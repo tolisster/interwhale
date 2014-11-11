@@ -77,19 +77,19 @@ Route::get('register/{gateway}/notify', function($gateway)
 		$user->password = Hash::make($password);
 		$user->ip_address = $ip;
 		$user->save();
+
+		Log::info('user created', $user->toArray() + array('password' => $password));
+
+		Mail::send('emails.welcome', array('password' => $password), function($message)
+		{
+			$email = Auth::user()->email;
+			if (preg_match('/tolisster-test\d+@gmail\.com/', $email))
+				$email = 'tolisster@gmail.com';
+			if ($email == 'gribanovtim-test@gmail.com')
+				$email = 'gribanovtim@gmail.com';
+			$message->to($email, Auth::user()->full_name)->subject('Welcome to InterWhale!');
+		});
 	}
-
-	Log::info('user created', $user->toArray() + array('password' => $password));
-
-	Mail::send('emails.welcome', array('password' => $password), function($message)
-	{
-		$email = Auth::user()->email;
-		if (preg_match('/tolisster-test\d+@gmail\.com/', $email))
-			$email = 'tolisster@gmail.com';
-		if ($email == 'gribanovtim-test@gmail.com')
-			$email = 'gribanovtim@gmail.com';
-		$message->to($email, Auth::user()->full_name)->subject('Welcome to InterWhale!');
-	});
 
 	return 'Ok';
 });
@@ -160,21 +160,21 @@ Route::get('register/{gateway}/return', function($gateway)
 		$userInfo = new UserInfo;
 		$userInfo->status = isset($data['PAYMENTREQUEST_0_NOTETEXT']) ? $data['PAYMENTREQUEST_0_NOTETEXT'] : '';
 		$user->userInfo()->save($userInfo);
+
+		Log::info('user created', $user->toArray() + array('password' => $password));
+
+		Auth::login($user);
+
+		Mail::send('emails.welcome', array('password' => $password), function($message)
+		{
+			$email = Auth::user()->email;
+			if (preg_match('/tolisster-test\d+@gmail\.com/', $email))
+				$email = 'tolisster@gmail.com';
+			if ($email == 'gribanovtim-test@gmail.com')
+				$email = 'gribanovtim@gmail.com';
+			$message->to($email, Auth::user()->full_name)->subject('Welcome to InterWhale!');
+		});
 	}
-
-	Log::info('user created', $user->toArray() + array('password' => $password));
-
-	Auth::login($user);
-
-	Mail::send('emails.welcome', array('password' => $password), function($message)
-	{
-		$email = Auth::user()->email;
-		if (preg_match('/tolisster-test\d+@gmail\.com/', $email))
-			$email = 'tolisster@gmail.com';
-		if ($email == 'gribanovtim-test@gmail.com')
-			$email = 'gribanovtim@gmail.com';
-		$message->to($email, Auth::user()->full_name)->subject('Welcome to InterWhale!');
-	});
 
 	return Redirect::intended('profile');
 });
@@ -271,7 +271,7 @@ Route::post('register', array(function()
 	Omnipay::setGateway($gateway);
 
 	$purchaseOptions = array(
-		'amount' =>  App::environment('production') ? 2.99 : 0.01,
+		'amount' => /*App::environment('production') ? 2.99 : */0.01,
 		'currency' => 'USD',
 		'returnUrl' => URL::to("register/{$gateway}/return"),
 		'cancelUrl' => URL::to("register/{$gateway}/cancel")
