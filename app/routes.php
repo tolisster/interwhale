@@ -41,6 +41,7 @@ Route::get('logout', array('as' => 'logout', 'before' => 'auth', function()
 
 Route::get('register/{gateway}/notify', function($gateway)
 {
+	Log::info('Omnipay', array(Input::all()));
 	if ($gateway == 'skrill') {
 		$statusCallback = new StatusCallback(Input::all());
 
