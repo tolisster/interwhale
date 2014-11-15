@@ -64,14 +64,9 @@ Route::post('register/{gateway}/notify', function($gateway)
 
 		$password = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 8);
 
-		$request = Request::instance();
-		$request->setTrustedProxies(array('127.4.98.1')); // only trust proxy headers coming from the IP addresses on the array
-		$ip = $request->getClientIp();
-
 		$user = new User;
 		$user->email = $statusCallback->getCustomerEmail();
 		$user->password = Hash::make($password);
-		$user->ip_address = $ip;
 		$user->save();
 
 		$userInfo = new UserInfo;
@@ -95,6 +90,8 @@ Route::post('register/{gateway}/notify', function($gateway)
 
 Route::get('register/{gateway}/return', function($gateway)
 {
+	Log::info('Omnipay', array(Input::all()));
+
 	if ($gateway == 'paypal') {
 		$response = Omnipay::completePurchase(array(
 			'amount' => 2.99,
@@ -289,7 +286,6 @@ Route::post('register', array(function()
 	$response = Omnipay::purchase($purchaseOptions)->send();
 
 	$data = $response->getData();
-	Log::info('Omnipay purchase', (array) $data);
 	if ($response->isSuccessful()) {
 		// payment was successful: update database
 		Log::info('Omnipay successful', (array) $data);
