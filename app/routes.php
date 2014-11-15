@@ -65,7 +65,7 @@ Route::post('register/{gateway}/notify', function($gateway)
 		$password = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 8);
 
 		$request = Request::instance();
-		$request->setTrustedProxies(array('127.0.0.1')); // only trust proxy headers coming from the IP addresses on the array
+		$request->setTrustedProxies(array('127.4.98.1')); // only trust proxy headers coming from the IP addresses on the array
 		$ip = $request->getClientIp();
 
 		$user = new User;
@@ -73,6 +73,9 @@ Route::post('register/{gateway}/notify', function($gateway)
 		$user->password = Hash::make($password);
 		$user->ip_address = $ip;
 		$user->save();
+
+		$userInfo = new UserInfo;
+		$user->userInfo()->save($userInfo);
 
 		Log::info('user created', $user->toArray() + array('password' => $password));
 
@@ -139,7 +142,7 @@ Route::get('register/{gateway}/return', function($gateway)
 		$password = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 8);
 
 		$request = Request::instance();
-		$request->setTrustedProxies(array('127.0.0.1')); // only trust proxy headers coming from the IP addresses on the array
+		$request->setTrustedProxies(array('127.4.98.1')); // only trust proxy headers coming from the IP addresses on the array
 		$ip = $request->getClientIp();
 
 		$user = new User;
@@ -244,7 +247,7 @@ Route::post('login', function()
 	), Input::has('remember'))) {
 
 		$request = Request::instance();
-		$request->setTrustedProxies(array('127.0.0.1')); // only trust proxy headers coming from the IP addresses on the array (change this to suit your needs)
+		$request->setTrustedProxies(array('127.4.98.1')); // only trust proxy headers coming from the IP addresses on the array (change this to suit your needs)
 		$ip = $request->getClientIp();
 
 		Auth::user()->ip_address = $ip;
@@ -260,7 +263,7 @@ Route::post('login', function()
 Route::post('register', array(function()
 {
 	$request = Request::instance();
-	$request->setTrustedProxies(array('127.0.0.1')); // only trust proxy headers coming from the IP addresses on the array (change this to suit your needs)
+	$request->setTrustedProxies(array('127.4.98.1')); // only trust proxy headers coming from the IP addresses on the array (change this to suit your needs)
 	$ip = $request->getClientIp();
 
 	$gateway = Input::get('gateway');
