@@ -83,7 +83,9 @@
 							{{ Form::label(null, 'Payment method', array('class' => 'sr-only')) }}
 							<select name="gateway" class="form-control">
 								<option value="skrill">Will be processed by Skrill</option>
+								@if (App::environment('local'))
 								<option value="paypal">Will be processed by PayPal</option>
+								@endif
 							</select>
 						</div>
 						<p class="text-center">Payment per year 2.99 USD</p>
