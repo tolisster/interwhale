@@ -17,9 +17,15 @@ class UserController extends BaseController {
 
 		$photos = $user->photos()->orderBy('id', 'desc')->take(6)->get();
 
+		$searchQuery = Auth::user()->search_query;
+		if (is_null($searchQuery))
+			$searchQuery = new SearchQuery;
+		$users = User::filter(new \Illuminate\Http\Request($searchQuery->toArray()))->paginate(5);
+
 		return View::make('user', array(
 			'user' => $user,
-			'photos' => $photos
+			'photos' => $photos,
+			'users' => $users
 		));
 	}
 

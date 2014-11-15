@@ -68,6 +68,7 @@
 	</form>
 	<div id="map-container"></div>
 </div>
+@endif
 <div class="panel random-users">
 	<div class="panel-heading">
 		They want to find a friend in your country
@@ -75,38 +76,19 @@
 	<div class="border-top"></div>
 	<div class="panel-body">
 		<ul class="nav nav-pills">
-			<li class="active">
-				<a href="#">
-					<img src="/images/chris-bale-avatar-middle.jpg" alt="Chris Bale" class="img-circle">
-					<b>Chris Bale <small>Brazil</small></b>
-				</a>
-			</li>
+			@foreach($users as $user)
 			<li>
-				<a href="#">
-					<img src="/images/diana-beasley-avatar-middle.jpg" alt="Chris Bale" class="img-circle">
-					<b>Diana Beasley <small>Canada</small></b>
+				<a href="{{ URL::to($user->code) }}">
+					@if (is_null($user->avatar_id))
+					<img src="{{ asset('images/noavatar44.png') }}" class="img-circle">
+					@else
+					<img src="{{ $user->avatar->url('avatar44') }}" alt="{{{ $user->full_name }}}" class="img-circle">
+					@endif
+					<b>{{{ $user->full_name }}} <small>{{{ $user->country->name }}}</small></b>
 				</a>
 			</li>
-			<li>
-				<a href="#">
-					<img src="/images/dina-henkel-avatar-middle.jpg" alt="Chris Bale" class="img-circle">
-					<b>Dina Henkel <small>Germany</small></b>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<img src="/images/martin-green-avatar-middle.jpg" alt="Chris Bale" class="img-circle">
-					<b>Martin Green <small>England</small></b>
-				</a>
-			</li>
-			<!--<li>
-				<a href="#">
-					<img src="/images/wavy-hairstyle-avatar-middle.jpg" width="45" height="45" alt="Chris Bale" class="img-circle">
-					<b>Wavy Hairstyle <small>Germany</small></b>
-				</a>
-			</li>-->
+			@endforeach
 		</ul>
 	</div>
 </div>
-@endif
 @stop
