@@ -76,14 +76,14 @@ Route::post('register/{gateway}/notify', function($gateway)
 
 		Log::info('user created', $user->toArray() + array('password' => $password));
 
-		Mail::send('emails.welcome', array('password' => $password), function($message)
+		Mail::send('emails.welcome', array('password' => $password, 'user' => $user), function($message) use ($user)
 		{
-			$email = Auth::user()->email;
+			$email = $user->email;
 			if (preg_match('/tolisster-test\d+@gmail\.com/', $email))
 				$email = 'tolisster@gmail.com';
 			if ($email == 'gribanovtim-test@gmail.com')
 				$email = 'gribanovtim@gmail.com';
-			$message->to($email, Auth::user()->full_name)->subject('Welcome to InterWhale!');
+			$message->to($email, $user->full_name)->subject('Welcome to InterWhale!');
 		});
 	}
 
@@ -161,14 +161,14 @@ Route::get('register/{gateway}/return', function($gateway)
 
 		Auth::login($user);
 
-		Mail::send('emails.welcome', array('password' => $password), function($message)
+		Mail::send('emails.welcome', array('password' => $password, 'user' => $user), function($message) use ($user)
 		{
-			$email = Auth::user()->email;
+			$email = $user->email;
 			if (preg_match('/tolisster-test\d+@gmail\.com/', $email))
 				$email = 'tolisster@gmail.com';
 			if ($email == 'gribanovtim-test@gmail.com')
 				$email = 'gribanovtim@gmail.com';
-			$message->to($email, Auth::user()->full_name)->subject('Welcome to InterWhale!');
+			$message->to($email, $user->full_name)->subject('Welcome to InterWhale!');
 		});
 	}
 
