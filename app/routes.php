@@ -4,11 +4,6 @@
 |--------------------------------------------------------------------------
 | Application Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
 */
 
 Route::pattern('user', '[a-z][a-z0-9]{6}[0-9]');
@@ -39,11 +34,11 @@ Route::get('logout', array('as' => 'logout', 'before' => 'auth', function()
 	return Redirect::route('home');
 }));
 
-Route::get('register/{gateway}/notify', function($gateway)
+Route::post('register/{gateway}/notify', function($gateway)
 {
 	Log::info('Omnipay', array(Input::all()));
 	if ($gateway == 'skrill') {
-		$statusCallback = new StatusCallback(Input::all());
+		$statusCallback = new \Omnipay\Skrill\Message\StatusCallback(Input::all());
 
 		if (!$statusCallback->isSuccessful()) {
 			Log::error('Omnipay error', array($statusCallback->getMessage()));
