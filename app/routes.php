@@ -192,7 +192,7 @@ Route::get('register/{gateway}/return', function($gateway)
 		$request->setTrustedProxies(array('127.4.98.1')); // only trust proxy headers coming from the IP addresses on the array
 		$ip = $request->getClientIp();
 
-		$user = User::whereEmail($payment->email);
+		$user = User::whereEmail($payment->email)->firstOrFail();
 		$user->ip_address = $ip;
 		$user->save();
 
