@@ -75,6 +75,11 @@ class PaymentController extends BaseController {
 		return Redirect::route('home');
 	}
 
+	private function generatePassword()
+	{
+		return substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 8);
+	}
+
 	public function getReturn($gateway)
 	{
 		Log::info('Omnipay', array(Input::all()));
@@ -108,11 +113,14 @@ class PaymentController extends BaseController {
 			));
 			$data = $response->getData();
 			Log::info('Omnipay fetch detail', $data);
+
+			$email = $data['EMAIL'];
+
 			DB::update('UPDATE payments SET email = ?, first_name = ?, last_name = ?,
 		country_code = ?, country_name = ?, state_code = ?, city = ?, note = ?,
 		updated_at = NOW() WHERE token = ?',
 				array(
-					$data['EMAIL'],
+					$email,
 					$data['FIRSTNAME'],
 					$data['LASTNAME'],
 					$data['COUNTRYCODE'],
@@ -123,38 +131,37 @@ class PaymentController extends BaseController {
 					$data['TOKEN']
 				));
 
-			$password = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 8);
+			$user = User::firstOrNew(array('email' => $email));
+			if (count($user->getOriginal()) == 0) {
+				$password = $this->generatePassword();
 
-			$ip = $this->getClientIp();
+				$ip = $this->getClientIp();
 
-			$user = new User;
-			$user->email = $data['EMAIL'];
-			$user->first_name = $data['FIRSTNAME'];
-			$user->last_name = $data['LASTNAME'];
-			$user->country_code = $data['COUNTRYCODE'];
-			$user->state_code = $data['COUNTRYCODE'] == 'US' ? $data['SHIPTOSTATE'] : null;
-			$user->city = $data['SHIPTOCITY'];
-			$user->password = Hash::make($password);
-			$user->ip_address = $ip;
-			$user->save();
+				$user->email = $email;
+				$user->first_name = $data['FIRSTNAME'];
+				$user->last_name = $data['LASTNAME'];
+				$user->country_code = $data['COUNTRYCODE'];
+				$user->state_code = $data['COUNTRYCODE'] == 'US' ? $data['SHIPTOSTATE'] : null;
+				$user->city = $data['SHIPTOCITY'];
+				$user->password = Hash::make($password);
+				$user->ip_address = $ip;
+				$user->subscription_ends_at = Carbon\Carbon::now()->addYear();
+				$user->save();
 
-			$userInfo = new UserInfo;
-			$userInfo->status = isset($data['PAYMENTREQUEST_0_NOTETEXT']) ? $data['PAYMENTREQUEST_0_NOTETEXT'] : '';
-			$user->userInfo()->save($userInfo);
+				$userInfo = new UserInfo;
+				$userInfo->status = isset($data['PAYMENTREQUEST_0_NOTETEXT']) ? $data['PAYMENTREQUEST_0_NOTETEXT'] : '';
+				$user->userInfo()->save($userInfo);
 
-			Log::info('user created', $user->toArray() + array('password' => $password));
+				Log::info('user created', $user->toArray() + array('password' => $password));
+
+				$user->welcomeSend($password);
+			} else {
+				$user->subscription_ends_at = $user->subscription_ends_at->addYear();
+				$user->save();
+			}
 
 			Auth::login($user);
 
-			Mail::send('emails.welcome', array('password' => $password, 'user' => $user), function($message) use ($user)
-			{
-				$email = $user->email;
-				if (preg_match('/tolisster-test\d+@gmail\.com/', $email))
-					$email = 'tolisster@gmail.com';
-				if ($email == 'gribanovtim-test@gmail.com')
-					$email = 'gribanovtim@gmail.com';
-				$message->to($email, $user->full_name)->subject('Welcome to InterWhale!');
-			});
 		} elseif ($gateway == 'skrill') {
 			if (!Session::has('transactionId')) {
 				Log::error('Omnipay error', Session::all());
@@ -187,7 +194,7 @@ class PaymentController extends BaseController {
 			Auth::login($user);
 		}
 
-		return Redirect::intended('profile/settings');
+		return Redirect::to('profile/settings');
 	}
 
 	public function postNotify($gateway)
@@ -201,10 +208,12 @@ class PaymentController extends BaseController {
 				return 'Ok';
 			}
 
+			$email = $statusCallback->getCustomerEmail();
+
 			DB::update('UPDATE payments SET email = ?, amount = ?, currency = ?,
 		updated_at = NOW(), canceled = ? WHERE id = ?',
 				array(
-					$statusCallback->getCustomerEmail(),
+					$email,
 					$statusCallback->getAmount(),
 					$statusCallback->getCurrency(),
 					$statusCallback->getStatus() == -1 ? 1 : 0,
@@ -218,27 +227,25 @@ class PaymentController extends BaseController {
 
 			Log::info('Omnipay complete purchase', Input::all());
 
-			$password = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 8);
+			$user = User::firstOrNew(array('email' => $email));
+			if (count($user->getOriginal()) == 0) {
+				$password = $this->generatePassword();
 
-			$user = new User;
-			$user->email = $statusCallback->getCustomerEmail();
-			$user->password = Hash::make($password);
-			$user->save();
+				$user->email = $email;
+				$user->password = Hash::make($password);
+				$user->subscription_ends_at = Carbon\Carbon::now()->addYear();
+				$user->save();
 
-			$userInfo = new UserInfo;
-			$user->userInfo()->save($userInfo);
+				$userInfo = new UserInfo;
+				$user->userInfo()->save($userInfo);
 
-			Log::info('user created', $user->toArray() + array('password' => $password));
+				Log::info('user created', $user->toArray() + array('password' => $password));
 
-			Mail::send('emails.welcome', array('password' => $password, 'user' => $user), function($message) use ($user)
-			{
-				$email = $user->email;
-				if (preg_match('/tolisster-test\d+@gmail\.com/', $email))
-					$email = 'tolisster@gmail.com';
-				if ($email == 'gribanovtim-test@gmail.com')
-					$email = 'gribanovtim@gmail.com';
-				$message->to($email, $user->full_name)->subject('Welcome to InterWhale!');
-			});
+				$user->welcomeSend($password);
+			} else {
+				$user->subscription_ends_at = $user->subscription_ends_at->addYear();
+				$user->save();
+			}
 		}
 
 		return 'Ok';
