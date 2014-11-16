@@ -24,7 +24,7 @@ return array(
 		'skrill' => array(
 			'driver' => 'Skrill',
 			'options' => array(
-				'email' => 'skrilltest@logicsoft.md',
+				'email' => 'logicsoft@logicsoft.md',
 				//'password' => '125QIH645',
 				'testMode' => true
 			),

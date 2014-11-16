@@ -68,7 +68,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function getLocationName($delimiter = ', ')
 	{
-		return $this->city.$delimiter.($this->country_code == 'US' ? $this->state->name : $this->country->name);
+		$locationName = array();
+		if ($delimiter != '')
+			$locationName[] = $this->city;
+		if (!empty($this->country_code))
+			$locationName[] = $this->country_code == 'US' && !empty($this->state_code) ?
+				$this->state->name : $this->country->name;
+		return implode($delimiter, $locationName);
 	}
 
 	public function getLocationNameAttribute()

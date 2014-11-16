@@ -8,7 +8,7 @@
 	</div>
 	<div class="col-md-8 row">
 		<div class="col-md-6">
-			<b>{{{ $sender->full_name }}} <small>{{{ $sender->country->name }}}</small></b>
+			<b>{{{ $sender->full_name }}} <small>{{{ $sender->getLocationName('') }}}</small></b>
 		</div>
 		<div class="col-md-6">
 			<small>{{{ $message->text }}}</small>

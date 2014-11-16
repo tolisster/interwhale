@@ -15,4 +15,11 @@ class BaseController extends Controller {
 		}
 	}
 
+	protected function getClientIp()
+	{
+		$request = Request::instance();
+		$request->setTrustedProxies(array('127.4.98.1')); // only trust proxy headers coming from the IP addresses on the array (change this to suit your needs)
+		return $request->getClientIp();
+	}
+
 }

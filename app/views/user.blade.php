@@ -76,15 +76,15 @@
 	<div class="border-top"></div>
 	<div class="panel-body">
 		<ul class="nav nav-pills">
-			@foreach($users as $user)
+			@foreach($users as $randomUser)
 			<li>
-				<a href="{{ URL::to($user->code) }}">
-					@if (is_null($user->avatar_id))
+				<a href="{{ URL::to($randomUser->code) }}">
+					@if (is_null($randomUser->avatar_id))
 					<img src="{{ asset('images/noavatar44.png') }}" class="img-circle">
 					@else
-					<img src="{{ $user->avatar->url('avatar44') }}" alt="{{{ $user->full_name }}}" class="img-circle">
+					<img src="{{ $randomUser->avatar->url('avatar44') }}" alt="{{{ $randomUser->full_name }}}" class="img-circle">
 					@endif
-					<b>{{{ $user->full_name }}} <small>{{{ $user->country->name }}}</small></b>
+					<b>{{{ $randomUser->full_name }}} <small>{{{ $randomUser->getLocationName('') }}}</small></b>
 				</a>
 			</li>
 			@endforeach

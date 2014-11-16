@@ -8,7 +8,7 @@
 	</div>
 	<div class="col-md-8 row">
 		<div class="col-md-6">
-			<b>{{{ $user->full_name }}} <small>{{{ $user->country->name }}}</small></b>
+			<b>{{{ $user->full_name }}} <small>{{{ $user->getLocationName('') }}}</small></b>
 		</div>
 		<div class="col-md-6">
 			<small>friend request</small>
