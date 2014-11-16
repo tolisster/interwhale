@@ -304,7 +304,7 @@ Route::post('register', array(function()
 	Omnipay::setGateway($gateway);
 
 	$purchaseOptions = array(
-		'amount' => /*App::environment('production') ? 2.99 : */0.01,
+		'amount' => App::environment('production') ? 2.99 : 0.01,
 		'currency' => 'USD',
 		'returnUrl' => URL::to("register/{$gateway}/return"),
 		'cancelUrl' => URL::to("register/{$gateway}/cancel")
