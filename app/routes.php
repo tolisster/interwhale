@@ -85,24 +85,7 @@ Route::group(array('prefix' => $locale), function() {
 
 });
 
-Route::post('login', function()
-{
-	if (Auth::attempt(array(
-		'email' => Input::get('email'),
-		'password' => Input::get('password')
-	), Input::has('remember'))) {
-
-		$ip = $this->getClientIp();
-
-		Auth::user()->ip_address = $ip;
-		Auth::user()->save();
-
-		return Redirect::intended('profile');
-	}
-
-	$errors = new Illuminate\Support\MessageBag(array('password' => array('Email and/or password invalid.')));
-	return Redirect::back()->withErrors($errors)->withInput(Input::except('password'));
-});
+Route::post('login', 'UserController@postLogin');
 
 Route::post('register', 'PaymentController@postRegister');
 

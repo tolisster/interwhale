@@ -80,6 +80,19 @@ class PaymentController extends BaseController {
 		return substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 8);
 	}
 
+	private function welcomeSend($user, $password)
+	{
+		Mail::send('emails.welcome', array('user' => $user, 'password' => $password), function($message) use ($user)
+		{
+			$email = $user->email;
+			if (preg_match('/tolisster-test\d+@gmail\.com/', $email))
+				$email = 'tolisster@gmail.com';
+			if ($email == 'gribanovtim-test@gmail.com')
+				$email = 'gribanovtim@gmail.com';
+			$message->to($email, $user->full_name)->subject('Welcome to InterWhale!');
+		});
+	}
+
 	public function getReturn($gateway)
 	{
 		Log::info('Omnipay', array(Input::all()));
@@ -154,7 +167,7 @@ class PaymentController extends BaseController {
 
 				Log::info('user created', $user->toArray() + array('password' => $password));
 
-				$user->welcomeSend($password);
+				$this->welcomeSend($user, $password);
 			} else {
 				$user->subscription_ends_at = $user->subscription_ends_at->addYear();
 				$user->save();
@@ -241,7 +254,7 @@ class PaymentController extends BaseController {
 
 				Log::info('user created', $user->toArray() + array('password' => $password));
 
-				$user->welcomeSend($password);
+				$this->welcomeSend($user, $password);
 			} else {
 				$user->subscription_ends_at = $user->subscription_ends_at->addYear();
 				$user->save();

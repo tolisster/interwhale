@@ -210,19 +210,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$this->attributes['ip_address'] = inet_pton($value);
 	}
 
-	public function welcomeSend($password)
-	{
-		Mail::send('emails.welcome', array('password' => $password, 'user' => $this), function($message)
-		{
-			$email = $this->email;
-			if (preg_match('/tolisster-test\d+@gmail\.com/', $email))
-				$email = 'tolisster@gmail.com';
-			if ($email == 'gribanovtim-test@gmail.com')
-				$email = 'gribanovtim@gmail.com';
-			$message->to($email, $this->full_name)->subject('Welcome to InterWhale!');
-		});
-	}
-
 	public function getDates()
 	{
 		return array('subscription_ends_at');

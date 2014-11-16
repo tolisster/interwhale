@@ -29,6 +29,25 @@ class UserController extends BaseController {
 		));
 	}
 
+	public function postLogin()
+	{
+		if (Auth::attempt(array(
+			'email' => Input::get('email'),
+			'password' => Input::get('password')
+		), Input::has('remember'))) {
+
+			$ip = $this->getClientIp();
+
+			Auth::user()->ip_address = $ip;
+			Auth::user()->save();
+
+			return Redirect::intended('profile');
+		}
+
+		$errors = new Illuminate\Support\MessageBag(array('password' => array('Email and/or password invalid.')));
+		return Redirect::back()->withErrors($errors)->withInput(Input::except('password'));
+	}
+
 	public function settings()
 	{
 		$user = Auth::user();
