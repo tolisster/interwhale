@@ -170,6 +170,33 @@ Route::get('register/{gateway}/return', function($gateway)
 				$email = 'gribanovtim@gmail.com';
 			$message->to($email, $user->full_name)->subject('Welcome to InterWhale!');
 		});
+	} elseif ($gateway == 'skrill') {
+		if (!Session::has('transactionId')) {
+			Log::error('Omnipay error', Session::all());
+			App::abort(500);
+		}
+		$transactionId = Session::get('transactionId');
+		DB::update('UPDATE payments SET updated_at = NOW() WHERE id = ?',
+			array(
+				$transactionId
+			));
+
+		$results = DB::select('select * from payments where id = ?', array($transactionId));
+		if (count($results) != 1) {
+			Log::error('Omnipay error', $results);
+			return Redirect::route('home');
+		}
+		$payment = $results[0];
+
+		$request = Request::instance();
+		$request->setTrustedProxies(array('127.4.98.1')); // only trust proxy headers coming from the IP addresses on the array
+		$ip = $request->getClientIp();
+
+		$user = User::whereEmail($payment->email);
+		$user->ip_address = $ip;
+		$user->save();
+
+		Auth::login($user);
 	}
 
 	return Redirect::intended('profile');
@@ -177,12 +204,22 @@ Route::get('register/{gateway}/return', function($gateway)
 
 Route::get('register/{gateway}/cancel', function($gateway)
 {
-	Log::info('Omnipay canceled', array(Input::all()));
-
 	if ($gateway == 'paypal') {
+		Log::info('Omnipay canceled', Input::all());
 		DB::update('UPDATE payments SET canceled = 1, updated_at = NOW() WHERE token = ?',
 			array(
 				Input::get('token')
+			));
+	} elseif ($gateway == 'skrill') {
+		Log::info('Omnipay canceled', Session::all());
+		if (!Session::has('transactionId')) {
+			Log::error('Omnipay error', Session::all());
+			App::abort(500);
+		}
+		$transactionId = Session::get('transactionId');
+		DB::update('UPDATE payments SET canceled = 1, updated_at = NOW() WHERE id = ?',
+			array(
+				$transactionId
 			));
 	}
 
@@ -280,7 +317,9 @@ Route::post('register', array(function()
 		$purchaseOptions['details'] = array('Sign Up' => 'Registration at the InterWhale');
 		DB::insert('INSERT INTO payments (created_at, updated_at, ip_address) values (NOW(), NOW(), ?)',
 			array(inet_pton($ip)));
-		$purchaseOptions['transactionId'] = DB::getPdo()->lastInsertId();
+		$transactionId = DB::getPdo()->lastInsertId();
+		$purchaseOptions['transactionId'] = $transactionId;
+		Session::flash('transactionId', $transactionId);
 	}
 
 	$response = Omnipay::purchase($purchaseOptions)->send();
@@ -296,7 +335,8 @@ Route::post('register', array(function()
 				array($response->getTransactionReference(), inet_pton($ip)));
 		}
 
-		$response->redirect();
+		$url = $response->getRedirectUrl();
+		return Redirect::to($url);
 	} else {
 		// payment failed: display message to customer
 		echo $response->getMessage();
