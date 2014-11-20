@@ -45,7 +45,7 @@
 		<th>Dream</th>
 		<td>{{{ $user->user_info->dream }}}</td>
 	</tr>
-	@if (Auth::user()->id == 1)
+	@if (Auth::user()->id == 7)
 	<tr>
 		<th>IP</th>
 		<td>{{ $user->ip_address }}</td>
