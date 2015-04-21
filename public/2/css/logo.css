@@ -1,0 +1,50 @@
+a.brand {
+	font-size: 36px;
+	color: black;
+	font-weight: 800;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+a.brand > .logo {
+	position: relative;
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	-webkit-transition: 1s;
+			transition: 1s;
+}
+a.brand:hover > .logo {
+	-webkit-transform: rotate(360deg);
+	    -ms-transform: rotate(360deg);
+			transform: rotate(360deg);
+}
+a.brand > .logo > .top-logo {
+	background-color: red;
+	position: absolute;
+	left: 16px;
+	top: 0px;
+	width: 16px;
+	height: 16px;
+	-webkit-animation: blinker 1.7s cubic-bezier(.5, 0, 1, 1) infinite alternate;
+			animation: blinker 1.7s cubic-bezier(.5, 0, 1, 1) infinite alternate;
+}
+a.brand:hover > .logo > .top-logo {
+	-webkit-animation: none;
+			animation: none;
+}
+@-webkit-keyframes blinker {
+	from { opacity: 1; }
+	to { opacity: 0; }
+}
+@keyframes blinker {
+	from { opacity: 1; }
+	to { opacity: 0; }
+}
+a.brand > .logo > .bottom-logo {
+	background-color: black;
+	position: absolute;
+	left: 0px;
+	top: 16px;
+	width: 16px;
+	height: 16px;
+}

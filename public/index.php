@@ -1,4 +1,6 @@
 <?php
+include 'index.html';
+exit();
 /**
  * Laravel - A PHP Framework For Web Artisans
  *

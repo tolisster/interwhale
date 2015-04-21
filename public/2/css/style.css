@@ -1,0 +1,26 @@
+body {
+	font-size: 15px;
+	color: #777777;
+	font-family: 'Open Sans', sans-serif;
+}
+a {
+	color: #777777;
+}
+strong {
+	font-weight: 600;
+	color: black;
+}
+.navbar {
+	margin-bottom: 60px;
+}
+.navbar-nav > li > a {
+	font-size: 14px;
+	font-weight: 300;
+	letter-spacing: .025em; 
+}
+.navbar-nav > li.active > a, .navbar-nav > li > a:focus, .navbar-nav > li > a:hover {
+	font-weight: 400;
+	color: black;
+	background-color: transparent;
+	letter-spacing: normal; 
+}
