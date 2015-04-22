@@ -13,14 +13,17 @@ strong {
 .navbar {
 	margin-bottom: 60px;
 }
+
+.navbar-default {
+	background-color: transparent;
+	border-color: transparent;
+}
+
 .navbar-nav > li > a {
 	font-size: 14px;
-	font-weight: 300;
-	letter-spacing: .025em; 
 }
-.navbar-nav > li.active > a, .navbar-nav > li > a:focus, .navbar-nav > li > a:hover {
-	font-weight: 400;
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus,
+.navbar-default .navbar-nav > .active > a:hover {
 	color: black;
 	background-color: transparent;
-	letter-spacing: normal; 
 }

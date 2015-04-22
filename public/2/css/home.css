@@ -53,7 +53,7 @@ body {
 
 /* Padding for spacing */
 .inner {
-  padding: 30px;
+  padding: 6px;
 }
 
 
@@ -69,22 +69,18 @@ body {
 	display: inline-block;
 }
 .masthead-nav > li + li {
-	margin-left: 20px;
+	margin-left: 26px;
 }
 .masthead-nav > li > a {
 	font-size: 14px;
 	padding-right: 0;
 	padding-left: 0;
-	font-weight: 300;
 	color: #777777;
-	letter-spacing: .025em; 
 }
 .masthead-nav > li > a:hover,
 .masthead-nav > li > a:focus {
-	font-weight: 400;
 	color: black;
 	background-color: transparent;
-	letter-spacing: normal; 
 }
 .masthead-nav > .active > a,
 .masthead-nav > .active > a:hover,
@@ -97,9 +93,10 @@ body {
   .masthead-brand {
     float: left;
   }
-  .masthead-nav {
-    float: right;
-  }
+	.masthead-nav {
+		float: right;
+		margin-right: 25px;
+	}
 }
 
 
@@ -160,6 +157,6 @@ body {
   .masthead,
   .mastfoot,
   .cover-container {
-    width: 90%;
+    width: 100%;
   }
 }

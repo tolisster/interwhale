@@ -1,6 +1,6 @@
 a.brand {
 	font-size: 36px;
-	color: black;
+	color: black !important;
 	font-weight: 800;
 	text-transform: uppercase;
 	text-decoration: none;
