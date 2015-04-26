@@ -27,3 +27,12 @@ strong {
 	color: black;
 	background-color: transparent;
 }
+.form-control {
+	border-color: black;
+	border-radius: 0;
+}
+.help-block {
+	color: #6a6a6a;
+	font-size: 10px;
+	font-weight: 300;
+}

@@ -14,10 +14,13 @@ a:hover {
 .btn-default,
 .btn-default:hover,
 .btn-default:focus {
-  color: #333;
-  text-shadow: none; /* Prevent inheritence from `body` */
-  background-color: #fff;
-  border: 1px solid #fff;
+	color: white;
+	background-color: black;
+	border: 1px solid white;
+	border-radius: 0;
+	font-size: 20px;
+	font-weight: 800;
+	padding: 2px 20px;
 }
 
 /*
@@ -90,9 +93,9 @@ body {
 }
 
 @media (min-width: 768px) {
-  .masthead-brand {
-    float: left;
-  }
+	.masthead-brand {
+		float: left;
+	}
 	.masthead-nav {
 		float: right;
 		margin-right: 25px;
@@ -115,6 +118,9 @@ body {
 	font-size: 20px;
 	font-weight: 400;
 	color: black;
+}
+.lead small {
+	font-size: 15px;
 }
 
 /*
