@@ -28,11 +28,26 @@ strong {
 	background-color: transparent;
 }
 .form-control {
-	border-color: black;
+	border: 2px solid black;
 	border-radius: 0;
 }
 .help-block {
 	color: #6a6a6a;
 	font-size: 10px;
 	font-weight: 300;
+}
+.btn-default {
+	color: white;
+	background-color: black;
+	border: 1px solid white;
+	border-radius: 0;
+	font-size: 20px;
+	font-weight: 800;
+	padding: 2px 20px;
+}
+.btn-default:hover,
+.btn-default:focus {
+	background-color: red;
+	color: white;
+	border: 1px solid white;
 }
